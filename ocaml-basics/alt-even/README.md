@@ -7,6 +7,6 @@ For instance, 8, 72 and 1234 are alternating-even, while 3, 51 and 8234 are not.
 
 Define a function with type:
 ```ocaml
-alt_even: int → bool
+alt_even: int -> bool
 ```
 such that ``alt_even x`` evaluates to true if and only if x is alternating-even. 

@@ -11,7 +11,15 @@ Then, you must initialize opam. This installs OCaml and creates a default switch
 ```bash
 opam init --bare -a -y
 ```
-Here we assume you will work on the default switch. You can create a dedicated switch for LIP if you prefer.
+Here we assume you will work on the default switch. To check that a switch actually exists:
+```bash
+opam switch list
+```
+In the unlikely case the previous command shows an empty list, you must manually create a switch:
+```bash
+opam switch create lip ocaml-base-compiler.4.14.0
+```
+This creates a switch for the LIP course with the given version of the OCaml compiler.
 
 The following command updates environment variables, to make OCaml commands available on the current switch:
 ```bash

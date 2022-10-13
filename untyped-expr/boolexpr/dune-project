@@ -1,0 +1,28 @@
+(lang dune 3.4)
+
+(name boolexpr)
+
+(generate_opam_files true)
+
+(source
+ (github bitbart/lip))
+
+(authors "Massimo Bartoletti")
+
+(maintainers "Massimo Bartoletti")
+
+(license LICENSE)
+
+(documentation https://github.com/bitbart/lip/tree/main/untyped-expr/boolexpr)
+
+(package
+ (name boolexpr)
+ (synopsis "Interpreter of untyped boolean expressions")
+ (description "The interpreter implements small-step and big-step semantics of untyped boolean expressions")
+ (depends ocaml dune)
+ (tags
+  (topics "to describe" your project)))
+
+(using menhir 2.1)
+
+; See the complete stanza docs at https://dune.readthedocs.io/en/stable/dune-files.html#dune-project

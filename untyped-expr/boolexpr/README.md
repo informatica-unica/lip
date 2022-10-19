@@ -8,22 +8,6 @@ type boolExpr =
   | If of boolExpr * boolExpr * boolExpr
 ;;
 ```
-and with the following big-step semantics:
-```ocaml
-------------------- [B-True]
-eval True => true
-
-------------------- [B-False]
-eval False => false
-
-eval e0 => true
----------------------------- [B-IfTrue]
-eval If(e0,e1,e2) => eval e1
-
-eval e0 => false
----------------------------- [B-IfFalse]
-eval If(e0,e1,e2) => eval e2
-```
 
 ## Project setup
 
@@ -257,8 +241,24 @@ Exception: BoolexprLib.Parser.MenhirBasics.Error.
 
 ## Big-step semantics
 
-We now implement the big-step semantics of our language.
-This is a simple recursive function, that evaluates the expression `True` to the boolean value `true`,
+We now implement the big-step semantics of our language, defined by the following rules (where b is a boolean value):
+```ocaml
+------------------- [B-True]
+True => true
+
+------------------- [B-False]
+False => false
+
+e0 => true   e1 => b
+---------------------------- [B-IfTrue]
+If(e0,e1,e2) => b
+
+e0 => false  e2 => b
+---------------------------- [B-IfFalse]
+If(e0,e1,e2) => b
+```
+
+This semantic is implemented as a recursive function `eval` that evaluates the expression `True` to the boolean value `true`,
 `False` to `false`, and call itself recursively to evaluate if-then-else expressions.
 We add this function to [main.ml](src/main.ml):
 ```ocaml

@@ -30,19 +30,21 @@ let rec print_trace = function
 ;;
 
 match Array.length(Sys.argv) with
-  1 ->
-  let s_exp = (match read_line() with Some s -> s | _ -> "")
-  in parse s_exp |> eval |> print_bool
-| 2 when Sys.argv.(1) = "test" ->
-  let s_exp = read_file "test2"
-  in parse s_exp |> eval |> print_bool
-| 2 when Sys.argv.(1) = "trace" ->
-  let s_exp = (match read_line() with Some s -> s | _ -> "")
-  in parse s_exp |> trace |> print_trace
-| 2 ->
-  let s_exp = read_file Sys.argv.(1)    
-  in parse s_exp |> eval |> print_bool
-| 3 when Sys.argv.(1) = "trace" ->
-  let s_exp = read_file Sys.argv.(2)
-  in parse s_exp |> trace |> print_trace     
-| _ -> failwith "Usage: dune exec boolexpr [trace] [file]"
+(* eval / read input from stdin *) 
+  1 -> (match read_line() with
+    Some s when s<>"" -> s |> parse |> eval |> print_bool
+  | _ -> print_newline())
+(* trace / read input from stdin *)      
+| 2 when Sys.argv.(1) = "trace" -> (match read_line() with
+    Some s when s<>"" -> s |> parse |> trace |> print_trace
+  | _ -> print_newline())
+(* eval / read input from file *) 
+| 2 -> (match read_file Sys.argv.(1) with
+      "" -> print_newline()
+    | s -> s |> parse |> eval |> print_bool)
+(* trace / read input from stdin *)      
+| 3 when Sys.argv.(1) = "trace" -> (match read_file Sys.argv.(2) with
+      "" -> print_newline()
+    | s -> s |> parse |> trace |> print_trace)
+(* wrong usage *)      
+| _ -> failwith "Usage: dune exec andboolexpr [trace] [file]"

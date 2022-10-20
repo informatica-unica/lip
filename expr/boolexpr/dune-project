@@ -13,12 +13,12 @@
 
 (license LICENSE)
 
-(documentation https://github.com/bitbart/lip/tree/main/untyped-expr/boolexpr)
+(documentation https://github.com/bitbart/lip/tree/main/expr/boolexpr)
 
 (package
  (name boolexpr)
- (synopsis "Interpreter of untyped boolean expressions")
- (description "The interpreter implements small-step and big-step semantics of untyped boolean expressions")
+ (synopsis "Interpreter of simple boolean expressions")
+ (description "The interpreter implements small-step and big-step semantics of simple boolean expressions")
  (depends ocaml dune)
  (tags
   (topics "to describe" your project)))

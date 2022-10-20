@@ -1,4 +1,4 @@
-open VarboolexprLib.Main
+open AndboolexprLib.Main
   
 let tests = [
   ("false",false);
@@ -11,15 +11,7 @@ let tests = [
   ("false and false or true",true);
   ("true or false and false",true);
   ("if true then true else false and false",true);
-  ("if true then false else false or true",false);
-  ("let x=true in x",true);
-  ("let x=true in x or false and false",true);
-  ("let x=true; y=false in x or y",true);
-  ("let x=not true; y=not false in x or y",true)
-]
-
-let fails = [
-  ("let x=false; y=true or x in y",true)
+  ("if true then false else false or true",false)  
 ]
 
 let%test _ = List.fold_left

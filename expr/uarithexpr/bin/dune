@@ -1,0 +1,4 @@
+(executable
+ (public_name uarithexpr)
+ (name main)
+ (libraries uarithexprLib))

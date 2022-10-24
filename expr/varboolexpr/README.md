@@ -107,3 +107,15 @@ env_of_decl : boolDecl -> string -> bool
 with the following behaviour:
 - in the base case (empty declaration), it outputs the always-undefined function;
 - in the inductive case (x,e)::d, it computes the environment from d, and extends it with the binding x -> b, where b is the evaluation of e.
+
+## Small-step semantics
+
+```
+dune exec varboolexpr trace test/test1 
+let x=False or If(True,False,True); y=not False; z=not True in If(x,y,z)
+ -> let x=If(True,False,True); y=not False; z=not True in If(x,y,z)
+ -> let y=not False; z=not True in If(False,y,z)
+ -> let z=not True in If(False,True,z)
+ -> If(False,True,False)
+ -> False
+```

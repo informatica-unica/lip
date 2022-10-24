@@ -1,0 +1,7 @@
+(library
+ (name uarithexprLib))
+
+(menhir
+ (modules parser))
+
+(ocamllex lexer)

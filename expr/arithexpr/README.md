@@ -1,4 +1,4 @@
-# Arithmetic expressions with dynamic type checking
+# Typed arithmetic expressions with dynamic type checking
 
 Extend the language of [boolean expressions](../andboolexpr) with arithmetic expressions on natural numbers,
 according to the following [AST](src/ast.ml):

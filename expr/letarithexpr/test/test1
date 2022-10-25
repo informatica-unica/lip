@@ -1,0 +1,1 @@
+let x = 0 in let y = succ x in iszero pred (let z = succ y in pred pred succ z)

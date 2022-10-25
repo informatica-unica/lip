@@ -1,0 +1,4 @@
+(executable
+ (public_name letarithexpr)
+ (name main)
+ (libraries letarithexprLib))

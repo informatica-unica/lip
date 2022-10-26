@@ -11,7 +11,7 @@ let tests = [
   ("succ iszero 0", 2);
   ("not 0", 1);
   ("succ 0 and succ succ 0", 1);
-  ("if succ iszero(succ 0 and succ succ 0) then true else 0", 0);  
+  ("if succ iszero(succ 0 and succ succ 0) then true else 0", 1);  
   ("succ 0 or 0", 1);
   ("pred 0", 0);
   ("pred pred succ 0", 0);

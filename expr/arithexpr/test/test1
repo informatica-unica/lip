@@ -1,1 +1,3 @@
-iszero pred succ pred succ 0
+iszero pred succ 0 
+and
+ not iszero succ pred succ 0

@@ -64,6 +64,15 @@ e => n   n>0
 IsZero(e) => false
 ```
 
+The `eval` function must have the following type:
+```ocaml
+eval : expr -> exprval
+```
+where the type `exprval`, used to wrap booleans and naturals, must be defined as follows (in src/main.ml):
+```ocaml
+type exprval = Bool of bool | Nat of int
+```
+
 Note that some expressions in this language are not well-typed, because they improperly mix natural numbers with booleans.
 For instance, this is the case for the expressions:
 ```

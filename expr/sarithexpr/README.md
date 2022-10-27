@@ -7,7 +7,7 @@ type exprtype = BoolT | NatT
 ```
 You must add a function with type:
 ```ocaml
-typecheck : SarithexprLib.Ast.expr -> exprtype
+typecheck : expr -> exprtype
 ```
 which determines the type of a given arithmetic expression, or otherwise raises an informative `TypeError`:
 ```ocaml

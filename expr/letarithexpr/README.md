@@ -20,7 +20,7 @@ type expr =
 The expression `Let(x,e1,e2)` evaluates as `e2` where all the free occurrences of `x` have been replaced to the value of `e1`. We want to implement an **eager** semantics, where `e1` is completely evaluated before starting the evaluation of `e2`.
 
 
-# Concrete syntax 
+## Concrete syntax 
 
 Follow the unit tests in [letarithexpr.ml](test/lwrarithexpr.ml) for the concrete syntax of the language. 
 To run the tests, execute the following command from the project directory:

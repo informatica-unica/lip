@@ -1,0 +1,1 @@
+if succ iszero(succ 0 and succ succ 0) then true else 0

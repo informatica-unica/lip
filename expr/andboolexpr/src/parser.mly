@@ -20,6 +20,9 @@ open Ast
 %token EOF
 
 
+(* NOT is right associative has the highest priority *)
+%right NOT
+
 %start <boolExpr> prog
 
 %%

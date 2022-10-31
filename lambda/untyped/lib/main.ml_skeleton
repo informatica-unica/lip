@@ -1,0 +1,126 @@
+open Ast
+
+let rec string_of_term = function
+    Var x -> x
+  | Abs(x,t) -> "fun " ^ x ^ ". " ^ string_of_term t
+  | App(Var x,Var y) -> x ^ " " ^ y
+  | App(Var x,t2) -> x ^ " (" ^ string_of_term t2 ^ ")"
+  | App(t1,Var x) -> "(" ^ string_of_term t1 ^ ") " ^ x
+  | App(t1,t2) -> "(" ^ string_of_term t1 ^ ") (" ^ string_of_term t2 ^ ")"
+
+let parse (s : string) : term =
+  let lexbuf = Lexing.from_string s in
+  let ast = Parser.prog Lexer.read lexbuf in
+  ast
+
+
+(**********************************************************************
+ size : term -> int
+ **********************************************************************)
+
+let rec size = failwith "TODO"
+
+
+(**********************************************************************
+ max_nat : term -> int
+
+ max_nat t computes the least n such that: 
+ for all i : xi in vars_of_term t => i < n
+  **********************************************************************)
+
+let rec vars_of_term = function
+    Var x -> [x]
+  | Abs(x,t) -> x::(vars_of_term t)
+  | App(t1,t2) -> (vars_of_term t1) @ (vars_of_term t2)
+
+let rec pow a = function
+  | 0 -> 1
+  | 1 -> a
+  | n -> let b = pow a (n / 2) in
+    b * b * (if n mod 2 = 0 then 1 else a)
+            
+let is_digit = function '0' .. '9' -> true | _ -> false
+
+let explode s = List.map (fun x -> String.make 1 x |> int_of_string) (List.filter is_digit (List.init (String.length s) (String.get s)))
+
+let nat_of_var xl = List.fold_left (fun x y -> x + y) 0 (List.mapi (fun i x -> x * (pow 10 i)) (List.rev (explode xl)))
+
+let rec max_of_list = function 
+  | [] -> 0
+  | x::xs -> max x (max_of_list xs)
+                
+let max_nat t =
+  let xl = vars_of_term t in
+  let nl = List.map nat_of_var xl in
+  1 +  max_of_list nl
+
+
+(**********************************************************************
+ is_free : string -> term -> bool
+
+ Usage: is_free x t = true iff the variable x occurs free in t
+ **********************************************************************)
+let rec is_free x = failwith "TODO"
+
+
+(**********************************************************************
+ rename : string -> string -> term -> term
+
+ Usage: rename x x' t replaces all free occurrences of x in t as x'
+
+ Pre: x' does not occur free in t
+ **********************************************************************)
+
+let rec rename x x' = failwith "TODO"
+
+
+(**********************************************************************
+ equiv : term -> term -> bool
+
+ Usage: equiv t1 t2 = true iff t1 and t2 are alpha-equivalent
+ **********************************************************************)
+               
+let equiv t1 t2 = failwith "TODO"
+                   
+
+(**********************************************************************
+ subst : string -> term -> int -> term -> term * int
+
+ Usage: subst x t1 vars t2 = ([x -> t1] t2,vars')  
+        where vars is the index of the next variable to be used for renaming
+        and vars' is the next available index after the substitution
+ **********************************************************************)
+
+let rec subst x t vars = failwith "TODO"
+
+(**********************************************************************
+ is_val : term -> bool
+
+ Usage: is_val t = true iff t is a value (i.e., a lambda-abstraction)
+ **********************************************************************)
+
+let is_val = failwith "TODO"
+
+
+exception NoRuleApplies
+
+(**********************************************************************
+ trace1 : int -> term -> term * int
+
+ Usage: trace1 vars t performs a step of the small-step call-by-value semantics
+
+ Pre:  xk does not occur in t, for all k>=vars
+ **********************************************************************)
+
+let rec trace1 = failwith "TODO"
+
+
+(**********************************************************************
+ trace_rec : int -> term -> term * int
+
+ Usage: trace_rec n vars t performs n steps of the small-step semantics
+
+ Pre:  xk does not occur in t, for all k>=vars
+ **********************************************************************)
+
+let trace = failwith "TODO"

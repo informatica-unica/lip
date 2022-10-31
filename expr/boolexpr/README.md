@@ -221,16 +221,16 @@ dune utop src
 From utop, we can execute OCaml code. First, it is useful to open our library, so to avoid to prepend `BoolexprLib.Main` everytime we use a function:
 ```ocaml
 open BoolexprLib.Main;;
+open BoolexprLib.Ast;;
 ```
 We can now test the parser by applying the `parse` function:
 ```ocaml
 parse "true";;
-- : BoolexprLib.Ast.boolExpr = BoolexprLib.Ast.True
+- : boolExpr = True
 
 parse "if true then false else true";;
-- : BoolexprLib.Ast.boolExpr =
-BoolexprLib.Ast.If (BoolexprLib.Ast.True, BoolexprLib.Ast.False,
- BoolexprLib.Ast.True)
+- : boolExpr =
+If (True, False, True)
 ```
 Note that the parser will fail to parse strings which do not correspond to syntactically correct boolean expressions.
 In these cases, the parser will raise an exception, without providing details about what caused the error:
@@ -317,10 +317,10 @@ let rec trace e = try
   with NoRuleApplies -> [e]
 ;;
 ```
-We can test this function via utop (we remove `BoolexprLib.Ast` from the output for readability):
+We can test this function via utop:
 ```ocaml
 parse "if (if true then false else true) then true else false" |> trace;;
-- : Ast.boolExpr list =
+- : boolExpr list =
 [If (If (True, False, True), True, False);
  If (False, True, False);
  False]

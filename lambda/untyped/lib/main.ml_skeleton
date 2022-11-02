@@ -15,13 +15,6 @@ let parse (s : string) : term =
 
 
 (**********************************************************************
- size : term -> int
- **********************************************************************)
-
-let rec size = failwith "TODO"
-
-
-(**********************************************************************
  max_nat : term -> int
 
  max_nat t computes the least n such that: 
@@ -60,7 +53,7 @@ let max_nat t =
 
  Usage: is_free x t = true iff the variable x occurs free in t
  **********************************************************************)
-let rec is_free x = failwith "TODO"
+let is_free _ = failwith "TODO"
 
 
 (**********************************************************************
@@ -71,7 +64,7 @@ let rec is_free x = failwith "TODO"
  Pre: x' does not occur free in t
  **********************************************************************)
 
-let rec rename x x' = failwith "TODO"
+let rename _ _ = failwith "TODO"
 
 
 (**********************************************************************
@@ -80,7 +73,7 @@ let rec rename x x' = failwith "TODO"
  Usage: equiv t1 t2 = true iff t1 and t2 are alpha-equivalent
  **********************************************************************)
                
-let equiv t1 t2 = failwith "TODO"
+let equiv _ _ = failwith "TODO"
                    
 
 (**********************************************************************
@@ -91,7 +84,7 @@ let equiv t1 t2 = failwith "TODO"
         and vars' is the next available index after the substitution
  **********************************************************************)
 
-let rec subst x t vars = failwith "TODO"
+let subst _ _ _ _ = failwith "TODO"
 
 (**********************************************************************
  is_val : term -> bool
@@ -99,7 +92,7 @@ let rec subst x t vars = failwith "TODO"
  Usage: is_val t = true iff t is a value (i.e., a lambda-abstraction)
  **********************************************************************)
 
-let is_val = failwith "TODO"
+let is_val _ = failwith "TODO"
 
 
 exception NoRuleApplies
@@ -112,7 +105,7 @@ exception NoRuleApplies
  Pre:  xk does not occur in t, for all k>=vars
  **********************************************************************)
 
-let rec trace1 = failwith "TODO"
+let trace1 _ _ = failwith "TODO"
 
 
 (**********************************************************************
@@ -123,4 +116,4 @@ let rec trace1 = failwith "TODO"
  Pre:  xk does not occur in t, for all k>=vars
  **********************************************************************)
 
-let trace = failwith "TODO"
+let trace _ _ = failwith "TODO"

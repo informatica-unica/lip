@@ -2,7 +2,7 @@
 
 LiP students are expected to fork the repository and push solutions to the exercises on their fork.
 
-Invitation to the Discord server: **https://discord.gg/sv2bZczN** (expires on October 31st, 2022)
+Invitation to the Discord server: **https://discord.gg/hnzhuVv9** (expires on November 8th, 2022)
 
 ## Ocaml basics #1
 
@@ -57,3 +57,4 @@ Look [here](install-ocaml) for minimal instructions.
 ## References
 
 - [OCaml Programming: Correct + Efficient + Beautiful](https://cs3110.github.io/textbook/cover.html)
+- B. Pierce. Types and Programming Languages. MIT Press, 2002

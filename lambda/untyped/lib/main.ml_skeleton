@@ -61,7 +61,7 @@ let is_free _ = failwith "TODO"
 
  Usage: rename x x' t replaces all free occurrences of x in t as x'
 
- Pre: x' does not occur free in t
+ Pre: x' does not occur (free or bound) in t
  **********************************************************************)
 
 let rename _ _ = failwith "TODO"

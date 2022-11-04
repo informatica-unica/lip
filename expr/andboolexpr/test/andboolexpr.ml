@@ -16,13 +16,35 @@ let tests = [
   ("if true then false else false or true",false);
 ];;
 
-let%test _ = List.fold_left
+let%test _ =
+  print_newline();  
+  print_endline ("*** Testing big-step semantics...");
+  List.fold_left
     (fun b (s,v) ->
-       print_string (s ^ " => ");
-       let b' = ((s |> parse |> eval) = v) in
-       print_string (string_of_bool v);
-       print_string (" " ^ (if b' then "[OK]" else "[NO: expected " ^ string_of_bool b' ^ "]"));
+       print_string (s ^ " => ");       
+       let ar = s |> parse |> eval in
+       print_string (string_of_bool ar);
+       let b' = (ar = v) in
+       if b' then print_string(" [OK]")
+       else print_string (" [NO: expected " ^ string_of_bool v ^ "]");
        print_newline();
        b && b')
     true
     tests
+
+let%test _ =
+  print_newline();  
+  print_endline ("*** Testing small-step semantics...");
+  List.fold_left
+    (fun b (s,v) ->
+       print_string (s ^ " => ");       
+       let ar = s |> parse |> eval_smallstep in
+       print_string (string_of_val ar);
+       let b' = (ar = Some v) in
+       if b' then print_string(" [OK]")
+       else print_string (" [NO: expected " ^ string_of_bool v ^ "]");
+       print_newline();
+       b && b')
+    true
+    tests
+

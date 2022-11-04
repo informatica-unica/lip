@@ -7,7 +7,7 @@ let rec string_of_boolexpr = function
   | And(e1,e2) -> "And(" ^ (string_of_boolexpr e1) ^ "," ^ (string_of_boolexpr e2) ^ ")"
   | Or(e1,e2) -> "Or(" ^ (string_of_boolexpr e1) ^ "," ^ (string_of_boolexpr e2) ^ ")"
   | If(e0,e1,e2) -> "If(" ^ (string_of_boolexpr e0) ^ "," ^ (string_of_boolexpr e1) ^ "," ^ (string_of_boolexpr e2) ^ ")"
-;;
+
 
 let parse (s : string) : boolExpr =
   let lexbuf = Lexing.from_string s in
@@ -30,13 +30,11 @@ let rec trace1 = function
   | If(False,_,e2) -> e2
   | If(e0,e1,e2) -> let e0' = trace1 e0 in If(e0',e1,e2)
   | _ -> raise NoRuleApplies
-;;
 
 let rec trace e = try
     let e' = trace1 e
     in e::(trace e')
   with NoRuleApplies -> [e]
-;;
 
 let rec eval = function
     True -> true

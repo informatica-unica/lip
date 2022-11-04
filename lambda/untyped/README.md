@@ -196,16 +196,16 @@ The **call-by-value** evaluation strategy is defined by the following rules:
 ```
 v ::= fun x . t                 (values)
 
+------------------------------- [CBV-AppAbs]
+(fun x . t1) v2 -> [x -> v2] t1
+
 t1 -> t1'
-------------------------------- [E-App1]
+------------------------------- [CBV-App1]
 t1 t2 -> t1' t2
 
 t2 -> t2'
-------------------------------- [E-App2]
+------------------------------- [CBV-App2]
 v1 t2 -> v1 t2'
-
-------------------------------- [E-AppAbs]
-(fun x . t1) v2 -> [x -> v2] t1
 ```
 
 Implement the call-by-value strategy as a function with the following type:

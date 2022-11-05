@@ -109,11 +109,20 @@ let trace1 _ _ = failwith "TODO"
 
 
 (**********************************************************************
- trace_rec : int -> term -> term * int
+ trace_rec : int -> int -> term -> term list
 
  Usage: trace_rec n vars t performs n steps of the small-step semantics
 
  Pre:  xk does not occur in t, for all k>=vars
+ **********************************************************************)
+
+let trace_rec _ _ _ = failwith "TODO"
+
+
+(**********************************************************************
+ trace : int -> term -> term list
+
+ Usage: trace n t performs n steps of the small-step semantics
  **********************************************************************)
 
 let trace _ _ = failwith "TODO"

@@ -42,6 +42,8 @@ let string_of_test_is_free x t =
   x ^ " in fv(" ^ string_of_term t ^ ")"
 
 let test_is_free = [
+  ("x","x",true);
+  ("x","y",false);    
   ("x","fun x . x y",false);  
   ("y","fun x . x y",true);
   ("x","fun x . x (fun y . x y)",false);    
@@ -70,6 +72,10 @@ let%test _ =
  **********************************************************************)
 
 let test_equiv = [
+  ("x", "x", true);  
+  ("x", "y", false);
+  ("fun x . x", "fun y . y", true);
+  ("fun x . x", "fun x . y", false);    
   ("fun x . x y", "fun z . z y", true);
   ("fun x . x y", "fun z . z z", false);  
   ("fun x . x (fun y . x y)", "fun z . z (fun y . z y)", true);
@@ -100,6 +106,7 @@ let string_of_test_subst x tx t =
   "[" ^ x ^ " -> " ^ string_of_term (parse tx) ^ "] " ^ string_of_term (parse t)
 
 let test_subst = [
+  ("x", "y", "x", "y");  
   ("x", "y", "fun x . x", "fun x . x");
   ("x", "y", "fun x . y", "fun x . y");
   ("x", "y", "fun y . x", "fun x1 . y");

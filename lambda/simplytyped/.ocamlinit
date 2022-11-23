@@ -1,0 +1,2 @@
+open SimplytypedLib.Main;;
+open SimplytypedLib.Ast;;

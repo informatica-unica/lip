@@ -1,3 +1,4 @@
+open AndboolexprLib.Ast
 open AndboolexprLib.Main
   
 let tests = [
@@ -16,6 +17,11 @@ let tests = [
   ("if true then false else false or true",false);
 ];;
 
+
+(**********************************************************************
+ Test big-step semantics
+ **********************************************************************)
+
 let%test _ =
   print_newline();  
   print_endline ("*** Testing big-step semantics...");
@@ -32,12 +38,27 @@ let%test _ =
     true
     tests
 
+
+(**********************************************************************
+ Test small-step semantics
+ **********************************************************************)
+
+let rec last = function
+    [] -> failwith "last on empty list"
+  | [x] -> x
+  | _::l -> last l
+
+let eval_smallstep e = match last (trace e) with
+    True -> Some true
+  | False -> Some false
+  | _ -> None
+
 let%test _ =
   print_newline();  
   print_endline ("*** Testing small-step semantics...");
   List.fold_left
     (fun b (s,v) ->
-       print_string (s ^ " => ");       
+       print_string (s ^ " -> ");       
        let ar = s |> parse |> eval_smallstep in
        print_string (string_of_val ar);
        let b' = (ar = Some v) in

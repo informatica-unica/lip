@@ -49,10 +49,11 @@ Look [here](install-ocaml) for minimal instructions.
 1. [Untyped arithmetic expressions](expr/uarithexpr)
 1. [Arithmetic expressions with let bindings and dynamic type checking](expr/letarithexpr)
 
-## Lambda-calculus
+## Lambda calculus
 
-1. Pure untyped lambda-calculus: [call-by-value semantics with explicit renaming of bound variables](lambda/untyped)
-1. Pure untyped lambda-calculus: [normal order semantics with explicit renaming of bound variables, and Church numerals](lambda/church)
+1. Pure untyped lambda calculus: [call-by-value semantics with explicit renaming of bound variables](lambda/untyped)
+1. Pure untyped lambda calculus: [normal order semantics with explicit renaming of bound variables, and Church numerals](lambda/church)
+1. Simply typed lambda calculus: [call-by-value semantics and static type checking](lambda/simplytyped)
 
 ## References
 

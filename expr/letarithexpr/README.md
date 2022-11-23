@@ -35,7 +35,16 @@ You can check its AST via `dune utop src` as follows:
 ```ocaml
 "let x = 0 in let y = succ x in iszero succ y" |> LetarithexprLib.Main.parse;;
 ```
-
+To extend the parser, you must add new tokens. In particular, the token for identifiers now must carry a string:
+```ocaml
+%token <string> ID
+```
+This token will be used in the rule to parse an identifier within an expression:
+```ocaml
+expr:
+  | x = ID { Var x }
+  ...
+```
 
 ## Big-step semantics
 

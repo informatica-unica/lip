@@ -6,14 +6,12 @@ let read_file filename =
   let ch = open_in filename in
   let s = really_input_string ch (in_channel_length ch) in
   close_in ch; s
-;;
 
 (* read line from standard input, and output it to a string *)
 
 let read_line () =
   try Some(read_line())
   with End_of_file -> None
-;;
 
 (* let print_term t = print_string (string_of_term t); print_newline();; *)
 
@@ -37,4 +35,4 @@ match Array.length(Sys.argv) with
           "" -> print_newline()
         | s -> s |> parse |> (fun x -> trace n x) |> print_trace)
 (* wrong usage *)      
-| _ -> failwith "Usage: dune exec untyped [file]"
+| _ -> failwith "Usage: dune exec untyped n_steps [file]"

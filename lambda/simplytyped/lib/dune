@@ -1,0 +1,7 @@
+(library
+ (name simplytypedLib))
+
+(menhir
+ (modules parser))
+
+(ocamllex lexer)

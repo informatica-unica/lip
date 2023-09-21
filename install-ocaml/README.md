@@ -1,7 +1,7 @@
 # Installing OCaml
 
 This file contains minimal instructions to setup a local installation of OCaml un Linux.
-See [here](https://ocaml.org/docs/up-and-running) for detailed instructions here.
+See [here](https://ocaml.org/docs/up-and-running) for detailed instructions.
 
 First, install opam, the OCaml official package manager:
 ```bash

@@ -4,7 +4,7 @@ LiP students are expected to fork the repository and push solutions to the exerc
 
 Invitation to the Discord server: **https://discord.gg/CW84hS82**
 
-## OCaml 
+## Installing OCaml 
 
 To work at these projects you must have a local installation of OCaml. 
 Look [here](install-ocaml) for minimal instructions.
@@ -26,15 +26,6 @@ Once you have installed OCaml, work on the following exercises:
 1. [Duplicates](ocaml-basics/dup)
 1. [Random list](ocaml-basics/rnd-list)
 1. [From list to string](ocaml-basics/string-of-list)
-1. [Min and max of a function](ocaml-basics/minmax)
-1. [Extract an element from a list](ocaml-basics/extract)
-1. [Alternating-even numbers](ocaml-basics/alt-even)
-1. [Binary search trees](ocaml-basics/binary-search-tree)
-1. [Deck of cards](ocaml-basics/deck-of-cards)
-1. [The return of the Pumping Lemma](ocaml-basics/pumping-lemma)
-1. [List crush](ocaml-basics/list-crush)
-1. [Longest subsequence](ocaml-basics/longsub)
-1. [Ping pong](ocaml-basics/ping-pong)
 
 ## Arithmetic expressions
 

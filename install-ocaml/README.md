@@ -1,7 +1,9 @@
-# Installing OCaml
+# Setting up OCaml
 
-This file contains minimal instructions to setup a local installation of OCaml un Linux.
-See [here](https://ocaml.org/docs/up-and-running) for detailed instructions.
+This file contains minimal instructions to setup a local installation of OCaml on Linux.
+See [here](https://ocaml.org/docs/up-and-running) for instructions on other OSs.
+
+## Installing OCaml
 
 First, install opam, the OCaml official package manager:
 ```bash
@@ -38,7 +40,29 @@ In particular, this installation includes:
 
 We will use these tools for all the projects of the LIP course.
 
-If you plan to use the emacs editor (recommended), run:
+If you plan to use the emacs editor, run:
 ```bash
 opam user-setup install
+```
+
+## First project
+
+To check that everything is installed correctly, we set up a first project (see [here](https://ocaml.org/docs/up-and-running#starting-a-new-project) for more detailed instructions).
+
+First, we create a new project called `helloworld` using dune and then change into the created directory. Below, the lines starting with `>` contain the expected output of the given shell commands:
+```
+dune init project helloworld
+> Success: initialized project component named helloworld
+cd helloworld
+```
+
+To build the project run `dune build` from the `helloworld` directory. If there are no errors, the output should be empty:
+```
+dune build
+```
+
+If the build is successful, we can run the project as follows:
+```
+dune exec helloworld
+> Hello, World!
 ```

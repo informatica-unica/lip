@@ -37,3 +37,8 @@ In particular, this installation includes:
 - [**ppx_inline_test**](https://github.com/janestreet/ppx_inline_test), a tool for writing in-line tests in OCaml.
 
 We will use these tools for all the projects of the LIP course.
+
+If you plain to use the emacs editor (recommended), run:
+```bash
+opam user-setup install
+```

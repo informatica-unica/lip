@@ -15,7 +15,7 @@ Here we assume you will work on the default switch. To check that a switch actua
 ```bash
 opam switch list
 ```
-In the unlikely case the previous command shows an empty list, you must manually create a switch:
+In case the previous command shows an empty list, you must manually create a switch:
 ```bash
 opam switch create lip ocaml-base-compiler.4.14.0
 ```

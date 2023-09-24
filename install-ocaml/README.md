@@ -53,20 +53,32 @@ First, we create a new project called `helloworld` using dune and then change in
 ```
 dune init project helloworld
 > Success: initialized project component named helloworld
+```
+This command creates a directory `helloworld` with the following file structure:
+```
+helloworld/
+├── dune-project
+├── bin
+│   └── dune
+│   └── main.ml
+├── lib
+│   └── dune
+├── test
+│   ├── dune
+│   └── helloworld.ml
+└── helloworld.opam
+```
+To check that the OCaml installation was successful, try to build the project from the `helloworld` directory:
+```bash
 cd helloworld
-```
-
-To build the project run `dune build` from the `helloworld` directory. If there are no errors, the output should be empty:
-```
 dune build
 ```
-
-If the build is successful, we can run the project as follows:
+If there are no errors, the output should be empty.
+Run the project as follows:
 ```
 dune exec helloworld
 > Hello, World!
 ```
-
-We will see the project structure in detail in the next exercise. For the moment, note that the `_build` directory contains the output of the `dune build` command. This includes the `main.exe` executable inside the `_build/default/bin/` subdirectory.
+We will discuss the project structure in detail in the next exercise. For the moment, note that the `_build` directory contains the output of the `dune build` command. This includes the `main.exe` executable inside the `_build/default/bin/` subdirectory.
 
 In this very first project, all the source code is in `./bin/main.ml`. For more complex projects, we will mainly write our source code in the `lib` directory.

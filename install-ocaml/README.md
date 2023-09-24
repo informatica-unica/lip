@@ -66,3 +66,7 @@ If the build is successful, we can run the project as follows:
 dune exec helloworld
 > Hello, World!
 ```
+
+We will see the project structure in detail in the next exercise. For the moment, note that the `_build` directory contains the output of the `dune build` command. This includes the `main.exe` executable inside the `_build/default/bin/` subdirectory.
+
+In this very first project, all the source code is in `./bin/main.ml`. For more complex projects, we will mainly write our source code in the `lib` directory.

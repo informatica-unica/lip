@@ -5,7 +5,7 @@ Create a new project with the following command:
 dune init project tugofwar
 ```
 
-Then, copy the files [bin/main.ml](bin/main.ml) and [lib/tugofwar.ml]
+Then, copy the files [bin/main.ml](bin/main.ml) and [lib/tugofwar.ml](lib/tugofwar.ml)
 in the folders `tugofwar/bin` and `tugofwar/lib`, respectively.
 
 The main routine in [bin/main.ml](bin/main.ml) reads a line from the stdin.

@@ -12,6 +12,7 @@ Look [here](install-ocaml) for minimal instructions.
 Once you have installed OCaml, work on the following warm-up exercises:
 
 1. [Adder](basics/adder)
+1. [Tug of war](basics/tugofwar)
 
 ## Arithmetic expressions
 

@@ -38,7 +38,7 @@ In particular, this installation includes:
 
 We will use these tools for all the projects of the LIP course.
 
-If you plain to use the emacs editor (recommended), run:
+If you plan to use the emacs editor (recommended), run:
 ```bash
 opam user-setup install
 ```

@@ -40,3 +40,9 @@ Debug your implementation in utop until it works correctly:
 addlist [1;2;3];;
 - : int = 6
 ```
+
+Digiting `open Adder` each time one starts utop could be quite boring.
+This can be avoided by creating a file `adder/.ocamlinit` containing the line:
+```
+open Adder.Main;;
+```

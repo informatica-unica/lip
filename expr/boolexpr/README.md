@@ -15,30 +15,6 @@ To start, create a new project named `boolexpr` by launching the following comma
 ```bash
 dune init proj boolexpr
 ```
-This command creates a directory `boolexpr` with the following file structure:
-```
-boolexpr/
-├── dune-project
-├── bin
-│   └── dune
-│   └── main.ml
-├── lib
-│   └── dune
-├── test
-│   ├── dune
-│   └── boolexpr.ml
-└── boolexpr.opam
-```
-
-To check that the OCaml installation was successful, try to execute the project:
-```bash
-cd boolexpr
-dune exec boolexpr
-```
-If everything is fine, the output will be:
-```
-Hello, World! 
-```
 To instruct dune that our project will use Menhir, add the following line at the end of the file `dune-project`:
 ```bash
 (using menhir 2.1)

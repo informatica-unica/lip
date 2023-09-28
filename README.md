@@ -2,7 +2,7 @@
 
 LiP students are expected to fork the repository and push solutions to the exercises on their fork.
 
-Invitation to the Discord server: **https://discord.gg/CW84hS82**
+Invitation to the Discord server: **[https://discord.gg/fttNEU38](https://discord.gg/BJPNZVjaP)**
 
 ## Installing OCaml 
 

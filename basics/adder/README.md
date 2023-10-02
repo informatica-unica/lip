@@ -46,3 +46,9 @@ This can be avoided by creating a file `adder/.ocamlinit` containing the line:
 ```
 open Adder.Main;;
 ```
+
+Once you have completed the implementation, you can run some unit tests:
+```
+dune test
+```
+If you see an empty output, it means that your code has passed all the unit tests.

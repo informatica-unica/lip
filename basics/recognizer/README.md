@@ -2,11 +2,11 @@
 
 This project requires to implement recognizers for the following
 regular languages (expressed in Unix regexp syntax):
+1. `[01]+`
 1. `0?1*`
 2. `0[01]*0`
-3. `[01]*0[01]{2}`
-4. `0*10*10*10*`
-5. `(00+11)+`
+4. `0*10*10*`
+5. `(00|11)+`
 
 Create a new project with the following command:
 ```
@@ -22,7 +22,7 @@ Applying `belongsTo` to a word `w` detects to which of the languages above
 the word `w` belongs.
 For instance, for the word `0010`, we have that:
 ```ocaml
-belongsTo [0;0;1;0] = [false;true;true;false;false]
+belongsTo [0;0;1;0] = [true;true;true;false;false]
 ```
 
 Complete the implementation of the `belongsTo` function,

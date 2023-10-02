@@ -13,19 +13,14 @@ Create a new project with the following command:
 dune init project recognizer
 ```
 
-The main routine in [bin/main.ml](bin/main.ml) reads a line from the stdin.
-The expected format is a sequence of symbols 0 and 1, like e.g.:
-```
-0100
-```
-The main routing converts this line into a list of chars,
-and then applies the function:
+The main routine in [bin/main.ml](bin/main.ml) reads a line from the stdin,
+converts it into a list of chars, and then applies the function:
 ```ocaml
 val belongsTo : char list -> bool list
 ```
 Applying `belongsTo` to a word `w` detects to which of the languages above
 the word `w` belongs.
-For instance, for the word `01001`, we have that
+For instance, for the word `0010`, we have that:
 ```ocaml
 belongsTo [0;0;1;0] = [false;true;true;false;false]
 ```

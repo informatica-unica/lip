@@ -2,11 +2,11 @@
 
 This project requires to implement recognizers for the following
 regular languages (expressed in Unix regexp syntax):
-1. 0?1*
-2. 0[01]*0
-3. [01]*0[01]{2}
-4. 0*10*10*10*
-5. (00+11)+
+1. `0?1*`
+2. `0[01]*0`
+3. `[01]*0[01]{2}`
+4. `0*10*10*10*`
+5. `(00+11)+`
 
 Create a new project with the following command:
 ```

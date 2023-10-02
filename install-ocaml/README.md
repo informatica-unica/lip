@@ -47,9 +47,12 @@ opam user-setup install
 
 ## First project
 
+As a preliminary step, fork the repository. All the coding activities of this lab must be performed on your fork.
+
 To check that everything is installed correctly, we set up a first project (see [here](https://ocaml.org/docs/up-and-running#starting-a-new-project) for more detailed instructions).
 
-First, we create a new project called `helloworld` using dune and then change into the created directory. Below, the lines starting with `>` contain the expected output of the given shell commands:
+Once you have forked the repository and cloned it, change directory to the `lip/basics` folder. 
+Then, create a new project called `helloworld` using dune. Below, the lines starting with `>` contain the expected output of the given shell commands:
 ```
 dune init project helloworld
 > Success: initialized project component named helloworld

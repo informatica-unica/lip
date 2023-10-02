@@ -17,7 +17,7 @@ let string_of_list s l =
   assert (List.length l = 5);
   if List.for_all (fun x -> x=false) l
   then s ^ " does not belong to any of the languages"
-  else s ^ " belongs to languages: " ^ (List.fold_left (fun s i -> s ^ (if s="" then "" else ",") ^ string_of_int (i+1)) "" ((List.filter (fun i -> i>0) (List.mapi (fun i b -> if b then i else 0) l))))
+  else s ^ " belongs to languages: " ^ (List.fold_left (fun s i -> s ^ (if s="" then "" else ",") ^ string_of_int (i+1)) "" ((List.filter (fun i -> i>=0) (List.mapi (fun i b -> if b then i else -1) l))))
     
 (* main routine *)
     

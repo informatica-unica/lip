@@ -5,7 +5,7 @@ Create a new project with the following command:
 dune init project adder
 ```
 
-Then, copy the files [bin/main.ml](bin/main.ml) and [lib/adder.ml]
+Then, copy the files [bin/main.ml](bin/main.ml) and [lib/adder.ml](lib/adder.ml)
 in the folders `adder/bin` and `adder/lib`, respectively.
 
 The main routine in [bin/main.ml](bin/main.ml) reads a line from the stdin.

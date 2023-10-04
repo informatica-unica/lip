@@ -1,14 +1,14 @@
 # Adder
 
-Create a new project with the following command:
+From your fork of the repository, go to the `lip/basics` directory and create a new project with the following command:
 ```
 dune init project adder
 ```
-
-Then, copy the files [bin/main.ml](bin/main.ml) and [lib/adder.ml](lib/adder.ml)
+Executing the command will preserve the the files [bin/main.ml](bin/main.ml) and [lib/adder.ml](lib/adder.ml)
 in the folders `adder/bin` and `adder/lib`, respectively.
 
-The main routine in [bin/main.ml](bin/main.ml) reads a line from the stdin.
+Now, give a look at [bin/main.ml](bin/main.ml). 
+The main routine reads a line from the stdin.
 The expected format is a sequence of integers separated by spaces, like e.g.:
 ```
 1 2 3

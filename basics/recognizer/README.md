@@ -3,33 +3,35 @@
 This project requires to implement recognizers for the following
 regular languages (expressed in Unix regexp syntax):
 1. `[01]+`
-1. `0?1*`
-2. `0[01]*0`
+2. `0?1*`
+3. `0[01]*0`
 4. `0*10*10*`
 5. `(00|11)+`
 
-Create a new project with the following command:
+From your fork of the repository, go to the `lip/basics` directory and create a new project with the following command:
 ```
 dune init project recognizer
 ```
+Executing the command will preserve the files [bin/main.ml](bin/main.ml) and [lib/adder.ml](lib/adder.ml) in the repository.
 
 The main routine in [bin/main.ml](bin/main.ml) reads a line from the stdin,
 converts it into a list of chars, and then applies the function:
 ```ocaml
 val belongsTo : char list -> bool list
 ```
-Applying `belongsTo` to a word `w` detects to which of the languages above
-the word `w` belongs.
+Applying `belongsTo` to a word `w` detects to which of the languages above the word `w` belongs.
+Namely, `w` belongs to the i-th language in the list above iff the i-th element of the list
+given by `belongsTo w` is true.
 For instance, for the word `0010`, we have that:
 ```ocaml
 belongsTo [0;0;1;0] = [true;true;true;false;false]
 ```
+Complete the implementation of the `belongsTo` function.
 
-Complete the implementation of the `belongsTo` function,
-and then test the project using `dune exec recognizer`.
+## Testing and debugging
 
-To test the new function, you can run from the `recognizer` directory
-the command:
+Test the project using `dune exec recognizer`.
+To test only the new function, you can run the following command from the `recognizer` directory:
 ```
 dune utop lib
 ```
@@ -43,3 +45,7 @@ Recall to create a file `recognizer/.ocamlinit` containing the line:
 ```
 open Recognizer.Main;;
 ```
+
+## Unit tests
+
+This project does not include unit tests. Implement your unit tests as done in the `adder` project.

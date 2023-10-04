@@ -59,3 +59,36 @@ dune test
 ```
 If you see an empty output, it means that your code has passed all the unit tests.
 Try to add new tests in the file [test/addertest.ml](test/addertest.ml).
+
+## Troubleshooting
+
+### 1. `Error: I cannot find the root of the current workspace/project.`
+
+Make sure you are running the commands `dune build`, `dune test` and the like from `lip/basic/adder`, the project's root folder.
+
+### 2. I get an `Error: Module "Addertest" is used in several stanzas` after running `dune build`
+
+Make sure the file `dune` under `adder/test` looks exactly like this:
+```ocaml
+(library
+ (name addertest)
+ (inline_tests)
+ (preprocess
+  (pps ppx_inline_test))
+ (libraries adder))
+```
+You may need to remove a few undesired lines that were added by `dune init`.
+
+### 3. I get the following error after running `dune build`:
+```
+File "test/addertest.ml", line 3, characters 13-20:
+3 | let%test _ = addlist [] = 0
+                 ^^^^^^^
+Error: Unbound value addlist
+```
+Remove `adder.ml` in `adder/test`. Make sure the structure of this folder looks exactly like this:
+```
+test
+├── addertest.ml
+└── dune
+```

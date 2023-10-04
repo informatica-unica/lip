@@ -1,13 +1,9 @@
 # Tug of war
 
-Create a new project with the following command:
+From the `basic` directory of your fork, create a new project with the following command:
 ```
 dune init project tugofwar
 ```
-
-Then, copy the files [bin/main.ml](bin/main.ml) and [lib/tugofwar.ml](lib/tugofwar.ml)
-in the folders `tugofwar/bin` and `tugofwar/lib`, respectively.
-
 The main routine in [bin/main.ml](bin/main.ml) reads a line from the stdin.
 The expected format is a sequence of symbols A, B, and =, like e.g.:
 ```
@@ -15,8 +11,8 @@ AAAAA===BB
 ```
 This string represent a tug of war game.
 The leftmost part represents the players of the team A,
-the = represent the rope,
-and the rightmost B represents the players of the team B.
+the symbols = represent the rope,
+and the rightmost part represents the players of the team B.
 The winner of a game is the team with the most players.
 
 As you see from the main routine:

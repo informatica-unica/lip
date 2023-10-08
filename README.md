@@ -15,6 +15,9 @@ Once you have installed OCaml, work on the following warm-up exercises:
 1. [Recognizer](basics/recognizer)
 1. [Tug of war](basics/tugofwar)
 
+## Lexing and parsing
+1. [A toy lexer](toylexer)
+
 ## Arithmetic expressions
 
 1. [A minimal language of boolean expressions](expr/boolexpr)

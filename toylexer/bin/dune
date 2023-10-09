@@ -1,4 +1,0 @@
-(executable
- (public_name toylexer)
- (name main)
- (libraries toylexer))

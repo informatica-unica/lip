@@ -24,4 +24,4 @@ let string_of_frequencies fl =
   List.fold_left (fun s (t,n) -> s ^ ((string_of_token t) ^ " -> " ^ string_of_int n ^ "\n")) "" fl
 
 (* frequency : int -> 'a list -> ('a * int) list *)
-let frequency n tl = failwith("TODO")
+let frequency _ _ = failwith("TODO")

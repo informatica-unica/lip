@@ -4,7 +4,12 @@ From your fork of the repository, go to the `lip/` directory and create a new pr
 ```
 dune init project toylexer
 ```
-If the command creates the file `lib/toylexer.ml`, remove it.
+Then, run the following command from the `lip/toylexer` directory:
+```
+echo '(ocamllex lexer)' >> lib/dune
+```
+This appends one line to lib/dune, to instruct the compiler to
+use the ocamllex tool.
 
 The goal of this project is to familiarize with
 the [ocamllex](https://v2.ocaml.org/manual/lexyacc.html) lexer generator.

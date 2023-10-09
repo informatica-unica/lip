@@ -1,6 +1,6 @@
 # Lexing
 
-From your fork of the repository, go to the `lip/toylexer` directory and create a new project with the following command:
+From your fork of the repository, go to the `lip/` directory and create a new project with the following command:
 ```
 dune init project toylexer
 ```

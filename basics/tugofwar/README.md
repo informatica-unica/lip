@@ -29,6 +29,14 @@ you must implement the four missing functions:
 - `win` determines the winner of a game (token `A` if the winner is team A, token `B` if the winner is team B, and `X` for a tie)
 - `string_of_winner` transforms a token into a string.
 
+Hint: you can use the following function to convert a string into a list of char:
+```ocaml
+let explode s =
+  let rec exp i l =
+    if i < 0 then l else exp (i - 1) (s.[i] :: l) in
+  exp (String.length s - 1) []
+```
+
 Check the file [lib/tugofwar.ml] for the signature of these functions,  
 complete their implementation, and then test the project using `dune exec tugofwar`.
 

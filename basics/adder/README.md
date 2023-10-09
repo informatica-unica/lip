@@ -6,6 +6,15 @@ dune init project adder
 ```
 Executing the command will preserve the files [bin/main.ml](bin/main.ml) and [lib/adder.ml](lib/adder.ml)
 in the folders `adder/bin` and `adder/lib`, respectively.
+Check that the directory `test` does not contain a file named `adder.ml` (if so, remove it),
+and ensure that the file `test/dune` is exactly as follows:
+```ocaml
+(library
+ (name addertest)
+ (inline_tests) 
+ (preprocess (pps ppx_inline_test))
+ (libraries adder))
+```
 
 Now, give a look at [bin/main.ml](bin/main.ml). 
 The main routine reads a line from the stdin.
@@ -72,9 +81,8 @@ Make sure the file `dune` under `adder/test` looks exactly like this:
 ```ocaml
 (library
  (name addertest)
- (inline_tests)
- (preprocess
-  (pps ppx_inline_test))
+ (inline_tests) 
+ (preprocess (pps ppx_inline_test))
  (libraries adder))
 ```
 You may need to remove a few undesired lines that were added by `dune init`.

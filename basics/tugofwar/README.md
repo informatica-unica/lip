@@ -9,7 +9,7 @@ The expected format is a sequence of symbols A, B, and =, like e.g.:
 ```
 AAAAA===BB
 ```
-This string represent a tug of war game.
+This string represents a tug of war game.
 The leftmost part represents the players of the team A,
 the symbols = represent the rope,
 and the rightmost part represents the players of the team B.
@@ -25,7 +25,7 @@ let () = match read_line () with
 ```
 you must implement the four missing functions:
 - `toklist_of_string` transforms the input string into a list of tokens A, B, X
-- `valid` determines is a list of tokens is valid, i.e. it belongs to the language A*=*B*
+- `valid` determines if a list of tokens is valid, i.e. it belongs to the language A\*=\*B\*
 - `win` determines the winner of a game (token `A` if the winner is team A, token `B` if the winner is team B, and `X` for a tie)
 - `string_of_winner` transforms a token into a string.
 

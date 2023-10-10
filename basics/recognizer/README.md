@@ -24,11 +24,7 @@ Namely, `w` belongs to the i-th language in the list above iff the i-th element 
 given by `belongsTo w` is true.
 For instance, for the word `0010`, we have that:
 ```ocaml
-<<<<<<< Updated upstream
-belongsTo [0;0;1;0] = [true;false;true;false;false]
-=======
 belongsTo ['0';'0';'1';'0'] = [true; false; true; false; false]
->>>>>>> Stashed changes
 ```
 Complete the implementation of the `belongsTo` function.
 

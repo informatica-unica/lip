@@ -40,9 +40,9 @@ git config --global user.email <your@email.com>
 
 ## 3. Clone your fork
 
-*Cloning* downloads a local copy of your fork of the repository on your machine. This is where you write the solution to the exercise files using your favorite code editor (we recommend [Visual Studio Code](https://code.visualstudio.com/docs/setup/linux)).
+*Cloning* downloads a local copy of your fork of the repository on your disk. This is where you write the solution to the exercise files using your favorite code editor (we recommend [Visual Studio Code](https://code.visualstudio.com/docs/setup/linux) together with the [OCaml Platform extension](https://marketplace.visualstudio.com/items?itemName=ocamllabs.ocaml-platform)).
 
-In a directory of your choice, run the following command with your actual username (and your fork's name in case you named it something other than `lip`): 
+In a directory of your choice, run the following command with your actual username (and your fork's name in case you named it something other than `lip`) in the URL argument: 
 
 ```bash
 git clone https://github.com/your_username/lip
@@ -56,7 +56,7 @@ When you're ready to upload a solution to an exercise to your fork, first run:
 git commit
 ```
 
-to record the changes to a local commit, then run:
+to record the changes you made to a local commit, then run:
 
 ```bash
 git push
@@ -87,12 +87,3 @@ git stash apply
 ```
 
 **Tip:** you can always append the `--help` option to any of the above git commands to fully explore their functionality. Also refer to the [Git Cheat Sheet](https://education.github.com/git-cheat-sheet-education.pdf) for more important commands.
-
-
-
-
-
-
-
-
-

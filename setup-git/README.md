@@ -1,12 +1,12 @@
 # Git tutorial for LiP Lab
 
-The purpose of this tutorial is to help you set up a minimal working environment to create and push your solutions to the exercises of the lab.
+The purpose of this tutorial is to help you set up a minimal working environment to create and push your solutions to the exercises of the LiP Lab.
 
-We assume you are reading this guide from your fork of the [lab repository](https://github.com/informatica-unica/lip) and are working on a Linux machine.
+We assume you are reading this guide from your own fork of the [lab repository](https://github.com/informatica-unica/lip) and are working on a Linux (virtual) machine.
 
 ## 1. Install `git`
 
-Your Linux (virtual) machine most likely comes with `git` preinstalled. You can check this by running:
+Your Linux distribution most likely comes with `git` preinstalled. You can check this by running:
 
 ```bash
 git --version
@@ -66,7 +66,7 @@ to transmit the new commit to your remote (online) fork.
 
 ## 5. Synchronize your fork with `informatica-unica/lip`
 
-To synchronize your fork on your browser, look for the "Sync fork" button on the GitHub page of your fork's repository. This will not affect your local copy of the fork that you cloned earlier.
+To synchronize your fork on your browser, look for the *Sync fork* button on the GitHub page of your fork's repository. This will not affect your local copy of the fork that you cloned earlier.
 
 To synchronize your local copy of the fork with the most recent version of the lab repository, run:
 
@@ -80,7 +80,7 @@ This might not work if you have some pending changes not yet committed to your w
 git stash
 ```
 
-and later restore them on top of the newer commits using:
+and restore them later on top of the newer commits using:
 
 ```bash
 git stash apply

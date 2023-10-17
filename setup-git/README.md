@@ -1,8 +1,11 @@
 # Git tutorial for LiP Lab
 
-The purpose of this tutorial is to help you set up a minimal working environment to create and push your solutions to the exercises of the LiP Lab.
+The purpose of this tutorial is to help you set up a minimal working environment to create and push your solutions to the exercises of the LiP Lab. It also aims to introduce you to some useful tools and resources that offer a smoother and integrated lab workflow.
 
-We assume you are reading this guide from your own fork of the [lab repository](https://github.com/informatica-unica/lip) and are working on a Linux (virtual) machine.
+In the following we assume that:
++ You are reading this guide from your own fork of the [lab repository](https://github.com/informatica-unica/lip). If you don't know how to fork a repository, see the useful [GitHub documentation](https://docs.github.com/en/get-started/quickstart/fork-a-repo#forking-a-repository);
+
++ You are working on a Linux machine. If you are a Windows user, the most straightforward way to run a Linux environment on your Windows system is the [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/about), which can be easily installed [from the Microsoft Store](https://apps.microsoft.com/detail/9PN20MSR04DW?hl=en-us&gl=IT).
 
 ## 1. Install `git`
 
@@ -12,7 +15,7 @@ Your Linux distribution most likely comes with `git` preinstalled. You can check
 git --version
 ```
 
-Otherwise, install `git`:
+If the previous command returns an error, install `git`:
 
 ```bash
 sudo apt update
@@ -21,7 +24,7 @@ sudo apt install git
 
 ## 2. Link `git` to your GitHub account
 
-To manage your online repository from the command line you need the [GitHub CLI](https://github.com/cli/cli). Follow the [installation instructions](https://github.com/cli/cli) that suit your Linux distribution.
+To manage your online repositories from the command line you need the [GitHub CLI](https://github.com/cli/cli). Follow the [installation instructions](https://github.com/cli/cli) that suit your Linux distribution.
 
 Once you have `gh` installed, authenticate by running:
 
@@ -29,7 +32,7 @@ Once you have `gh` installed, authenticate by running:
 gh auth login
 ```
 
-and follow the on-screen instructions carefully.
+and follow the on-screen procedure carefully.
 
 Now your `git` installation is linked with your GitHub account, however `git` still doesn't know who you are. For this, run the following commands with username and email of your GitHub account as arguments.
 
@@ -40,7 +43,7 @@ git config --global user.email <your@email.com>
 
 ## 3. Clone your fork
 
-*Cloning* downloads a local copy of your fork of the repository on your disk. This is where you write the solution to the exercise files using your favorite code editor (we recommend [Visual Studio Code](https://code.visualstudio.com/docs/setup/linux) together with the [OCaml Platform extension](https://marketplace.visualstudio.com/items?itemName=ocamllabs.ocaml-platform)).
+*Cloning* downloads a local copy of your fork of the repository on your disk. This is where you edit the code of the exercises using your favorite code editor (we recommend [Visual Studio Code](https://code.visualstudio.com/docs/setup/linux) together with the [OCaml Platform extension](https://marketplace.visualstudio.com/items?itemName=ocamllabs.ocaml-platform)).
 
 In a directory of your choice, run the following command with your actual username (and your fork's name in case you named it something other than `lip`) in the URL argument: 
 
@@ -50,7 +53,7 @@ git clone https://github.com/your_username/lip
 
 ## 4. Commit a solution
 
-When you're ready to upload a solution to an exercise to your fork, first run:
+When you're ready to upload a solution of an exercise to your fork, first run:
 
 ```bash
 git commit
@@ -62,11 +65,11 @@ to record the changes you made to a local commit, then run:
 git push
 ```
 
-to transmit the new commit to your remote (online) fork.
+to transmit the new commit to your remote (i.e. online) fork.
 
 ## 5. Synchronize your fork with `informatica-unica/lip`
 
-To synchronize your fork on your browser, look for the *Sync fork* button on the GitHub page of your fork's repository. This will not affect your local copy of the fork that you cloned earlier.
+To synchronize your fork on your browser, look for the ["Sync fork"](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork) button in the GitHub page of your fork's repository. Note that syncing on the browser does not affect your local copy of the fork that you cloned earlier.
 
 To synchronize your local copy of the fork with the most recent version of the lab repository, run:
 

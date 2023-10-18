@@ -21,7 +21,7 @@ combining it with a parser will be the goal of the next project.
 
 You will work on the following files in the `lib` directory:
 - [token.ml](lib/token.ml), defining the type of tokens
-- [lexer.mll](lib/lexer.mll), defining the lexer genetaror
+- [lexer.mll](lib/lexer.mll), defining the lexer generator
 - [main.ml](lib/main.ml), containing utility functions to use the lexer.
 
 The main routine in [bin/main.ml](bin/main.ml)

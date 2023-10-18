@@ -17,4 +17,4 @@ let () = match Array.length(Sys.argv) with
         Some s when s<>"" -> s |> lexer |> frequency (int_of_string Sys.argv.(2)) |> string_of_frequencies |> print_string
       | _ -> print_newline())
   (* wrong usage *)      
-  | _ -> failwith "Usage: dune exec lexing [freq] command"
+  | _ -> failwith "Usage: dune exec toylexer [freq]"

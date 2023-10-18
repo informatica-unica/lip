@@ -17,6 +17,7 @@ Once you have installed OCaml, work on the following warm-up exercises:
 
 ## Lexing and parsing
 1. [A toy lexer](toylexer)
+1. [A toy parser](toyparser)
 
 ## Arithmetic expressions
 

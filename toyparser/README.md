@@ -70,14 +70,38 @@ The project requires you to work at the following tasks:
 
 Extend the lexer, the parser and the evaluation function
 to handle also the subtraction operator.
-Ensure that the priority of operators is the same as in the Python REPL.
+
+The tricky part of this task is to obtain the right priority to operators. 
+As a guideline, we want to ensure that their priority is the same as in the Python REPL.
 For instance:
 ```bash
 echo "5 - 3 - 1" | dune exec toyparser
 > 1                                   
 ```
+The priority of operators is defined in [parser.mly](lib/parser.mly).
+In the project skeleton, look at the line:
+```
+%left PLUS
+```
+This line instructs the lexer that the PLUS token associates to the left.
+Then, when parsing:
+```
+1 + 2 + 3
+```
+The parser will output the AST:
+```ocaml
+Add(Add(Const(1),Const(2)),Const(3))
+```
+When there are multiple associativity declarations, like e.g.:
+```
+%left tok_1
+%left tok_2
+...
+%left tok_n
+```
+a token tok_i has priority over tok_j whenever i>j.
 
-# Task 2
+## Task 2
 
 Extend the lexer, the parser and the evaluation function
 to handle also multiplication and division.

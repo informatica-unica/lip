@@ -83,7 +83,8 @@ In the project skeleton, look at the line:
 ```
 %left PLUS
 ```
-This line instructs the lexer that the PLUS token associates to the left.
+This line instructs the lexer that the PLUS token associates to the left. In practice, it introduces a rule in the parser saying that the sum production cannot appear as the right child of another sum production.
+
 Then, when parsing:
 ```
 1 + 2 + 3
@@ -92,6 +93,8 @@ The parser will output the AST:
 ```ocaml
 Add(Add(Const(1),Const(2)),Const(3))
 ```
+A line starting with `%left` defines an *associativity group*. Every token or production in the same associativity group has the same priority.
+
 When there are multiple associativity declarations, like e.g.:
 ```
 %left tok_1
@@ -100,6 +103,8 @@ When there are multiple associativity declarations, like e.g.:
 %left tok_n
 ```
 a token tok_i has priority over tok_j whenever i>j.
+
+In practice, if tok_j *binds looser* (i.e. has lower priority) than tok_i, then tok_j cannot appear as a direct child of tok_i in the AST of any given expression.
 
 ## Task 2
 

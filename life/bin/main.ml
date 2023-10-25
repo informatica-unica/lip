@@ -12,4 +12,4 @@ let _ = match Array.length(Sys.argv) with
     T.restore_cursor();
     print_newline()
   (* wrong usage *)
-  | _ -> failwith "Usage: dune cell life n_iter"
+  | _ -> failwith "Usage: dune exec life n_rounds"

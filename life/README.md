@@ -22,8 +22,6 @@ After running these commands, the file `lib/dune` should look as follows:
 (library
  (libraries ANSITerminal)
  (name life))
-(menhir (modules parser))
-(ocamllex lexer)
 ```
 
 The goal of this project is to extend with a parser

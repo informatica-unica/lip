@@ -1,7 +1,7 @@
 # Game of life
 
 From your fork of the repository, go to the `lip/` directory and create a new project:
-```
+```bash
 dune init project life
 ```
 Then, run the following commands from the `lip/life` directory:
@@ -24,10 +24,7 @@ After running these commands, the file `lib/dune` should look as follows:
 The goal of this project is to extend with a parser
 an OCaml project implementing [Conway's Game of life](https://playgameoflife.com/).
 The original project can be run as follows:
-The main routine in [bin/main.ml](bin/main.ml)
-reads a line from the stdin, and processes it
-according to the command line:
-```
+```bash
 dune exec life n_rounds
 ```
 If everything is fine, your console will display a field of asterisks

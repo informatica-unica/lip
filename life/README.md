@@ -51,23 +51,23 @@ In Conways' game of life, a cell is alive in the next round if either:
 
 The project requires to extend the game to general cellular automata
 of the [Life family](http://www.mirekw.com/ca/rullex_life.html).
-Each cellular automaton in this family is defined by a rule in the form S/B,
-where:
-- S is the number of alive neighbours necessary for an alive cell to survive
-- B is the number of alive neighbours necessary for a dead cell to born.
+Each cellular automaton in this family is defined by a **S/B rule**,
+i.e. a pair (S,B) of sequences of digits where:
+- S are the numbers of alive neighbours necessary for an alive cell to survive
+- B are the numbers of alive neighbours necessary for a dead cell to born.
 For instance, Conway's Game of life is defined by the rule `S23/3`.
 
 The project requires you to work at the following tasks:
 
 ## Task 1
 
-Define a type `rule` to represent rules in the S/B form.
-Make the `alive` function parameteric on a S/B rule.
+Define a type `rule` to represent rules in the S/B form, and
+make the `alive` function parameteric on a S/B rule.
 Its type must be:
 ```ocaml
 alive : bool list list -> int -> int -> Life.Rule.rule -> bool
 ```
-Modify [bin/main.ml](bin/main.ml) to pass to the `loop` function the rule S23/3.
+Modify [bin/main.ml](bin/main.ml) to pass the rule S23/3 to the `loop` function.
 
 ## Task 2
 
@@ -80,7 +80,7 @@ parse : string -> Life.Rule.rule
 ```
 Modify [bin/main.ml](bin/main.ml) to pass an additional command line argument
 that specifies a S/B rule.
-For instance, after this modification one should be able to run the
+For instance, after this extension one can run the
 Conway's Game of life as follows:
 ```bash
 dune exec life S23/B3 100
@@ -88,13 +88,13 @@ dune exec life S23/B3 100
 
 ## Task 3
 
-Extend the parser to allow extended S/B rules,
-In extended S/B rules, digits are separated by a comma. For instance,
-Conway's rule can be specified as:
+Extend the parser to allow for **extended S/B rules**.
+In extended S/B rules, digits are separated by a comma.
+For instance, Conway's rule can be specified as follows:
 ```
 ES2,3/B3
 ```
-The S and B are optional, while the E is not:
+The S and B are optional, while the E (which distinguishes extended rules from standard rules) is not:
 ```
 E2,3/3
 ```
@@ -103,7 +103,8 @@ Whitespaces can be used freely:
 E 2,3 / 3
 ```
 Ranges of values can be specified with the a..b notation.
-For instance, the following rule states that the alive cells to survive are range from 0 to 5 and from 7 to 12, while died cells cannot born.
+For instance, the following rule states that the alive cells needed to survive
+range from 0 to 5 and from 7 to 12, while died cells cannot reborn:
 ```
 ES0..5,7..12/B
 ```

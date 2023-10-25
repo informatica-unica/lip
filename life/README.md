@@ -32,6 +32,8 @@ The original project can be run as follows:
 ```bash
 dune exec life n_rounds
 ```
+where `n_rounds` can take on any positive integer (e.g. `100`).
+
 If everything is fine, your console will display a field of asterisks
 which evolves forming strange patterns.
 
@@ -76,6 +78,12 @@ Modify [bin/main.ml](bin/main.ml) to pass the rule S23/3 to the `loop` function.
 
 ## Task 2
 
+From `lip/life`, run the following to commands:
+```bash
+echo '(using menhir 2.1)' >> dune-project
+echo -e '(menhir (modules parser))\n(ocamllex lexer)' >> lib/dune
+```
+
 Use the [Menhir](https://gallium.inria.fr/~fpottier/menhir/)
 parser generator to define a syntax of S/B rules.
 The obtained parser transforms strings into S/B rules,
@@ -89,12 +97,6 @@ For instance, after this extension one can run the
 Conway's Game of life as follows:
 ```bash
 dune exec life S23/B3 100
-```
-
-Before building your solution, run the following to commands to add the dependencies of Menhir:
-```bash
-echo '(using menhir 2.1)' >> dune-project
-echo -e '(menhir (modules parser))\n(ocamllex lexer)' >> lib/dune
 ```
 
 ## Task 3

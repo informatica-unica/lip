@@ -1,6 +1,6 @@
 # Game of life
 
-This project requires to have the [ANSIterminal](https://opam.ocaml.org/packages/ANSITerminal/) package installed. Install it to your opam switch with:
+This project requires the [ANSITerminal](https://opam.ocaml.org/packages/ANSITerminal/) package to work. Run the following command to install it to your opam switch:
 ```bash
 opam install ANSITerminal
 ```
@@ -10,14 +10,12 @@ From your fork of the repository, go to the `lip/` directory and create a new pr
 dune init project life
 ```
 
-Then, run the following commands from the `lip/life` directory:
-```
+Then, run the following command from the `lip/life` directory:
+```bash
 sed -i '2i   (libraries ANSITerminal)' lib/dune
 ```
 
-These commands extend the dune configuration files,
-to instruct the compiler to use the ocamllex and the Menhir tools.
-After running these commands, the file `lib/dune` should look as follows:
+After running it, the file `lib/dune` should look as follows:
 ```
 (library
  (libraries ANSITerminal)
@@ -35,7 +33,7 @@ where `n_rounds` can take on any positive integer (e.g. `100`).
 If everything is fine, your console will display a field of asterisks
 which evolves forming strange patterns.
 
-The rule that defined the behaviour of the game is in [lib/main.ml](lib/main.ml):
+The rule that defines the behaviour of the game is in [lib/main.ml](lib/main.ml):
 ```ocaml
 let alive w i j =
   let (cell,nb) = neighbours w i j in
@@ -47,7 +45,7 @@ let alive w i j =
     (* cell is born? *)
     alive_nb = 3
 ```
-This function takes as input a field `w`, represented as a list of lists of bool, and two indices `i` (row) and `j` (column).
+This function takes as input a field `w`, represented as a list of lists of bools, and two indices `i` (row) and `j` (column).
 The function `alive w i j` tells the cell at index `(i,j)` is alive
 in the next round.
 In Conways' game of life, a cell is alive in the next round if either:
@@ -72,18 +70,23 @@ Its type must be:
 ```ocaml
 alive : bool list list -> int -> int -> Life.Rule.rule -> bool
 ```
-Modify [bin/main.ml](bin/main.ml) to pass the rule S23/3 to the `loop` function.
+Modify [bin/main.ml](bin/main.ml) to pass the rule S23/B3 to the `loop` function.
 
 ## Task 2
 
-From `lip/life`, run the following to commands:
+This task employs the [Menhir](https://gallium.inria.fr/~fpottier/menhir/)
+parser generator to define a syntax of S/B rules.
+
+From `lip/life`, run the following two commands:
 ```bash
 echo '(using menhir 2.1)' >> dune-project
 echo -e '(menhir (modules parser))\n(ocamllex lexer)' >> lib/dune
 ```
+These commands extend the dune configuration files,
+to instruct the compiler to use the ocamllex and the Menhir tools.
 
-Use the [Menhir](https://gallium.inria.fr/~fpottier/menhir/)
-parser generator to define a syntax of S/B rules.
+
+Use the Menhir parser generator to define a syntax of S/B rules.
 The obtained parser transforms strings into S/B rules,
 and it is made available by the function:
 ```ocaml

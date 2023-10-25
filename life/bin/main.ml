@@ -1,5 +1,5 @@
 module T = ANSITerminal
-open Life
+open Life.Main
 
 let _ = match Array.length(Sys.argv) with
     2 -> let k = int_of_string (Sys.argv.(1)) in

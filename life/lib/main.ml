@@ -37,9 +37,9 @@ let neighbours w i j =
   (
     List.nth l1 (j mod m),
     [
-      [List.nth l0 ((j+n-1) mod m); List.nth l0 (j mod m); List.nth l0 ((j+1) mod m)]; 
-      [List.nth l1 ((j+n-1) mod m); false; List.nth l1 ((j+1) mod m)]; 
-      [List.nth l2 ((j+n-1) mod m); List.nth l2 (j mod m); List.nth l2 ((j+1) mod m)]
+      [List.nth l0 ((j+m-1) mod m); List.nth l0 (j mod m); List.nth l0 ((j+1) mod m)]; 
+      [List.nth l1 ((j+m-1) mod m); false; List.nth l1 ((j+1) mod m)]; 
+      [List.nth l2 ((j+m-1) mod m); List.nth l2 (j mod m); List.nth l2 ((j+1) mod m)]
     ])
 
 let count1 l = List.fold_left (fun s x -> s + (if x then 1 else 0)) 0 l

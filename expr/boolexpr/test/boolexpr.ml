@@ -1,22 +1,18 @@
 open BoolexprLib.Main
 
-let tests = [
-  ("false",false);
-  ("true",true);
-  ("if true then false else true",true);  
-  ("if false then false else true",true);
-  ("if true then (if true then false else true) else (if true then true else false)",false);
-  ("if (if false then false else false) then (if false then true else false) else (if true then false else true)",false);
-  ("if (if (if false then false else false) then (if false then true else false) else (if true then false else true)) then (if false then true else false) else (if true then false else true)",false)
-];;
+let test_eval expr exp_result =
+  (expr |> parse |> eval) = exp_result
+  
+let%test "test1" = test_eval "false" false
 
-let%test _ = List.fold_left
-    (fun b (s,v) ->
-       print_string (s ^ " => ");
-       let b' = ((s |> parse |> eval) = v) in
-       print_string (string_of_bool v);
-       print_string (" " ^ (if b' then "[OK]" else "[NO: expected " ^ string_of_bool b' ^ "]"));
-       print_newline();
-       b && b')
-    true
-    tests
+let%test "test2" = test_eval "true" true
+
+let%test "test3" = test_eval "if true then false else true" false  
+
+let%test "test4" = test_eval "if false then false else true" true
+
+let%test "test5" = test_eval "if true then (if true then false else true) else (if true then true else false)" false
+
+let%test "test6" = test_eval "if (if false then false else false) then (if false then true else false) else (if true then false else true)" false
+
+let%test "test7" = test_eval "if (if (if false then false else false) then (if false then true else false) else (if true then false else true)) then (if false then true else false) else (if true then false else true)" false

@@ -62,6 +62,38 @@ let eval_smallstep e = match last (trace e) with
 let test_smallstep expr exp_result =
   (expr |> parse |> eval_smallstep) = exp_result
 
-let%test "test_smallstep1" = test_smallstep "false" false
+let%test "test_smallstep1" = test_smallstep "false" (Some false)
 
+let%test "test_smallstep2" = test_smallstep "true" (Some true)
 
+let%test "test_smallstep3" = test_smallstep "if true then false else true" (Some false)
+
+let%test "test_smallstep4" = test_smallstep "if false then false else true" (Some true)
+
+let%test "test_smallstep5" = test_smallstep "if true then (if true then false else true) else (if true then true else false)" (Some false)
+
+let%test "test_smallstep6" = test_smallstep "if (if false then false else false) then (if false then true else false) else (if true then false else true)" (Some false)
+
+let%test "test_smallstep7" = test_smallstep "if (if (if false then false else false) then (if false then true else false) else (if true then false else true)) then (if false then true else false) else (if true then false else true)" (Some false)
+
+let%test "test_smallstep8" = test_smallstep "not not true" (Some true)
+
+let%test "test_smallstep9" = test_smallstep "not if true then false else true" (Some true)
+
+let%test "test_smallstep10" = test_smallstep "if true then (if true then false else true) else (if true then true else false)" (Some false)
+
+let%test "test_smallstep11" = test_smallstep "if (if false then false else false) then (if false then true else false) else (if true then false else true)" (Some false)
+
+let%test "test_smallstep12" = test_smallstep "if (if (if false then false else false) then (if false then true else false) else (if true then false else true)) then (if false then true else false) else (if true then false else true)" (Some false)
+
+let%test "test_smallstep13" = test_smallstep "not true or true" (Some true)
+
+let%test "test_smallstep14" = test_smallstep "not true and false" (Some false)
+
+let%test "test_smallstep15" = test_smallstep "false and false or true" (Some true)
+
+let%test "test_smallstep16" = test_smallstep "true or false and false" (Some true)
+
+let%test "test_smallstep17" = test_smallstep "if true then true else false and false" (Some true)
+
+let%test "test_smallstep18" = test_smallstep "if true then false else false or true" (Some false)

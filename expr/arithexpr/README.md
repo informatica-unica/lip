@@ -1,7 +1,7 @@
 # Typed arithmetic expressions with dynamic type checking
 
 Extend the language of [boolean expressions](../andboolexpr) with arithmetic expressions on natural numbers,
-according to the following [AST](src/ast.ml):
+according to the following [AST](lib/ast.ml):
 ```ocaml
 type expr =
     True
@@ -33,7 +33,7 @@ For example, the following is a syntactically correct expression:
 ```
 iszero pred succ 0 and not iszero succ pred succ 0
 ```
-You can check its AST via `dune utop src` as follows:
+You can check its AST via `dune utop lib` as follows:
 ```ocaml
 "iszero pred succ 0 and not iszero succ pred succ 0" |> ArithexprLib.Main.parse;;
 ```
@@ -68,7 +68,7 @@ The `eval` function must have the following type:
 ```ocaml
 eval : expr -> exprval
 ```
-where the type `exprval`, used to wrap booleans and naturals, must be defined as follows (in src/main.ml):
+where the type `exprval`, used to wrap booleans and naturals, must be defined as follows (in lib/main.ml):
 ```ocaml
 type exprval = Bool of bool | Nat of int
 ```

@@ -1,0 +1,7 @@
+(library
+ (name blocksLib))
+
+(menhir
+ (modules parser))
+
+(ocamllex lexer)

@@ -26,8 +26,6 @@ Once you have installed OCaml, work on the following warm-up exercises:
 1. [Boolean expressions with not, and, or](expr/andboolexpr)
 1. [Typed arithmetic expressions with dynamic type checking](expr/arithexpr)
 1. [Typed arithmetic expressions with static type checking](expr/sarithexpr)
-1. [Untyped arithmetic expressions](expr/uarithexpr)
-1. [Arithmetic expressions with let bindings and dynamic type checking](expr/letarithexpr)
 
 ## Imperative languages
 

@@ -1,0 +1,9 @@
+n:=7;
+a:=0;
+b:=1;
+while not (n<=0) do (
+  tmp:=b;
+  b:=a+b;  
+  a:=tmp;
+  n:=n-1
+)

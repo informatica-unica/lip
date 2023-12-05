@@ -1,0 +1,5 @@
+x:=3;
+y:=2;
+z:=1;
+if x<=y then min:=x else min:=y;
+if z<=min then min:=z else skip

@@ -47,23 +47,6 @@ while not a=b do (
 );
 gcd:=a
 ```
-
-## Pretty printing
-
-Implement the following functions to convert data into strings:
-```ocaml
-string_of_val : exprval -> string
-
-string_of_expr : expr -> string
-
-string_of_cmd : cmd -> string
-
-string_of_state : state -> ide list -> string
-
-string_of_conf : ide list -> conf -> string
-
-string_of_trace : ide list -> conf list -> string
-```
               
 ## Operational semantics
 

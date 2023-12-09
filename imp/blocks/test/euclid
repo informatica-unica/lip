@@ -1,0 +1,12 @@
+{
+  int gcd; 
+  int a;
+  int b;
+  a:=24;
+  b:=60;
+  while not a=b do {
+     if not a<=b then a:=a-b
+     else b:=b-a
+  };
+  gcd:=a
+}

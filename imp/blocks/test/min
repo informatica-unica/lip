@@ -1,0 +1,17 @@
+{
+  int x;
+  int y;
+  int z;
+  int min;
+  
+  x:=3;
+  y:=2;
+  z:=1;
+  if x<=y and x<=z
+  then min:=x
+  else {
+       if y<=z
+       then min:=y
+       else min:=z
+  }
+}

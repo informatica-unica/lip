@@ -1,0 +1,7 @@
+int x;
+int y;
+int w; 
+fun f(z) { z:=x; x:=y; y:=z; return 0 };
+x := 10;
+y := 20;
+w := f(0)

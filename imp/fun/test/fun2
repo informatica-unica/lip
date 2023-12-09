@@ -1,0 +1,5 @@
+int x;
+fun f(y) { skip; return y+1 };
+fun g(z) { skip; return f(z)+2 };
+x := g(10)
+

@@ -5,7 +5,7 @@ Define the parser and the small-step semantics of small battle robots competing 
 In order to make the project work you'll need to:
 - define a lexer in `lib/lexer.mll`
 - define a parser in `lib/parser.mly`
-- implement for the interfaces `lib/memory.mli` and `lib/trace.mli`
+- implement the interfaces `lib/memory.mli` and `lib/trace.mli`
 
 ## Run the project
 

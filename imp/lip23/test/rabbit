@@ -2,7 +2,7 @@
 /* rabbit runs around the field, randomly */
 /* and never fires;  use as a target */
 
-int main()
+main()
 {
 
   while (1)
@@ -14,7 +14,7 @@ int main()
 
 /* go - go to the point specified */
 
-int go(dest_x, dest_y)
+go(dest_x, dest_y)
 {
   int course;
 
@@ -29,7 +29,7 @@ int go(dest_x, dest_y)
 
 /* distance forumula */
 
-int distance(x1, y1, x2, y2)
+distance(x1, y1, x2, y2)
 {
   int x, y, d;
 
@@ -42,7 +42,7 @@ int distance(x1, y1, x2, y2)
 
 /* plot_course - figure out which heading to go */
 
-int plot_course(xx, yy)
+plot_course(xx, yy)
 {
   int d;
   int x, y;

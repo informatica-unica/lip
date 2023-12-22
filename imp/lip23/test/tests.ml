@@ -4,33 +4,42 @@ open Main
 open Trace
 open Memory
 
-let parse_expr = parse' Parser.test_expr
-let parse_stat = parse' Parser.test_stat
-
-let%test "int_const1" = "1" |> parse_expr = CONST 1
-let%test "int_const2" = "01" |> parse_expr = CONST 1
+let%test "" =
+  "main () { 1 - -2; }" |> parse
+  = FUNDECL
+      ( "main",
+        [],
+        EXPR (BINARY_EXPR (CONST 1, SUB, UNARY_EXPR (UMINUS, CONST 2))) )
 
 let%test "if_else " =
-  "if (1) {} else {}" |> parse_stat = IFE (CONST 1, EMPTY, EMPTY)
+  "main() { if (1) {} else {} }" |> parse
+  = FUNDECL ("main", [], IFE (CONST 1, EMPTY, EMPTY))
 
-let%test "if_no_else " = "if (1) {}" |> parse_stat = IF (CONST 1, EMPTY)
+let%test "if_no_else " =
+  "main() { if (1) {} }" |> parse = FUNDECL ("main", [], IF (CONST 1, EMPTY))
 
 let%test "dangling_else" =
-  "if (1) if (0) {} else {}" |> parse_stat
-  = IF (CONST 1, IFE (CONST 0, EMPTY, EMPTY))
+  "main() { if (1) if (0) {} else {} }" |> parse
+  = FUNDECL ("main", [], IF (CONST 1, IFE (CONST 0, EMPTY, EMPTY)))
 
 let%test "arithexpr" =
-  "1 + 2 * 3 / -(2 - 3)" |> parse_expr
-  = BINARY_EXPR
-      ( CONST 1,
-        ADD,
-        BINARY_EXPR
-          ( BINARY_EXPR (CONST 2, MUL, CONST 3),
-            DIV,
-            UNARY_EXPR (UMINUS, BINARY_EXPR (CONST 2, SUB, CONST 3)) ) )
+  "main() { 1 + 2 * 3 / -(2 - 3); }" |> parse
+  = FUNDECL
+      ( "main",
+        [],
+        EXPR
+          (BINARY_EXPR
+             ( CONST 1,
+               ADD,
+               BINARY_EXPR
+                 ( BINARY_EXPR (CONST 2, MUL, CONST 3),
+                   DIV,
+                   UNARY_EXPR (UMINUS, BINARY_EXPR (CONST 2, SUB, CONST 3)) ) ))
+      )
 
 let%test "stat_list" =
-  "{ 1; 2; }" |> parse_stat = BLOCK (SEQ (EXPR (CONST 1), EXPR (CONST 2)))
+  "main () { { 1; 2; } }" |> parse
+  = FUNDECL ("main", [], BLOCK (SEQ (EXPR (CONST 1), EXPR (CONST 2))))
 
 let rec last = function
   | [] -> failwith "last on empty list"
@@ -39,64 +48,64 @@ let rec last = function
 
 let%test "foo_1" =
   "
-  int foo(x) { int y = 2; return x + y; }
-  int main () { return 1 + foo(42); }"
+  foo(x) { int y = 2; return x + y; }
+  main () { return 1 + foo(42); }"
   |> parse |> trace |> last = CONST 45
 
 let%test "foo_2" =
   "
-  int foo(x) { int y = 2; return x + y; }
-  int main () { return bar(3) + foo(42); }
-  int bar(n) { return n * 2; }"
+  foo(x) { int y = 2; return x + y; }
+  main () { return bar(3) + foo(42); }
+  bar(n) { return n * 2; }"
   |> parse |> trace |> last = CONST 50
 
 let%test "foo_3" =
   "
-  int foo(x) { int y = 2; return x + y; }
-  int main () { return foo(z); }
+  foo(x) { int y = 2; return x + y; }
+  main () { return foo(z); }
   int z = 2;
   "
   |> parse |> trace |> last = CONST 4
 
 let%test "factorial_wrong" =
   "
-  int fact(n) { 
+  fact(n) { 
     if (n == 0) return 1;
     else {
       return n * fact (n-1);
     }
   }
-  int main () {
+  main () {
     return fact(4);
   }"
   |> parse |> trace |> last = CONST 24
 
 let%test "factorial" =
   "
-  int fact(n) {
+  fact(n) {
     if (n != 0) return n * fact (n-1);
     else return 1;
   }
-  int main () {
+  main () {
     return fact(4);
   }"
   |> parse |> trace |> last = CONST 24
 
 let%test "factorial-ignore-expr-after-return" =
   "
-  int fact(n) {
+  fact(n) {
     int a;
     if (a = n > 0) { return n * fact (n-1); a = 2; } 
     else return 1;
   }
-  int main () {
+  main () {
     return fact(6);
   }"
   |> parse |> trace |> last = CONST 720
 
 let%test "prefix-incr" =
   "
-  int main() {
+  main() {
     int x = 1;
 
     int y = ++x;
@@ -107,7 +116,7 @@ let%test "prefix-incr" =
 
 let%test "factorial-iterative" =
   "
-  int fact(n) {
+  fact(n) {
     int acc = 1;
 
     while (n) {
@@ -118,14 +127,14 @@ let%test "factorial-iterative" =
     return acc;
   }
 
-  int main () {
+  main () {
     return fact(4);
   }"
   |> parse |> trace |> last = CONST 24
 
 let%test "do-while" =
   "
-  int main () {
+  main () {
     int i = 1;
     int x = 2;
     do {
@@ -139,7 +148,7 @@ let%test "do-while" =
 
 let%test "do-while-shadow" =
   "
-  int main () {
+  main () {
     int i = 1;
     int x = 2;
 
@@ -155,7 +164,7 @@ let%test "do-while-shadow" =
 
 let%test "block" =
   "
-  int main() {
+  main() {
     int y;
     int x;
     x = 50;
@@ -171,8 +180,8 @@ let%test "block" =
 
 let%test "many-args" =
   "
-  int foo(w,x,y,z) { return w * x + y * z; }
-  int main() {
+  foo(w,x,y,z) { return w * x + y * z; }
+  main() {
     int a = 2;
     return foo(10,a,3/a,42);
   }"
@@ -180,8 +189,8 @@ let%test "many-args" =
 
 let%test "many-args2" =
   "
-  int foo(w,x,y,z) { return x * y + w * z; }
-  int main() {
+  foo(w,x,y,z) { return x * y + w * z; }
+  main() {
     int a = 2;
     return foo(10,a,3/a,42);
   }"
@@ -189,8 +198,8 @@ let%test "many-args2" =
 
 let%test "many-args3" =
   "
-  int foo(w,x,y,z) { return x * y + w * z; }
-  int main() {
+  foo(w,x,y,z) { return x * y + w * z; }
+  main() {
     int a = 2;
     return foo(8 + a,a,3/a,42 + a * 0);
   }"
@@ -199,8 +208,8 @@ let%test "many-args3" =
 let%test "side-effect" =
   "
   int x;
-  int foo() { --x; }
-  int main() {
+  foo() { --x; }
+  main() {
     x = 42;
     foo();
     return x;
@@ -210,8 +219,8 @@ let%test "side-effect" =
 let%test "side-effect-trace" =
   "
   int x;
-  int foo() { --x; }
-  int main() {
+  foo() { --x; }
+  main() {
     x = 42;
     foo();
     return x;
@@ -220,8 +229,8 @@ let%test "side-effect-trace" =
 
 let%test "many-args-trace" =
   "
-  int foo(w,x,y,z) { return x * y + w * z; }
-  int main() {
+  foo(w,x,y,z) { return x * y + w * z; }
+  main() {
     int a = 2;
     return foo(8 + a,a,3/a,42 + a * 0);
   }"
@@ -229,8 +238,8 @@ let%test "many-args-trace" =
 
 let%test "fun-no-shadow" =
   "
-  int foo(w,x,y,z) { return x * y + w * z; }
-  int main() {
+  foo(w,x,y,z) { return x * y + w * z; }
+  main() {
     int w = 2;
     int y = w;
     int z = foo(8 + w,w,3/w,42 + w * 0);
@@ -240,7 +249,7 @@ let%test "fun-no-shadow" =
 
 let%test "fact-iterative-trace" =
   "
-  int fact(n) {
+  fact(n) {
     int acc = 1;
 
     while (n) {
@@ -251,14 +260,14 @@ let%test "fact-iterative-trace" =
     return acc;
   }
 
-  int main () {
+  main () {
     return fact(4);
   }"
   |> parse |> trace |> last = CONST 24
 
 let%test "do-while-trace" =
   "
-  int main () {
+  main () {
     int i = 1;
     int x = 2;
     do {
@@ -272,7 +281,7 @@ let%test "do-while-trace" =
 
 let%test "exit-on-return" =
   "
-  int main() {
+  main() {
     int x = 20;
 
     {
@@ -288,14 +297,14 @@ let%test "exit-on-return" =
 
 let%test "foo21" =
   "
-  int foo(x, y) {
+  foo(x, y) {
     {
       y = y + --x;
       return y;
     } 
   }
 
-  int main() {
+  main() {
     int x = 20;
 
     return x == 20 && foo(x,3) == 22;
@@ -305,12 +314,12 @@ let%test "foo21" =
 let%test "comments" =
   "
   /* foo is a cool function */
-  int foo(w,x,y,z) { return x * y + w * z; }
+  foo(w,x,y,z) { return x * y + w * z; }
 
   /*
     main is not so cool
   */
-  int main() {
+  main() {
     int w = 2; // why did i declare this
     int y = w;
     int z = foo(8 + w,w,3/w,42 + w * 0);
@@ -320,10 +329,10 @@ let%test "comments" =
 
 let%test "intrinsic1" =
   "
-  int main() {
+  main() {
     int x = rand(1000), y = rand(1000);
-    drive(200 - x,x);
     int z = (cos(60) + sin(30)) / 100000;
+    drive(200 - x,x);
     return cos(-360) == 100000 && z == 1 && x < 1000 && y < 1000;
   }"
   |> parse |> trace |> last = CONST 1
@@ -331,14 +340,14 @@ let%test "intrinsic1" =
 let%test "intrinsic-override-not-allowed" =
   try
     "
-    int drive(x,y) {
+    drive(x,y) {
       return x * x + y * y;
     }
 
-    int main() {
+    main() {
       int x = rand(1000), y = rand(1000);
-      drive(200 - x,x);
       int z = (cos(60) + sin(30)) / 100000;
+      drive(200 - x,x);
       return cos(-360) == 100000 && z == 1 && x < 1000 && y < 1000;
     }"
     |> parse |> trace |> ignore;
@@ -351,7 +360,7 @@ let%test "parse-rabbit" =
   /* rabbit runs around the field, randomly */
   /* and never fires;  use as a target */
 
-  int main()
+  main()
   {
 
     while (1)
@@ -363,7 +372,7 @@ let%test "parse-rabbit" =
 
   /* go - go to the point specified */
 
-  int go(dest_x, dest_y)
+  go(dest_x, dest_y)
   {
     int course;
 
@@ -378,7 +387,7 @@ let%test "parse-rabbit" =
 
   /* distance forumula */
 
-  int distance(x1, y1, x2, y2)
+  distance(x1, y1, x2, y2)
   {
     int x, y, d;
 
@@ -391,7 +400,7 @@ let%test "parse-rabbit" =
 
   /* plot_course - figure out which heading to go */
 
-  int plot_course(xx, yy)
+  plot_course(xx, yy)
   {
     int d;
     int x, y;

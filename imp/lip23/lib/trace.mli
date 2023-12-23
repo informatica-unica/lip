@@ -10,25 +10,25 @@ type state = Memory.environment * Memory.memory
 
 type conf =
   | St
-  (* the result of instruction that cannot be reduced further *)
+  (* the result of instructions that cannot be reduced further *)
   | Ret of int
   (* the result of return statements with an expression *)
   | Instr of Ast.instruction
-(* the result of computations that can be reduces further *)
+(* the result of computations that can be reduced further *)
 
 val apply_intrinsic : int list -> Ast.intrinsic -> int option
 (* [apply_intrinsic vals i] applies the list of values [vals] to the instrinsic
    function of the Robot module matching the constructor [i], and returns
-   [Some v] if instrinsic implementation returns a value [v], or None if the
-   intrinsic returns unit. *)
+   [Some v] if the instrinsic returns a value [v], or None if the intrinsic
+   returns unit. *)
 
 val trace1_expr : state -> Ast.expression -> Ast.expression
 (* performs one step of small-step semantics for an expression in a certain
-   state*)
+   state *)
 
 val trace1_instr : state -> conf -> conf
 (* performs one step of small-step semantics for an instruction in a certain
-   state*)
+   state *)
 
 val trace_instr : state -> conf -> conf list
 (* performs multiple steps of small-step semantics for an instruction,

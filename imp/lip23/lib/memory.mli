@@ -1,32 +1,48 @@
 exception IntrinsicOverride
-exception WrongArguments of int * int (* number given, number expected *)
+(* raised when a user program attempts to redefine an intrinsic function *)
+
 exception UndeclaredVariable of string
+(* [UndeclaredVariable x] is raised when a user program attempts to use the
+   undeclared variable [x] *)
 
 type loc = int
+(* the type of memory locations or addresses *)
+
 type ide = string
-type memval = loc
+(* the type of variable names *)
+
+type memval = int
+(* the type of memory items *)
+
 type envval =
   | Loc of memval
   | Fun of (Ast.parameters * Ast.instruction)
   | Intrinsic of Ast.intrinsic
+(* the type of environment items *)
 
 type memory = (* your memory type here *)
 type environment = (* your environment type here *)
 type env_stack = (* your stack type here *)
 
 val find_mem : memory -> loc -> memval
-val add_mem : memory -> loc -> memval -> unit
-val update_mem : memory -> loc -> memval -> unit
+(* memory lookup *)
+
+val add_mem : memory -> loc -> memval -> (* depends on your memory type *)
+(* [add_mem mem loc n] binds the memory location [loc] to the value [n] *)
+
+val update_mem : memory -> loc -> memval -> (* depends on your memory type *)
+(* [update_mem mem loc n] updates the value bound to [loc] to [n] *)
 
 val find_env : env_stack -> ide -> envval
-val add_env : env_stack -> ide -> envval -> unit
+(* [find_env env x] reads the environemnt value bound to the name [x] in the
+   current environment *)
 
-val add_frame : env_stack -> unit
+val add_env : env_stack -> ide -> envval -> (* depends on your stack type *)
+(* [add_env env x v] binds the name [x] to the environment value [v] in the
+   current environment *)
+
+val add_frame : env_stack -> (* depends on your stack type *)
+(* pushes an environment to the stack *)
+
 val pop_frame : env_stack -> environment
-
-val add_var : env_stack -> memory -> ide -> unit
-val add_var_init :env_stack -> memory -> ide -> int -> unit
-val read_var : env_stack -> memory -> ide -> memval
-val update_var : env_stack -> memory -> ide -> memval -> unit
-val add_fun : env_stack -> ide -> Ast.parameters * Ast.instruction -> unit
-val read_fun : env_stack -> ide -> Ast.parameters * Ast.instruction
+(* pops and returns the top environment *)

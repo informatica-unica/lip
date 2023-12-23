@@ -1,6 +1,3 @@
-open Ast
-open Memory
-
 type status = ALIVE | DEAD
 
 type t = {
@@ -24,14 +21,16 @@ type t = {
   mutable d_heading : int;
   mutable scan_degrees : int;
   mutable reload : int;
-  mutable program : program;
-  mutable ep : expression;
-  mutable env : environment;
-  mutable mem : memory;
+  mutable program : Ast.program;
+  mutable ep : Ast.expression;
+  mutable env : Memory.env_stack;
+  mutable mem : Memory.memory;
   mutable missiles : Missile.t array;
 }
+(* the type of a robot *)
 
 val init : unit -> t
+(* creates a new robot *)
 
 val cur_robot : t ref
 val all_robots : t array ref

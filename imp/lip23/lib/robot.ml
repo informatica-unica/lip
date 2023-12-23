@@ -1,6 +1,3 @@
-open Ast
-open Memory
-
 let click = 1
 let max_x = 1000
 let max_y = 1000
@@ -36,10 +33,10 @@ type t = {
   mutable d_heading : int;
   mutable scan_degrees : int;
   mutable reload : int;
-  mutable program : program;
-  mutable ep : expression;
-  mutable env : environment;
-  mutable mem : memory;
+  mutable program : Ast.program;
+  mutable ep : Ast.expression;
+  mutable env : Memory.env_stack;
+  mutable mem : Memory.memory;
   mutable missiles : Missile.t array;
 }
 
@@ -68,8 +65,8 @@ let init () =
     missiles = Array.init 2 (fun _ -> Missile.init ());
     program = EMPTY;
     ep = CALL ("main", []);
-    env = Stack.create ();
-    mem = Hashtbl.create 0;
+    env = Memory.init_stack ();
+    mem = Memory.init_memory ();
   }
 
 let cur_robot = ref (init ())

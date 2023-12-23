@@ -24,6 +24,12 @@ type memory = (* your memory type here *)
 type environment = (* your environment type here *)
 type env_stack = (* your stack type here *)
 
+val init_memory : unit -> memory
+(* initializes an empty memory *)
+
+val init_stack : unit -> env_stack
+(* initializes a stack with an environment defining the intrinsic functions *)
+
 val find_mem : memory -> loc -> memval
 (* memory lookup *)
 

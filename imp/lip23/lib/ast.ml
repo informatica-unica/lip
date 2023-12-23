@@ -32,8 +32,6 @@ type binary_op =
 
 type unary_op = UMINUS
 
-type postfix_op = INCR | DECR
-
 type parameters = identifier list
 
 type expression =

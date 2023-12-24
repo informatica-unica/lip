@@ -6,7 +6,7 @@ exception WrongArguments of int * int
    arguments a function is called with doesn't match the number [n_exp] of
    formal parameters of its definition *)
 
-type state = Memory.environment * Memory.memory
+type state = Memory.env_stack * Memory.memory
 
 type conf =
   | St
@@ -14,7 +14,7 @@ type conf =
   | Ret of int
   (* the result of return statements with an expression *)
   | Instr of Ast.instruction
-(* the result of computations that can be reduced further *)
+(* the result of computations that can be reduced further. You may add a state component in each constructor if need be *)
 
 val apply_intrinsic : int list -> Ast.intrinsic -> int option
 (* [apply_intrinsic vals i] applies the list of values [vals] to the instrinsic
@@ -22,11 +22,11 @@ val apply_intrinsic : int list -> Ast.intrinsic -> int option
    [Some v] if the instrinsic returns a value [v], or None if the intrinsic
    returns unit. *)
 
-val trace1_expr : state -> Ast.expression -> Ast.expression
+val trace1_expr : state -> Ast.expression -> Ast.expression (* you may add a state in the return type *)
 (* performs one step of small-step semantics for an expression in a certain
    state *)
 
-val trace1_instr : state -> conf -> conf
+val trace1_instr : state -> conf -> conf (* you may add a state in the return type *)
 (* performs one step of small-step semantics for an instruction in a certain
    state *)
 

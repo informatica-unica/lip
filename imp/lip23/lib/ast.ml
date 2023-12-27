@@ -39,7 +39,7 @@ type expression =
   | IDE of identifier
   | ASSIGN of identifier * expression
   | CALL of identifier * expression list
-  | CALL_EXEC of instruction
+  | CALL_EXEC of instruction (* runtime-only *)
   | CONST of int
   | UNARY_EXPR of unary_op * expression
   | BINARY_EXPR of expression * binary_op * expression
@@ -49,11 +49,11 @@ and instruction =
   | IF of expression * instruction
   | IFE of expression * instruction * instruction
   | WHILE of expression * instruction
-  | WHILE_EXEC of expression * instruction * expression
+  | WHILE_EXEC of expression * instruction * expression (* current guard, body, original guard; runtime-only *)
   | EXPR of expression
   | RET of expression option
   | BLOCK of instruction
-  | BLOCK_EXEC of instruction
+  | BLOCK_EXEC of instruction (* runtime-only *)
   | VARDECL of identifier
   | VARDECL_INIT of identifier * expression
   | FUNDECL of identifier * parameters * instruction

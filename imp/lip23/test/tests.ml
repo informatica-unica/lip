@@ -4,18 +4,18 @@ open Main
 open Trace
 open Memory
 
-let%test "" =
+let%test "minus" =
   "main () { 1 - -2; }" |> parse
   = FUNDECL
       ( "main",
         [],
         EXPR (BINARY_EXPR (CONST 1, SUB, UNARY_EXPR (UMINUS, CONST 2))) )
 
-let%test "if-else " =
+let%test "if-else" =
   "main() { if (1) {} else {} }" |> parse
   = FUNDECL ("main", [], IFE (CONST 1, EMPTY, EMPTY))
 
-let%test "if-no-else " =
+let%test "if-no-else" =
   "main() { if (1) {} }" |> parse = FUNDECL ("main", [], IF (CONST 1, EMPTY))
 
 let%test "dangling-else" =
@@ -45,6 +45,14 @@ let rec last = function
   | [] -> failwith "last on empty list"
   | [ x ] -> x
   | _ :: l -> last l
+
+let%test "abs" =
+  "main() { int x = 21; if (x < 0) x = x * -1; return x; }"
+  |> parse |> trace |> last = CONST 21
+
+let%test "while-to-5" =
+  "main() { int x = 0; while (x < 5) x = x + 1; return x; }" |> parse |> trace
+  |> last = CONST 5
 
 let%test "foo-1" =
   "

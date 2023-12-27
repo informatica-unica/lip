@@ -1,4 +1,4 @@
-# LIP23 project: CROBOTS
+# 🤖 LIP23 project: CROBOTS 🤖
 
 Define the parser and the small-step semantics of small battle robots competing in the programming game [CROBOTS](https://crobots.deepthought.it/home.php).
 

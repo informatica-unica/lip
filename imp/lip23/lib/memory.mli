@@ -20,9 +20,19 @@ type envval =
   | Intrinsic of Ast.intrinsic
 (* the type of environment items *)
 
-type memory = (* your memory type here *)
-type environment = (* your environment type here *)
-type env_stack = (* your stack type here *)
+type memory
+(* a map from loc to memval *)
+
+type environment
+(* a map from ide to envval *)
+
+type stackval
+(* the type of stack items *)
+
+type env_stack
+(* a stack of stackval *)
+
+(* you may expose these types for debugging/convenience *)
 
 val init_memory : unit -> memory
 (* initializes an empty memory *)
@@ -33,22 +43,24 @@ val init_stack : unit -> env_stack
 val find_mem : memory -> loc -> memval
 (* memory lookup *)
 
-val add_mem : memory -> loc -> memval -> (* depends on your memory type *)
+val add_mem : memory -> loc -> memval -> unit (* return type depends on your memory type *)
 (* [add_mem mem loc n] binds the memory location [loc] to the value [n] *)
 
-val update_mem : memory -> loc -> memval -> (* depends on your memory type *)
+val update_mem : memory -> loc -> memval -> unit (* return type depends on your memory type *)
 (* [update_mem mem loc n] updates the value bound to [loc] to [n] *)
 
 val find_env : env_stack -> ide -> envval
 (* [find_env env x] reads the environemnt value bound to the name [x] in the
    current environment *)
 
-val add_env : env_stack -> ide -> envval -> (* depends on your stack type *)
+val add_env : env_stack -> ide -> envval -> unit (* return type depends on your stack type *)
 (* [add_env env x v] binds the name [x] to the environment value [v] in the
    current environment *)
 
-val add_frame : env_stack -> (* depends on your stack type *)
-(* pushes an environment to the stack *)
+val add_frame : stackval -> env_stack -> unit (* return type depends on your stack type *)
+(* pushes a copy of the top environment to the stack *)
 
-val pop_frame : env_stack -> environment
+val pop_frame : env_stack -> stackval
 (* pops and returns the top environment *)
+
+(* add your own types and values below *)

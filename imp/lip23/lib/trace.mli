@@ -14,7 +14,8 @@ type conf =
   | Ret of int
   (* the result of return statements with an expression *)
   | Instr of Ast.instruction
-(* the result of computations that can be reduced further. You may add a state component in each constructor if need be *)
+  (* the result of computations that can be reduced further. *)
+(* you may add a state component in each constructor if needed *)
 
 val apply_intrinsic : int list -> Ast.intrinsic -> int option
 (* [apply_intrinsic vals i] applies the list of values [vals] to the instrinsic
@@ -35,5 +36,11 @@ val trace_instr : state -> conf -> conf list
    recording each step in a list *)
 
 val trace_expr : state -> Ast.expression -> Ast.expression list
-(* performs multiple steps of small-step semantics for an instruction,
+(* performs multiple steps of small-step semantics for an expression,
    recording each step in a list *)
+
+val trace : Ast.program -> Ast.expression list
+(* [trace p] parses the program [p], records its global declarations in a
+   first environment and traces the program from the entry point [main()] *)
+
+(* add your own types and values below *)

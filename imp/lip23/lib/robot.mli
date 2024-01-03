@@ -17,9 +17,12 @@ type t = {
   mutable d_speed : int;
   mutable accel : int;
   mutable heading : int;
+  mutable turret_heading : int;
   mutable last_heading : int;
   mutable d_heading : int;
   mutable scan_degrees : int;
+  mutable scan_cycles : int;
+  mutable scan_res : int;
   mutable reload : int;
   mutable program : Ast.program;
   mutable ep : Ast.expression;
@@ -27,16 +30,24 @@ type t = {
   mutable mem : Memory.memory;
   mutable missiles : Missile.t array;
 }
-(* the type of a robot *)
+
+val robot_speed : int
+val turn_speed : int
+val turn_incr : int
+val accel : int
+val collision : int
+val click : int
+val max_x : int
+val max_y : int
+val res_limit : int
+
+val deg2rad : float
+val rad2deg : float
 
 val init : unit -> t
-(* creates a new robot *)
 
 val cur_robot : t ref
 val all_robots : t array ref
-
-val update_robot : int -> t -> unit
-val update_all_robots : t array -> unit
 
 val scan : int -> int -> int
 (* invokes the robot's scanner, at a specified

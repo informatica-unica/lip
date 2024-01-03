@@ -1,3 +1,8 @@
+let mis_speed = 500
+let mis_range = 700
+let reload_cycles = 15
+let explosion_cycles = 5
+
 type status = AVAIL | FLYING | EXPLODING
 
 type t = {

@@ -46,8 +46,7 @@ let rec loop () =
           match r.status with
           | ALIVE ->
               cur_robot := r;
-              r.ep <- Trace.trace1_expr (r.env, r.mem) r.ep;
-              Memory.janitor r.env r.mem
+              r.ep <- Trace.trace1_expr (r.env, r.mem) r.ep
           | DEAD -> ()
         with _ ->
           r.ep <- CALL ("main", []);

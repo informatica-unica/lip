@@ -279,7 +279,7 @@ let%test "comments" =
     int w = 2; // why did i declare this?
     int y = w;
     int z = foo(8 + w,w,3/w,42 + w * 0);
-    return w == 2 && y == 2 && z == 422; // PlEaSe return 1!!!
+    return w == 2 && y == 2 && z == 422; // PlEaSe rEtURn 1!!!
   }"
   |> parse |> trace |> last = CONST 1
 
@@ -336,6 +336,22 @@ let%test "intrinsic-override" =
     |> parse |> trace |> ignore;
     false
   with IntrinsicOverride -> true
+
+let%test "procedure" =
+  "
+  int i;
+
+  main() {
+    i = 3;
+    foo(270);
+    return i;
+  }
+  
+  foo(deg) {
+    int i = 0;
+    while (i < deg)
+      i = i + 1;
+  }" |> parse |> trace |> last = CONST 3
 
 let%test "parse-rabbit" =
   "

@@ -96,7 +96,7 @@ let scan degree resolution =
   !cur_robot.scan_res <- res;
   Array.iter
     (fun r ->
-      if r <> !cur_robot && r.status <> DEAD then (
+      if r.status <> DEAD then (
         let x = (!cur_robot.x / click) - (r.x / click) |> float_of_int in
         let y = (!cur_robot.y / click) - (r.y / click) |> float_of_int in
         let d = ref 0 in

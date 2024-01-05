@@ -1,5 +1,4 @@
 open Ast
-open Memory
 open Robot
 open Printf
 

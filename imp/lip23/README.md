@@ -11,7 +11,7 @@ In order to make the project work you'll need to:
 
 Run the project with two example robots:
 ```bash
-dune exec crobots -- test/rabbit test/rook
+dune exec crobots test/rabbit test/rook
 ```
 
 ## Run tests

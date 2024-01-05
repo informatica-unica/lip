@@ -48,10 +48,11 @@ let rec loop () =
               cur_robot := r;
               r.ep <- Trace.trace1_expr (r.env, r.mem) r.ep
           | DEAD -> ()
-        with _ ->
+        with Trace.NoRuleApplies ->
           r.ep <- CALL ("main", []);
           r.env <- Memory.init_stack ();
-          r.mem <- Memory.init_memory ())
+          r.mem <- Memory.init_memory ();
+          Trace.trace_instr (r.env, r.mem) (Instr r.program) |> ignore)
       !all_robots;
 
     decr movement;
@@ -62,7 +63,18 @@ let rec loop () =
     flush stdout;
     loop ())
 
+let rand_pos () =
+  let lt2 x = if x < 2 then 1 else 0 in
+  let a =
+    Array.init 4 (fun k ->
+        ( Random.int (Robot.max_x / 2) + (Robot.max_x / 2 * (k mod 2)),
+          Random.int (Robot.max_y / 2) + (Robot.max_y / 2 * lt2 k) ))
+  in
+  Array.sort (fun _ _ -> -1 + Random.int 3) a;
+  a
+
 let _ =
+  Random.init (Unix.time () |> int_of_float);
   let filenames = Cmd.parse () in
   let programs = List.map (fun f -> (f, read_file f)) filenames in
   let programs =
@@ -79,18 +91,20 @@ let _ =
       programs
   in
   let open Robot in
+  let init_pos = rand_pos () in
   let robots =
-    List.map
-      (fun (f, p) ->
+    List.mapi
+      (fun i (f, p) ->
         let r = init () in
+        let init_x, init_y = init_pos.(i) in
         cur_robot := r;
         Trace.trace_instr (r.env, r.mem) (Instr p) |> ignore;
         r.name <- f;
         r.program <- p;
-        r.x <- Random.int 1000 * click;
+        r.x <- init_x * click;
         r.last_x <- r.x;
         r.org_x <- r.x;
-        r.y <- Random.int 1000 * click;
+        r.y <- init_y * click;
         r.last_y <- r.y;
         r.org_y <- r.y;
         r)

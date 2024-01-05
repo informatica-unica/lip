@@ -19,3 +19,9 @@ dune exec crobots test/rabbit test/rook
 ```bash
 dune test
 ```
+
+# Auto-format your code
+
+```bash
+dune fmt
+```

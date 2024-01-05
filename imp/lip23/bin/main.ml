@@ -26,7 +26,7 @@ let read_file filename =
        let line = input_line ic in
        out := !out ^ "\n" ^ line
      done
-   with _ -> close_in_noerr ic);
+   with End_of_file -> close_in_noerr ic);
   !out
 
 let motion_cycles = 15
@@ -74,7 +74,9 @@ let rand_pos () =
   a
 
 let _ =
+  Printexc.record_backtrace true;
   Random.init (Unix.time () |> int_of_float);
+
   let filenames = Cmd.parse () in
   let programs = List.map (fun f -> (f, read_file f)) filenames in
   let programs =
@@ -112,7 +114,7 @@ let _ =
   in
   all_robots := Array.of_list robots;
 
-  loop ();
+  Printexc.print loop ();
 
   (* allow any flying missile to explode *)
   while

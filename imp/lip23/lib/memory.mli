@@ -57,7 +57,7 @@ val add_env : env_stack -> ide -> envval -> unit (* return type depends on your 
 (* [add_env env x v] binds the name [x] to the environment value [v] in the
    current environment *)
 
-val add_frame : stackval -> env_stack -> unit (* return type depends on your stack type *)
+val add_frame : env_stack -> unit (* return type depends on your stack type *)
 (* pushes a copy of the top environment to the stack *)
 
 val pop_frame : env_stack -> stackval

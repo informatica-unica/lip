@@ -15,7 +15,7 @@ type memval = int
 (* the type of memory items *)
 
 type envval =
-  | Loc of memval
+  | Loc of loc
   | Fun of (Ast.parameters * Ast.instruction)
   | Intrinsic of Ast.intrinsic
 (* the type of environment items *)

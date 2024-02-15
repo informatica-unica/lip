@@ -46,13 +46,21 @@ let rec loop () =
           match r.status with
           | ALIVE ->
               cur_robot := r;
+
+              (* EDIT THESE LINES IF YOU ARE ROLLING YOUR OWN TYPES *)
               r.ep <- Trace.trace1_expr (r.env, r.mem) r.ep
+              (* **************** *)
+
           | DEAD -> ()
         with Trace.NoRuleApplies ->
           r.ep <- CALL ("main", []);
+
+          (* EDIT THESE LINES IF YOU ARE ROLLING YOUR OWN TYPES *)
           r.env <- Memory.init_stack ();
           r.mem <- Memory.init_memory ();
           Trace.trace_instr (r.env, r.mem) (Instr r.program) |> ignore)
+          (* **************** *)
+
       !all_robots;
 
     decr movement;
@@ -100,9 +108,13 @@ let _ =
         let r = init () in
         let init_x, init_y = init_pos.(i) in
         cur_robot := r;
-        Trace.trace_instr (r.env, r.mem) (Instr p) |> ignore;
-        r.name <- f;
         r.program <- p;
+
+        (* EDIT THESE LINES IF YOU ARE ROLLING YOUR OWN TYPES *)
+        Trace.trace_instr (r.env, r.mem) (Instr p) |> ignore;
+        (* **************** *)
+
+        r.name <- Printf.sprintf "%d:%s" (i + 1) f;
         r.x <- init_x * click;
         r.last_x <- r.x;
         r.org_x <- r.x;

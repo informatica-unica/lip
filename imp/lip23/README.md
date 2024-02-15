@@ -6,6 +6,7 @@ In order to make the project work you'll need to:
 - define a lexer in `lib/lexer.mll`
 - define a parser in `lib/parser.mly`
 - implement the interfaces `lib/memory.mli` and `lib/trace.mli`
+- *(optional)* if you modified the signatures of the interfaces above (for example, you changed the signature of `trace1_expr` to return a `Ast.expression * state`), adapt the marked code in `bin/main.ml`
 
 ## Run the project
 

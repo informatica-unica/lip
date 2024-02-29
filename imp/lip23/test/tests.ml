@@ -50,6 +50,21 @@ let%test "abs" =
   "main() { int x = 21; if (x < 0) x = x * -1; return x; }"
   |> parse |> trace |> last = CONST 21
 
+let%test "while-const" =
+  "
+  main () {
+    int x = 0;
+
+    while(0) {
+      x = x + 42;
+    }
+
+    x = 3;
+
+    return x;
+  }"
+  |> parse |> trace |> last = CONST 3
+
 let%test "while-to-5" =
   "main() { int x = 0; while (x < 5) x = x + 1; return x; }" |> parse |> trace
   |> last = CONST 5

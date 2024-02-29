@@ -53,6 +53,7 @@ let rec loop () =
 
           | DEAD -> ()
         with Trace.NoRuleApplies ->
+          Printf.printf "%s restarted!\n" r.name;
           r.ep <- CALL ("main", []);
 
           (* EDIT THESE LINES IF YOU ARE ROLLING YOUR OWN TYPES *)

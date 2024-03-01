@@ -368,6 +368,21 @@ let%test "procedure" =
       i = i + 1;
   }" |> parse |> trace |> last = CONST 3
 
+let%test "drive" =
+  let r1 = Robot.init () in
+  Robot.cur_robot := r1;
+  let prog =
+    "
+  main () {
+
+  drive(20, 100);
+
+  return loc_x() == 0 && loc_y() == 0;
+  }"
+  in
+  let result = prog |> parse |> trace |> last in
+  r1.d_heading == 20 && r1.d_speed == 100 && result = CONST 1
+
 let%test "parse-rabbit" =
   "
   /* rabbit */

@@ -10,7 +10,7 @@ Invitation to the Discord server: **[https://discord.gg/fttNEU38](https://discor
 
 Before diving into the course, let's take care of a few technicalities.
 
-The set-up process is quite involved and may seem overwhelming at first, but bear with it for now. It will pay off in the subsequent lessons. Arguably, the technologies we introduce here will very likely serve the purposes of other courses and even of your future projects.
+This set up process is quite involved and may seem overwhelming at first, but bear with it for now. It will pay off in the subsequent lessons. Arguably, the technologies we introduce here will very likely serve the purposes of other courses and even of your future projects.
 
 ### 1. Fork this repository
 
@@ -20,38 +20,36 @@ You can find the "Fork" action at the top right of the page, next to "Star" butt
 
 ![image](https://github.com/user-attachments/assets/089be766-3027-4dd6-9f56-77f2b81e4616)
 
-
-By now you should be reading this guide from your fork's webpage. 
+By now you should be reading this guide from your fork's webpage.
 
 > [!IMPORTANT]
 > The teachers and tutors will update the upstream repository with new content from time to time.
-> 
+>
 > To reflect these changes to your fork, you have to [synchronize your fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork) regularly.
-> 
+>
 > The sync action is easily accessible from your fork's main page via the button:
-> 
+>
 > ![image](https://github.com/user-attachments/assets/1cb8d9e2-3a9f-4734-9149-ab6abcff20ac)
-> 
+>
 > or in the GitHub CLI via the command `gh repo sync`.
+
 ### 2. Set up the development environment
 
 Next, we'll configure your local OS for containerized development.
 
- 1. If you're on Windows, install the WSL 2 back-end. [Follow the official instructions](https://learn.microsoft.com/en-us/windows/wsl/install#install-wsl-command).
- 1. Install [Docker Desktop](https://docs.docker.com/get-started/get-docker/). 
- 1. Lastly, install [Visual Studio Code](https://code.visualstudio.com/Download).
+1.  If you're on Windows, install the WSL 2 back-end. [Follow the official instructions](https://learn.microsoft.com/en-us/windows/wsl/install#install-wsl-command).
+1.  Install [Docker Desktop](https://docs.docker.com/get-started/get-docker/).
+1.  Lastly, install [Visual Studio Code](https://code.visualstudio.com/Download).
 
-#### Open WSL
+#### Start WSL and check for git
 
 Once you've installed all three applications, start a WSL terminal and go through the initialization procedure, which will ask you to enter a username and a password for your account.
 
-Next, check that you have `git` by issuing the command:
+The default Linux distribution shipped with WSL should already come with `git` pre-installed, but it doesn't hurt to check:
 
 ```
 git --version
 ```
-
-It should print a version number.
 
 #### Install the GitHub CLI
 
@@ -63,7 +61,7 @@ To install the GitHub CLI, follow the [installation instructions](https://github
 gh --version
 ```
 
-#### Log on to GitHub from WSL
+#### Login to GitHub from WSL
 
 First, authenticate to your GitHub account from the GitHub CLI. Run:
 
@@ -91,9 +89,15 @@ Run the following command from your home folder, replacing `<YOUR-USERNAME>` wit
 clone https://github.com/YOUR-USERNAME/lip
 ```
 
-### 3. Open your fork in VS Code
+This downloads a local copy of your fork in a new director called `lip`. Navigate to it:
 
-We will now invoke VS Code's command-line interface `code` to start VS Code inside the `lip` folder:
+```
+cd lip
+```
+
+### 3. Open the VS Code container
+
+We will now invoke VS Code's command-line interface `code` to launch VS Code inside the `lip` folder:
 
 ```
 code lip
@@ -105,22 +109,125 @@ Briefly after the VS Code window shows up, you should see a notification like th
 
 Click on the blue button and wait for a while. If everything goes well, VS Code will have opened the repo's container set up for OCaml development.
 
-Try it out by opening the integrated terminal (`Ctrl + J`) and running `utop`.
+Try it out the Dev Container by opening the integrated terminal (`Ctrl + J`, then click on the "+" icon) and enter the command `utop`. Play with some OCaml expressions, then exit `utop` by pressing `Ctrl + D`.
 
 Congrats! You are now ready to write and test OCaml code.
 
 > [!NOTE]
-> 
-> The Docker image that VS Code installs comes with the OCaml compiler and many useful libraries that we'll use throughout the course. In particular, this installation includes:
-> 
+>
+> The Dev Container you've just opened transforms your VS Code into a fully integrated OCaml IDE. It comprises the [OCaml Platform extension](https://marketplace.visualstudio.com/items?itemName=ocamllabs.ocaml-platform#getting-started) and an installation of the OCaml compiler enriched with many useful libraries. In particular, this installation includes:
+>
 > - [**dune**](https://dune.readthedocs.io/), a build system for OCaml projects, similar to make;
 > - [**utop**](https://opam.ocaml.org/blog/about-utop/), a REPL interface for OCaml;
 > - [**Menhir**](http://gallium.inria.fr/~fpottier/menhir/), a parser generator;
 > - [**ppx_inline_test**](https://github.com/janestreet/ppx_inline_test), a tool for writing in-line tests in OCaml.
 
-### Conclusion
+## First project
 
-This wraps up the set-up tutorial. Your system in now equipped with the tools required to work on the exercises and on the course final assignment.
+To check that everything is installed correctly, we set up a first project (see [here](https://ocaml.org/docs/up-and-running#starting-a-new-project) for more detailed instructions).
+
+Navigate to `lip/basics` folder.
+Then, create a new project called `helloworld` using dune. Below, the lines starting with `>` contain the expected output of the given shell commands:
+
+```
+dune init project helloworld
+> Success: initialized project component named helloworld
+```
+
+This command creates a directory `helloworld` with the following file structure:
+
+```
+helloworld/
+├── dune-project
+├── bin
+│   └── dune
+│   └── main.ml
+├── lib
+│   └── dune
+├── test
+│   ├── dune
+│   └── helloworld.ml
+└── helloworld.opam
+```
+
+To check that the OCaml installation was successful, try to build the project from the `helloworld` directory:
+
+```bash
+cd helloworld
+dune build
+```
+
+If there are no errors, the output should be empty.
+Run the project as follows:
+
+```
+dune exec helloworld
+> Hello, World!
+```
+
+We will discuss the project structure in detail in the next exercise. For the moment, note that the `_build` directory contains the output of the `dune build` command. This includes the `main.exe` executable inside the `_build/default/bin/` subdirectory.
+
+> [!NOTE]
+> In this very first project, all the source code is in `./bin/main.ml`. For more complex projects, we will mainly write our source code in the `lib` directory.
+
+#### Push the solution to GitHub
+
+We won't do much else in this first project, so let's see how to record our changes to the fork.
+
+Assuming you're still under the `basics/helloworld` directory, run the following command:
+
+```
+git add .
+```
+
+Let's break it down. We're invoking `git` with two arguments. The first one, `add` is a git subcommand that lets you add new or modified files to the set of changes that should be recorded in the next commit (i.e. the _index_). The second argument, `.`, stands for the current directory (`basics/helloworld`).
+
+> [!TIP]
+> The command `git status` lets you review the changes you've staged for a commit.
+>
+> If you wish to unstage a change from the index, invoke `git restore --staged` on the changed files.
+
+Next, we commit the contents of the `helloworld` folder. A commit must be supplemented with a commit message describing the changes.
+
+```
+git commit -m "Create first dune project in basics/helloworld"
+```
+
+As before, `commit` is a subcommand of git. It accepts an optional argument, introduced by `-m`, that lets us specify the commit message as a string.
+
+The changes are still stored on our local file system. To update the remote fork repository with your commit, issue the command:
+
+```
+git push
+```
+
+The dual action of pushing is pulling. You'll only need to pull some commits to your local fork when the teachers update the upstream repository and you have synced your fork as previously noted.
+The command to pull is, you guessed it:
+
+```bash
+git pull
+```
+
+This might not work if you have some pending changes not yet committed to your working tree. In this case you can temporarily store away the modified files with:
+
+```bash
+git stash
+```
+
+and restore them later on top of the newer commits using:
+
+```bash
+git stash apply
+```
+
+> [!TIP]
+> You can always append the `--help` option to any of the above git subcommands to fully explore their functionality.
+>
+> We've shown just a few basic git commands here. Refer to the [Git Cheat Sheet](https://education.github.com/git-cheat-sheet-education.pdf) for more important commands.
+
+## Conclusion
+
+This wraps up the Getting Started tutorial. Your system in now equipped with the tools required to work on the exercises and on the course's final assignment.
 
 Now proceed to test your OCaml knowledge with these warm-up exercises:
 
@@ -131,17 +238,20 @@ Now proceed to test your OCaml knowledge with these warm-up exercises:
 ---
 
 ## Course outline
+
 ### Lexing and parsing
 
 1. [A toy lexer](toylexer)
 1. [A toy parser](toyparser)
 1. [Game of life](life)
+
 ### Arithmetic expressions
 
 1. [A minimal language of boolean expressions](expr/boolexpr)
 1. [Boolean expressions with not, and, or](expr/andboolexpr)
 1. [Typed arithmetic expressions with dynamic type checking](expr/arithexpr)
 1. [Typed arithmetic expressions with static type checking](expr/sarithexpr)
+
 ### Imperative languages
 
 1. [A simple imperative language](imp/while)

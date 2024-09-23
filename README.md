@@ -227,9 +227,13 @@ git stash apply
 
 ## Conclusion
 
-This wraps up the Getting Started tutorial. Your system in now equipped with the tools required to work on the exercises and on the course's final assignment.
+You made it to the end of Getting Started tutorial! You and your system should now be ready to take on the more theoretical stuff. 
 
-Now proceed to test your OCaml knowledge with these warm-up exercises:
+Here's a final diagram to help you understand the lab workflow.
+
+![image](https://github.com/user-attachments/assets/b523f3e7-e27a-436d-af06-ecb1f5649bb4)
+
+Now proceed to refresh your OCaml knowledge with these warm-up exercises:
 
 1. [Adder](basics/adder)
 1. [Recognizer](basics/recognizer)

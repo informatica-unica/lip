@@ -1,0 +1,13 @@
+{
+	"name": "lip",
+
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+
+	"customizations": {
+		"vscode": {
+			"extensions": ["ocamllabs.ocaml-platform"]
+		}
+	}
+}

@@ -45,7 +45,7 @@ Next, we'll configure your local OS for containerized development.
 
 Once you've installed all three applications, start a WSL terminal and go through the initialization procedure, which will ask you to enter a username and a password for your account.
 
-The default Linux distribution shipped with WSL should already come with `git` pre-installed, but it doesn't hurt to check:
+The default Linux distribution that is shipped with WSL already comes with `git` pre-installed, but it doesn't hurt to check:
 
 ```
 git --version
@@ -53,9 +53,9 @@ git --version
 
 #### Install the GitHub CLI
 
-This tool is very useful to manage your online repositories from the comfort of the command line. We just need it to perform `git` command as an authenticated user.
+The GitHub CLI is useful tool to manage your online repositories from the comfort of the command line. We just need it to perform `git` commands as an authenticated user.
 
-To install the GitHub CLI, follow the [installation instructions](https://github.com/cli/cli) that suit your Linux distribution. Then check it's installed with:
+To install the GitHub CLI, follow the [installation instructions for Linux](https://github.com/cli/cli/blob/trunk/docs/install_linux.md). Then check it's installed with:
 
 ```
 gh --version
@@ -89,11 +89,7 @@ Run the following command from your home folder, replacing `<YOUR-USERNAME>` wit
 clone https://github.com/YOUR-USERNAME/lip
 ```
 
-This downloads a local copy of your fork in a new director called `lip`. Navigate to it:
-
-```
-cd lip
-```
+This downloads a local copy of your fork in a new directory called `lip`.
 
 ### 3. Open the VS Code container
 

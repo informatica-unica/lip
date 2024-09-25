@@ -41,15 +41,19 @@ Next, we'll configure your local OS for containerized development.
 1.  Install [Docker Desktop](https://docs.docker.com/get-started/get-docker/).
 1.  Lastly, install [Visual Studio Code](https://code.visualstudio.com/Download).
 
-#### [Windows users only] Start and configure WSL
+#### [Windows users only] Configure WSL and Docker
 
 _Skip this section if you don't use Windows._
 
-Hit the keys `Win + S` and search for "WSL" or "Ubuntu". Clicking the first result should open a pitch-black window with white text on it.
++ Hit the keys `Win + S` and search for "WSL" or "Ubuntu". Clicking the first result should open a pitch-black window with white text on it.
+  
+  Read it carefully, and make sure you understand it as you go through the initialization procedure.
+  It will eventually ask you to enter a username and a password for your account. Note these down.
 
-Read it carefully, and make sure you understand it as you go through the initialization procedure.
++ On Docker Desktop, make sure WSL 2 integration is enabled. To do so, perform the actions shown in this gif:
 
-It will eventually ask you to enter a username and a password for your account. Note these down.
+  ![non-exact-turn](https://github.com/user-attachments/assets/16715217-1087-44b1-8d22-b89543695520)
+
 
 #### Install git
 
@@ -244,7 +248,7 @@ You made it to the end of Getting Started tutorial! You and your system should n
 
 Here's a final diagram to help you understand the lab workflow.
 
-![image](https://github.com/user-attachments/assets/b523f3e7-e27a-436d-af06-ecb1f5649bb4)
+![image](https://github.com/user-attachments/assets/8ae392cf-997c-483f-bf49-60d169726e9f)
 
 Now proceed to refresh your OCaml knowledge with these warm-up exercises:
 

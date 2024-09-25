@@ -41,9 +41,14 @@ Next, we'll configure your local OS for containerized development.
 1.  Install [Docker Desktop](https://docs.docker.com/get-started/get-docker/).
 1.  Lastly, install [Visual Studio Code](https://code.visualstudio.com/Download).
 
-#### Start WSL and check for git
+#### [Windows users] Start WSL and check for git
 
-Once you've installed all three applications, start a WSL terminal and go through the initialization procedure, which will ask you to enter a username and a password for your account.
+_Skip this section if you don't use Windows._
+
+Hit the `Win + S` and search for "WSL" or "Ubuntu", the first result should open a pitch-black window with white text on it. 
+Read it carefully, and make sure you understand it.
+
+Go through the initialization procedure, which will ask you to enter a username and a password for your account.
 
 The default Linux distribution that is shipped with WSL already comes with `git` pre-installed, but it doesn't hurt to check:
 
@@ -51,9 +56,18 @@ The default Linux distribution that is shipped with WSL already comes with `git`
 git --version
 ```
 
+If that command fails, then you must install `git` on WSL. On the default distro, it boils down to the two commands:
+
+```
+sudo apt update
+sudo apt install git
+```
+
 #### Install the GitHub CLI
 
-The GitHub CLI is useful tool to manage your online repositories from the comfort of the command line. We just need it to perform `git` commands as an authenticated user.
+From now on we will be working solely on the command line of a Linux shell. If you're on Windows, that means you're going to be typing commands within a WSL shell running Ubuntu. Otherwise, as a Linux or macOS user, you're going to be using your OS's native shell.
+
+Next, we want the GitHub CLI. The GitHub CLI is a useful tool to manage your online repositories from the comfort of the command line. We just need it to perform `git` commands as an authenticated user.
 
 To install the GitHub CLI, follow the [installation instructions for Linux](https://github.com/cli/cli/blob/trunk/docs/install_linux.md). Then check it's installed with:
 
@@ -83,10 +97,10 @@ From now on `git` will sign your commits with the given credentials and will act
 
 #### Clone your Lip lab fork
 
-Run the following command from your home folder, replacing `<YOUR-USERNAME>` with your GitHub username:
+Run the following command from your home folder, replacing `YOUR-USERNAME` with your GitHub username:
 
 ```
-clone https://github.com/YOUR-USERNAME/lip
+git clone https://github.com/YOUR-USERNAME/lip
 ```
 
 This downloads a local copy of your fork in a new directory called `lip`.

@@ -41,22 +41,27 @@ Next, we'll configure your local OS for containerized development.
 1.  Install [Docker Desktop](https://docs.docker.com/get-started/get-docker/).
 1.  Lastly, install [Visual Studio Code](https://code.visualstudio.com/Download).
 
-#### [Windows users] Start WSL and check for git
+#### [Windows users only] Start and configure WSL
 
 _Skip this section if you don't use Windows._
 
-Hit the `Win + S` and search for "WSL" or "Ubuntu", the first result should open a pitch-black window with white text on it. 
-Read it carefully, and make sure you understand it.
+Hit the keys `Win + S` and search for "WSL" or "Ubuntu". Clicking the first result should open a pitch-black window with white text on it.
 
-Go through the initialization procedure, which will ask you to enter a username and a password for your account.
+Read it carefully, and make sure you understand it as you go through the initialization procedure.
 
-The default Linux distribution that is shipped with WSL already comes with `git` pre-installed, but it doesn't hurt to check:
+It will eventually ask you to enter a username and a password for your account. Note these down.
+
+#### Install git
+
+From now on we will be working solely on the command line of a Linux shell. If you're on Windows, that means you're going to be typing commands within a WSL shell running Ubuntu. Otherwise, as a Linux or macOS user, you're going to be using your OS's native shell.
+
+Many commercial Linux distributions, including the one shipped with WSL, already come with `git` preinstalled, but it doesn't hurt to check:
 
 ```
 git --version
 ```
 
-If that command fails, then you must install `git` on WSL. On the default distro, it boils down to the two commands:
+If that command fails, then you must [install `git`](https://git-scm.com/downloads/linux) on your system. On Debian and Ubuntu, it boils down to the two commands:
 
 ```
 sudo apt update
@@ -64,8 +69,6 @@ sudo apt install git
 ```
 
 #### Install the GitHub CLI
-
-From now on we will be working solely on the command line of a Linux shell. If you're on Windows, that means you're going to be typing commands within a WSL shell running Ubuntu. Otherwise, as a Linux or macOS user, you're going to be using your OS's native shell.
 
 Next, we want the GitHub CLI. The GitHub CLI is a useful tool to manage your online repositories from the comfort of the command line. We just need it to perform `git` commands as an authenticated user.
 
@@ -75,7 +78,7 @@ To install the GitHub CLI, follow the [installation instructions for Linux](http
 gh --version
 ```
 
-#### Login to GitHub from WSL
+#### Login to GitHub from the shell
 
 First, authenticate to your GitHub account from the GitHub CLI. Run:
 
@@ -95,7 +98,7 @@ git config --global user.email <YOUR-EMAIL@EXAMPLE.COM>
 
 From now on `git` will sign your commits with the given credentials and will act on the behalf of your GitHub account whenever you push to a remote repository, such as your fork.
 
-#### Clone your Lip lab fork
+#### Clone your LiP lab fork
 
 Run the following command from your home folder, replacing `YOUR-USERNAME` with your GitHub username:
 

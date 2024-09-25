@@ -65,7 +65,7 @@ Many commercial Linux distributions, including the one shipped with WSL, already
 git --version
 ```
 
-If that command fails, then you must [install `git`](https://git-scm.com/downloads/linux) on your system. On Debian and Ubuntu, it boils down to the two commands:
+If that command fails, then you must [install `git` for your distro](https://git-scm.com/downloads/linux). For Ubuntu and WSL it boils down to the two commands:
 
 ```
 sudo apt update
@@ -92,8 +92,8 @@ gh auth login
 
 and follow the on-screen procedure carefully.
 
-Next, we need let `git` know about your GitHub profile.
-Run the following commands being sure to use the username and the email of your GitHub account.
+Next, we need to let `git` know about your GitHub profile.
+Run the following commands, being sure to use the username and the email of your GitHub account.
 
 ```bash
 git config --global user.name <YOUR-USERNAME>
@@ -197,7 +197,7 @@ Assuming you're still under the `basics/helloworld` directory, run the following
 git add .
 ```
 
-Let's break it down. We're invoking `git` with two arguments. The first one, `add` is a git subcommand that lets you add new or modified files to the set of changes that should be recorded in the next commit (i.e. the _index_). The second argument, `.`, stands for the current directory (`basics/helloworld`).
+Let's break it down. We're invoking `git` with two arguments. The first one, `add`, is a git subcommand that lets you add new or modified files to the set of changes that should be recorded in the next commit (i.e. the _index_). The second argument, `.`, stands for the current directory (`basics/helloworld`).
 
 > [!TIP]
 > The command `git status` lets you review the changes you've staged for a commit.

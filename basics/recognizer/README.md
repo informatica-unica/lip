@@ -12,7 +12,7 @@ From your fork of the repository, go to the `lip/basics` directory and create a 
 ```
 dune init project recognizer
 ```
-Executing the command will preserve the files [bin/main.ml](bin/main.ml) and [lib/adder.ml](lib/adder.ml) in the repository.
+Executing the command will preserve the files [bin/main.ml](bin/main.ml) and [lib/recognizer.ml](lib/recognizer.ml) in the repository.
 
 The main routine in [bin/main.ml](bin/main.ml) reads a line from the stdin,
 converts it into a list of chars, and then applies the function:
@@ -41,7 +41,7 @@ open Recognizer;;
 ```
 or write the line in the file `recognizer/.ocamlinit`.
 
-At this point, you can test the functions you have defined in the [lib/recognizer.ml] file.
+At this point, you can test the functions you have defined in the [lib/recognizer.ml](lib/recognizer.ml) file.
 
 ## Unit tests
 

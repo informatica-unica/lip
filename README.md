@@ -50,6 +50,9 @@ _Skip this section if you don't use Windows._
   Read it carefully, and make sure you understand it as you go through the initialization procedure.
   It will eventually ask you to enter a username and a password for your account. Note these down.
 
+  Everytime you start WSL, you should be logged in to your user account. This is made clear by the shell prompt ending with a `$` sign.
+  If something still isn't quite right, refer to this [Microsoft Learn guide](https://learn.microsoft.com/en-us/windows/wsl/setup/environment) for a proper setup.
+  
 + On Docker Desktop, make sure WSL 2 integration is enabled. To do so, perform the actions shown in this gif:
 
   ![non-exact-turn](https://github.com/user-attachments/assets/16715217-1087-44b1-8d22-b89543695520)

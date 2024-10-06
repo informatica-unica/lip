@@ -37,28 +37,57 @@ By now you should be reading this guide from your fork's webpage.
 
 Next, we'll configure your local OS for containerized development.
 
-1.  If you're on Windows, install the WSL 2 back-end. [Follow the official instructions](https://learn.microsoft.com/en-us/windows/wsl/install#install-wsl-command).
+1.  If you're on Windows (at least 10), install the WSL 2 back-end. [Follow the official instructions](https://learn.microsoft.com/en-us/windows/wsl/install#install-wsl-command).
 1.  Install [Docker Desktop](https://docs.docker.com/get-started/get-docker/).
 1.  Lastly, install [Visual Studio Code](https://code.visualstudio.com/Download).
 
-#### [Windows users only] Configure WSL and Docker
+### [Windows users only] Configure WSL
 
-_Skip this section if you don't use Windows._
+_Skip this section and jump to "Configure git" if you don't use Windows._
 
-+ Hit the keys `Win + S` and search for "WSL" or "Ubuntu". Clicking the first result should open a pitch-black window with white text on it.
-  
-  Read it carefully, and make sure you understand it as you go through the initialization procedure.
-  It will eventually ask you to enter a username and a password for your account. Note these down.
+Hit the keys `Win + S` and search for "WSL" or "Ubuntu". Clicking the first result should open a pitch-black window with white text on it.
 
-  Everytime you start WSL, you should be logged in to your user account. This is made clear by the shell prompt ending with a `$` sign.
-  If something still isn't quite right, refer to this [Microsoft Learn guide](https://learn.microsoft.com/en-us/windows/wsl/setup/environment) for a proper setup.
-  
-+ On Docker Desktop, make sure WSL 2 integration is enabled. To do so, perform the actions shown in this gif:
+Read it carefully, and make sure you understand it as you go through the initialization procedure.
+It will eventually ask you to enter a username and a password for your account. Note these down.
+
+Every time you start WSL, you should be logged in to a user account. This is made clear by the shell prompt ending with a `$` sign. If this is your case, skip to "Configure Docker for WSL" below.
+
+#### Creating a user account manually
+
+If your prompt line ends with the `#` character after starting WSL, that means you're signed as root, which is not ideal.
+
+In the following commands, replace `username` with one of your choice. To create a user account manually, run:
+
+```
+adduser username --ingroup sudo
+```
+
+Input a password and don't bother filling out the other fields. Then, to login into your new account:
+
+```
+login username
+```
+
+Future WSL sessions will start in this user account.
+
+Additional references: [Microsoft Learn guide](https://learn.microsoft.com/en-us/windows/wsl/setup/environment), [Ubuntu Wiki](https://help.ubuntu.com/community/RootSudo#Allowing_other_users_to_run_sudo).
+
+> [!NOTE]
+> To start WSL as root again, run the following command from PowerShell, replacing `distro` with one of your installations shown by `wsl --list`:
+>
+> ```
+> wsl -d distro -u root
+> ```
+
+#### Configure Docker for WSL
+
+On Docker Desktop, make sure WSL 2 integration is enabled. Follow the actions shown in this gif:
 
   ![non-exact-turn](https://github.com/user-attachments/assets/16715217-1087-44b1-8d22-b89543695520)
 
+It's okay if the last page doesn't exactly match yours (I have many WSL distros): it suffices to check the box for the default distro.
 
-#### Install git
+### 3. Configure git
 
 From now on we will be working solely on the command line of a Linux shell. If you're on Windows, that means you're going to be typing commands within a WSL shell running Ubuntu. Otherwise, as a Linux or macOS user, you're going to be using your OS's native shell.
 
@@ -99,23 +128,23 @@ Next, we need to let `git` know about your GitHub profile.
 Run the following commands, being sure to use the username and the email of your GitHub account.
 
 ```bash
-git config --global user.name <YOUR-USERNAME>
-git config --global user.email <YOUR-EMAIL@EXAMPLE.COM>
+git config --global user.name your-username
+git config --global user.email your-email@example.com
 ```
 
 From now on `git` will sign your commits with the given credentials and will act on the behalf of your GitHub account whenever you push to a remote repository, such as your fork.
 
 #### Clone your LiP lab fork
 
-Run the following command from your home folder, replacing `YOUR-USERNAME` with your GitHub username:
+Run the following command from your home folder, replacing `your-username` with your GitHub username:
 
 ```
-git clone https://github.com/YOUR-USERNAME/lip
+git clone https://github.com/your-username/lip
 ```
 
 This downloads a local copy of your fork in a new directory called `lip`.
 
-### 3. Open the VS Code container
+### 4. Open the VS Code container
 
 We will now invoke VS Code's command-line interface `code` to launch VS Code inside the `lip` folder:
 
@@ -247,7 +276,7 @@ git stash apply
 
 ## Conclusion
 
-You made it to the end of Getting Started tutorial! You and your system should now be ready to take on the more theoretical stuff. 
+You made it to the end of Getting Started tutorial! You and your system should now be ready to take on the more theoretical stuff.
 
 Here's a final diagram to help you understand the lab workflow.
 

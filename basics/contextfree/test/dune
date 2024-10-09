@@ -1,0 +1,6 @@
+(library
+ (name contextfreetest)
+ (inline_tests)
+ (preprocess
+  (pps ppx_inline_test))
+ (libraries contextfree))

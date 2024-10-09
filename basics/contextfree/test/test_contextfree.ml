@@ -24,7 +24,7 @@ let%test "step_g1_example" =
     |> string_of_sentform = "011110"
 
 
-(* ### Exercise *)
+(* #### Exercise 2.1 *)
 let zero_n_one_n : grammar = failwith "todo"
 
 let%test "zero_n_one_n_1" = (* REMOVE '[]' AND FILL IN HERE *) [] |> string_of_sentform = ""
@@ -32,7 +32,7 @@ let%test "zero_n_one_n_2" = (* FILL IN HERE *) [] |> string_of_sentform = "01"
 let%test "zero_n_one_n_3" = (* FILL IN HERE *) [] |> string_of_sentform = "00000000001111111111"
 
 
-(* ### Exercise *)
+(* #### Exercise 2.2 *)
 let zero_one_same : grammar = failwith "todo"
 
 let%test "zero_one_same_1" = (* FILL IN HERE *) [] |> string_of_sentform = ""

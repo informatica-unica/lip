@@ -6,7 +6,8 @@ let string_of_sentform (s : sentential_form) : string =
   |> List.to_seq |> String.of_seq
 
 
-(** [step (left, right) w] replaces [right] for the
+(** #### Exercise 1.1
+    [step (left, right) w] replaces [right] for the
     first occurrence of [left] in [w]. Examples:
 
     [step S      (S -> 0S0)   = 0S0]
@@ -26,7 +27,8 @@ let step_g (g : grammar) (n : int) : sentential_form -> sentential_form =
   step (List.nth g.productions n)
 
 
-(** [derive g ids] returns the [sentence] obtained by
+(** #### Exercise 1.2
+    [derive g ids] returns the [sentence] obtained by
     cumulatively applying the productions of [g] in the
     order defined by [ids] to the start symbol of [g].
 *)
@@ -34,7 +36,9 @@ let derive : grammar -> int list -> sentential_form =
   failwith "todo"
 
 
-(** [can_step s] detects whether [s] contains non-terminal symbols. *)
+(** #### Exercise 1.3
+    [can_step s] detects whether [s] contains non-terminal symbols.
+*)
 let can_step : sentential_form -> bool =
   failwith "todo"
 

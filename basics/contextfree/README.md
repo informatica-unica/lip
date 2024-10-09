@@ -1,21 +1,18 @@
 # Context-free grammars
 
 From your fork of the repository, go to the `lip/basics` directory and create a new project with the following command:
-
 ```
 dune init project contextfree
 ```
 
 Context-free grammars can easily be encoded in OCaml with types only.
 
-First, we need a few constructors to represents non-terminal symbols:
-
+First, we need a few constructors to represent non-terminal symbols:
 ```ocaml
 type symbol = A | B | S
 ```
 
 The primitive type `char` represents terminal symbols:
-
 ```ocaml
 type terminal = char
 ```
@@ -29,20 +26,17 @@ type sentential_form = symbol_or_terminal list
 ```
 
 A production maps a single non-terminal symbol to a sentential form. We encode this relation with a product type:
-
 ```ocaml
 type production = symbol * sentential_form
 ```
 
 Now we're ready to describe a context free grammar to OCaml. Recall that a grammar at its core comprises:
-
 - a set of non-terminal symbols $V$
 - a set of terminal symbols $A$
 - a set of productions $P$
 - a start symbol $S$
 
 We model this collection with a record type, using lists in place of sets:
-
 ```ocaml
 type grammar = {
   symbols : symbol list;

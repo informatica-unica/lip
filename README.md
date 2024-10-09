@@ -285,7 +285,7 @@ Here's a final diagram to help you understand the lab workflow.
 Now proceed to refresh your OCaml knowledge with these warm-up exercises:
 
 1. [Adder](basics/adder)
-1. [Recognizer](basics/recognizer)
+1. [Regexp recognizer](basics/recognizer)
 1. [Tug of war](basics/tugofwar)
 
 ---

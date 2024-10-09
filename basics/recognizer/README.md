@@ -1,4 +1,4 @@
-# Regular expressions recognizer
+# Regexp recognizer
 
 This project requires to implement recognizers for the following
 regular languages (expressed in Unix regexp syntax):

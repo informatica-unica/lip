@@ -1,0 +1,4 @@
+(executable
+ (public_name tugofwar)
+ (name main)
+ (libraries tugofwar))

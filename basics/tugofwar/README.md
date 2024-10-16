@@ -37,7 +37,7 @@ let explode s =
   exp (String.length s - 1) []
 ```
 
-Check the file [lib/tugofwar.ml] for the signature of these functions,  
+Check the file [lib/tugofwar.ml](lib/tugofwar.ml) for the signature of these functions,  
 complete their implementation, and then test the project using `dune exec tugofwar`.
 
 Recall that you can use the command:

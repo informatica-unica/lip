@@ -1,4 +1,4 @@
-# Regular expressions recognizer
+# Regexp recognizer
 
 This project requires to implement recognizers for the following
 regular languages (expressed in Unix regexp syntax):
@@ -46,3 +46,11 @@ At this point, you can test the functions you have defined in the [lib/recognize
 ## Unit tests
 
 This project does not include unit tests. Implement your unit tests as done in the `adder` project.
+
+### Bonus
+
+Is there a word that belongs to all five languages? If you believe so, prove it with a unit test:
+
+```ocaml
+let%test "" = belongsTo (* your word *) = [true;true;true;true;true]
+```

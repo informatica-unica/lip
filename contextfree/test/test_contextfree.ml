@@ -10,9 +10,9 @@ let to_string = string_of_sentform
     productions to generate the word on the right of the "=". *)
 
 (* #### Exercise 1 *)
-let%test "zero_n_one_n_1" = derive zero_n_one_n [ (* FILL IN HERE *) ] |> to_string = ""
-let%test "zero_n_one_n_2" = derive zero_n_one_n [ (* FILL IN HERE *) ] |> to_string = "01"
-let%test "zero_n_one_n_3" = derive zero_n_one_n [ (* FILL IN HERE *) ] |> to_string = "00000000001111111111"
+let%test "zero_n_one_n_1" = derive zero_n_one_n [ 0 ] |> to_string = ""
+let%test "zero_n_one_n_2" = derive zero_n_one_n [ 1;0 ] |> to_string = "01"
+let%test "zero_n_one_n_3" = derive zero_n_one_n [ 1;1;1;1;1;1;1;1;1;1;0] |> to_string = "00000000001111111111"
 
 (* #### Exercise 2 *)
 let%test "palindromes_1" = derive palindromes [ (* FILL IN HERE *) ] |> to_string = "11011"

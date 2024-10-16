@@ -24,7 +24,7 @@ let symbol_of_char = function
   | _ -> None
 
 let string_of_sentform = function
-  | [] -> "ϵ"
+  | [] -> ""
   | s ->
       s
       |> List.filter_map (function

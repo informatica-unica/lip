@@ -7,20 +7,41 @@ let todo : grammar =
     terminals = [ '0'; '1' ];
     productions =
       [
-        S --> "0S0";
-        S --> "1S1";
-        S --> "";
+        S --> "0S0"; (* 0 *)
+        S --> "1S1"; (* 1 *)
+        S --> ""; (* 2 *)
       ];
     start = S;
   }
 
 
 (* #### Exercise 1, easy (zero_n_one_n) *)
-let zero_n_one_n : grammar = todo
+let zero_n_one_n : grammar = 
+  {
+    symbols = [ S ];
+    terminals = [ '0'; '1'];
+    productions =
+      [
+        S --> "";
+        S --> "0S1";
+      ];
+    start = S;
+  }
 
 
 (* #### Exercise 2, easy (palindromes) *)
-let palindromes : grammar = todo
+let palindromes : grammar = 
+  {
+    symbols = [ S ];
+    terminals = [ '0'; '1' ];
+    productions =
+      [
+        S --> "0S0"; (* 0 *)
+        S --> "1S1"; (* 1 *)
+        S --> ""; (* 2 *)
+      ];
+    start = S;
+  }
 
 
 (* #### Exercise 3, medium (balanced_parentheses)*)

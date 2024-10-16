@@ -17,7 +17,7 @@ let char_to_token c = match c with
   |'=' -> X
   |_-> failwith "Token non esiste";;
 
-let rec toklist_of_string s = 
+let toklist_of_string s = 
   List.map char_to_token (explode s);;
 
 
@@ -45,10 +45,21 @@ and valid_X l = match l with
 (* val win : token list -> token *)
 (* win l determines the winner of a tug of war game. X means tie *)
 
-let rec win l = match l with
-  [] -> 
-  | x :: tail -> if(x==A) then 
-    
+let win l = 
+  let rec counter t (a, b)= (* seconda funzione che prende come tupla i conteggi di A e B*)
+    match t with
+    [] -> (a, b) (*restituisce il numero del conteggio finale*)
+    | x :: tail -> 
+      match x with (*se nella coda trova A o B incrementa il conteggio*)
+      |A -> counter tail (a+1, b) 
+      |B -> counter tail (a, b+1)
+      |X -> counter tail (a, b) in (*variabili ausiliari*)
+    (*finito il conteggio richiamo la funzione inizializzandola con una variabile ausiliare*)
+  let (a, b) = counter l (0,0) in
+  if a > b then A else if a < b then B else X;; (*una volta usata la funzione faccio il confroto*)
 
 (* val string_of_winner : token -> string *)
-let string_of_winner w = failwith "TODO"
+let string_of_winner w = match w with
+  |A -> "A"
+  |B -> "B"
+  |X -> "X"

@@ -7,16 +7,16 @@ let todo : grammar =
     terminals = [ '0'; '1' ];
     productions =
       [
-        S --> [ Terminal '0'; Symbol S; Terminal '0' ];
-        S --> [ Terminal '1'; Symbol S; Terminal '1' ];
-        S --> [];
+        S --> "0S0";
+        S --> "1S1";
+        S --> "";
       ];
     start = S;
   }
 
 
-(* #### Exercise 1, easy (zero_n_one_n) *)
-let zero_n_one_n : grammar = todo
+(* #### Exercise 1, easy (a_n_b_n) *)
+let a_n_b_n : grammar = todo
 
 
 (* #### Exercise 2, easy (word_reverse) *)
@@ -31,5 +31,7 @@ let palindromes : grammar = todo
 let balanced_parentheses : grammar = todo
 
 
-(* #### Exercise 5, hard (zero_one_same) *)
-let zero_one_same : grammar = todo
+(* #### Exercise 5, hard (same_amount)
+   Hint: this time, use 'a' and 'b' for terminals.
+*)
+let same_amount : grammar = todo

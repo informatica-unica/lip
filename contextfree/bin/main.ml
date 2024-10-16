@@ -2,10 +2,10 @@ open Contextfree.Grammar
 open Contextfree.Types
 open Contextfree.Exercises
 
-let input_grammar = todo (* REPLACE WITH A GRAMMAR YOU WANT TO TEST *)
+let input_grammar = todo (* REPLACE [todo] WITH A GRAMMAR YOU WANT TO TEST *)
 
 let random_list max_value : int list =
-  List.init (Random.int 10 + 1) (fun _ -> Random.int max_value)
+  List.init (Random.int 100 + 1) (fun _ -> Random.int max_value)
 
 let string_of_list (to_string : 'a -> string) (l : 'a list) : string =
   let rec go = function

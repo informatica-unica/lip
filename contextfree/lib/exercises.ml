@@ -68,10 +68,6 @@ let balanced_parentheses : grammar = {
    than the number of 1s and viceversa, then combine them.
 *)
 
-
-
-
-
 let same_amount : grammar = {
   symbols = [ S; A; B ];           (* Simboli non terminali *)
   terminals = [ '0'; '1' ];        (* Simboli terminali *)

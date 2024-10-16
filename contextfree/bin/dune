@@ -1,4 +1,4 @@
 (executable
  (public_name contextfree)
  (name main)
- (libraries contextfree))
+ (libraries contextfree unix))

@@ -2,7 +2,7 @@ open Contextfree.Grammar
 open Contextfree.Types
 open Contextfree.Exercises
 
-let input_grammar = todo (* REPLACE [todo] WITH A GRAMMAR YOU WANT TO TEST *)
+let input_grammar = balanced_parentheses (* REPLACE [todo] WITH A GRAMMAR YOU WANT TO TEST *)
 let max_steps = 10
 
 let random_production (g : grammar) (sent : sentential_form) : int * production

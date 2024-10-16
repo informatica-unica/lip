@@ -3,7 +3,12 @@ open Types
 (** [can_step s] detects whether [s] contains non-terminal symbols.
 *)
 let can_step (s : sentential_form) : bool =
-  List.find_opt (function Symbol _ -> true | _ -> false) s <> None
+  List.find_opt
+    (function
+      | Symbol _ -> true
+      | _ -> false)
+    s
+  <> None
 
 (** [step (left, right) w] replaces [right] for the
     first occurrence of [left] in [w]. Examples:

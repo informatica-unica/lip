@@ -15,23 +15,17 @@ let%test "zero_n_one_n_2" = derive zero_n_one_n [ (* FILL IN HERE *) ] |> to_str
 let%test "zero_n_one_n_3" = derive zero_n_one_n [ (* FILL IN HERE *) ] |> to_string = "00000000001111111111"
 
 (* #### Exercise 2 *)
-let%test "word_reverse_1" = derive word_reverse [ (* FILL IN HERE *) ] |> to_string = ""
-let%test "word_reverse_2" = derive word_reverse [ (* FILL IN HERE *) ] |> to_string = "0110"
-let%test "word_reverse_4" = derive word_reverse [ (* FILL IN HERE *) ] |> to_string = "011110"
-let%test "word_reverse_3" = derive word_reverse [ (* FILL IN HERE *) ] |> to_string = "01100110"
-
-(* #### Exercise 3 *)
 let%test "palindromes_1" = derive palindromes [ (* FILL IN HERE *) ] |> to_string = "11011"
-let%test "palindromes_2" = derive palindromes [ (* FILL IN HERE *) ] |> to_string = "010"
+let%test "palindromes_2" = derive palindromes [ (* FILL IN HERE *) ] |> to_string = "0110"
 let%test "palindromes_3" = derive palindromes [ (* FILL IN HERE *) ] |> to_string = "011101110"
 
-(* #### Exercise 4 *)
-let%test "balanced_parentheses_1" = derive balanced_parentheses [ (* FILL IN HERE *) ] |> to_string = "()"
+(* #### Exercise 3 *)
+let%test "balanced_parentheses_1" = derive balanced_parentheses [ (* FILL IN HERE *) ] |> to_string = "()[]{}"
 let%test "balanced_parentheses_2" = derive balanced_parentheses [ (* FILL IN HERE *) ] |> to_string = "({})[]"
 let%test "balanced_parentheses_3" = derive balanced_parentheses [ (* FILL IN HERE *) ] |> to_string = "({[][{}()]})"
 
 (* #### Exercise 5 *)
-let%test "zero_one_same_1" = derive zero_one_same [ (* FILL IN HERE *) ] |> to_string = ""
-let%test "zero_one_same_2" = derive zero_one_same [ (* FILL IN HERE *) ] |> to_string = "1001"
-let%test "zero_one_same_3" = derive zero_one_same [ (* FILL IN HERE *) ] |> to_string = "00110101"
-let%test "zero_one_same_4" = derive zero_one_same [ (* FILL IN HERE *) ] |> to_string = "10001110"
+let%test "zero_one_same_1" = derive same_amount [ (* FILL IN HERE *) ] |> to_string = ""
+let%test "zero_one_same_2" = derive same_amount [ (* FILL IN HERE *) ] |> to_string = "1001"
+let%test "zero_one_same_3" = derive same_amount [ (* FILL IN HERE *) ] |> to_string = "00110101"
+let%test "zero_one_same_4" = derive same_amount [ (* FILL IN HERE *) ] |> to_string = "10001110"

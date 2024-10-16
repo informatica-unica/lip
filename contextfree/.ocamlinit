@@ -1,4 +1,4 @@
 open Contextfree
 open Grammar
 open Types
-open Exercises.
+open Exercises

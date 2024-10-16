@@ -38,14 +38,34 @@ let palindromes : grammar =
       [
         S --> "0S0"; (* 0 *)
         S --> "1S1"; (* 1 *)
-        S --> ""; (* 2 *)
+        S --> "1"; (* 2 *)
+        S --> "0"; (* 3 *)
+        S --> ""; (* 4 *)
       ];
     start = S;
   }
 
 
 (* #### Exercise 3, medium (balanced_parentheses)*)
-let balanced_parentheses : grammar = todo
+let balanced_parentheses : grammar = 
+  {
+    symbols = [ S ];
+    terminals = [ '('; ')'; '[' ; ']'; '{' ; '}' ];
+    productions =
+      [
+        S --> ""; (* 0 *)
+        S --> "()S"; (* 1 *)
+        S --> "[]S"; (* 2 *)
+        S --> "{}S"; (* 3 *)
+        S --> "(S)"; (* 4 *)
+        S --> "[S]"; (* 5 *)
+        S --> "{S}"; (* 6 *)
+        S --> "S()"; (* 7 *)
+        S --> "S[]"; (* 8 *)
+        S --> "S{}"; (* 9 *)
+      ];
+    start = S;
+  }
 
 
 (* #### Exercise 4, hard (same_amount)
@@ -54,4 +74,19 @@ let balanced_parentheses : grammar = todo
    Hint 2: think of the language of words where the number of 0s is one greater
    than the number of 1s and viceversa, then combine them.
 *)
-let same_amount : grammar = todo
+let same_amount : grammar = 
+  {
+    symbols = [ S ];
+    terminals = [ '0'; '1'];
+    productions =
+      [
+        S --> ""; (* 0 *)
+        S --> "0011S"; (* 1 *)
+        S --> "1100S"; (* 2 *)
+        S --> "01S"; (* 3 *)
+        S --> "10S"; (* 4 *)
+        S --> "0S1"; (* 5 *)
+        S --> "1S0"; (* 6 *)
+      ];
+    start = S;
+  }

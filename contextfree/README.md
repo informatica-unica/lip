@@ -87,7 +87,7 @@ This grammar is already defined in [lib/exercises.ml](lib/exercises.ml), and it 
 A grammar can generate words of a certain language by iteratively applying its
 productions to the start symbol. The grammar is said to _derive_ the words of the language.
 
-The derivation logic is implemented in the file [lib/](lib/grammar.ml). You don't need to understand the code inside it, but it defines a function that you need to use complete the following exercises, called `derive`:
+The derivation logic is implemented in the file [lib/grammar.ml](lib/grammar.ml). You don't need to understand the code inside it, but it defines a function that you need to use complete the following exercises, called `derive`:
 ```ocaml
 derive : grammar -> int list -> sentential_form
 ```
@@ -101,14 +101,14 @@ For example, here's how the word 1101001011 can be derived for the grammar above
 derive todo [1; 1; 0; 1; 0; 2];;
 ```
 
-Running it in `dune utop` return the output:
+Running this code in `dune utop` returns a list of terminals:
 
 ```ocaml
 [Terminal '1'; Terminal '1'; Terminal '0'; Terminal '1'; Terminal '0';
  Terminal '0'; Terminal '1'; Terminal '0'; Terminal '1'; Terminal '1']
 ```
 
-`derive` returns a list of symbol or terminals. This can be quite hard to read, so we have provided an auxiliary function `string_of_sentform` to convert it to a string. You can apply it to the output of derive with the `|>` operator:
+This can be quite hard to read, so we have provided an auxiliary function `string_of_sentform` to convert it to a string. You can apply it to the output of `derive` with the pipe `|>` operator:
 ```ocaml
 derive todo [1; 1; 0; 1; 0; 2] |> string_of_sentform;;
 ```
@@ -127,9 +127,18 @@ To simplify the process of testing your grammars and get a better idea of what w
 dune exec contextfree
 ```
 
-It will start generating a random list of productions and the corresponding word every half second.
+It will spit out a random list of productions and the word obtained by composing the in a leftmost fashion every half of a second. An example run is:
 
-To change the grammar that is used, edit the `input_grammar` variable with the name of a grammar from the file [lib/exercises.ml](lib/exercises.ml) that you want to test`.
+```
+Exit with Ctrl+C
+Generating words...
+
+(S->0S0) (S->1S1) (S->0S0) (S->1S1) (S->0S0) (S->0S0) (S->0S0) (S->) 
+01010000001010
+```
+
+To change the grammar that is processed, edit the `input_grammar` variable with the name of a grammar from the file [lib/exercises.ml](lib/exercises.ml) that you would like to test out. Since [bin/main.ml](bin/main.ml) imports the `Exercise` modules, VS Code should show a pop-up suggestion as you type the name of the grammar.
+
 
 ## Exercises
 
@@ -137,19 +146,24 @@ Your job in this project is to define a few grammars and test their behavior. Th
 
 In the file [lib/exercises.ml](lib/exercises.ml) there are four grammars that are missing a definition. Provide an appropriate definition for the required language of the task.
 
-Then, after defining each grammar, complete the tests in [lib/exercises.ml](lib/exercises.ml) and make sure they pass with.
+Then, after defining each grammar, complete the tests in [lib/exercises.ml](lib/exercises.ml) and make sure they pass with:
 
 ```
 dune test
 ```
 
-For each test, you need to write a sequence of productions that generates the string on the right of the `=` by using their indexes.
+For each test, you need to write a sequence of productions that generates the string on the right of the `=` sign.
+
+> [!IMPORTANT]
+> Refer to productions by their index in the list you provided for the `productions` field of the grammar.
+>
+>For example, write `[0; 1; 2]` to apply the productions `S --> "0S0"`, `S --> "1S1"`, `S --> ""`, in that order.
 
 ### Exercise 1 (zero_n_one_n)
 Define a grammar for the language `0^n1^n` (that is, `n` repetitions of the letter 0 followed by `n` repetitions of 1, for any `n`). Derive the following words: the empty word, `01`, `0^(10)1^(10)`.
 
 ### Exercise 2 (palindromes)
-Define a grammar for the language over {0,1} where every word is equal to its reverse, or, equivalently, any word can be flipped and it will be the same. Derive the following words: `11011`, `0110`, `011101110`.
+Define a grammar for the language over {0,1} where every word is equal to its reverse, or, equivalently, any word can read the same backwards as forwards. Derive the following words: `11011`, `0110`, `011101110`.
 
 ### Exercise 3 (balanced_parentheses)
 Define a grammar for the language of balanced parentheses. The available parentheses are "()", "[]", "{}". Each open parenthesis must be matched by a closed one, and different pairs must not intersect.
@@ -165,4 +179,4 @@ Define a grammar for the language whose words have as many 0's as 1's. Derive th
 >```
 >dune build -w
 >```
->Keep it running while you work on [lib/grammar.ml](lib/grammar.ml) and have a look at its live output one in a while.
+>Keep it running while you work on [lib/grammar.ml](lib/grammar.ml) and have a look at its live output once in a while.

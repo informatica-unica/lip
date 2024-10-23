@@ -2,3 +2,5 @@ open Contextfree
 open Grammar
 open Types
 open Exercises
+
+let to_string = string_of_sentform

@@ -71,6 +71,10 @@ frequency 3 [ID("x"); ASSIGN; ID("y"); SEQ; ID("x"); ASSIGN; ID("x"); PLUS; CONS
 - : (token * int) list = [(ID "x", 3); (ASSIGN, 2); (ID "y", 1)]
 ```
 
+> [!NOTE]
+> This is a good opportunity to use the `List` API of OCaml's standard library:
+> [https://ocaml.org/manual/5.2/api/List.html](https://ocaml.org/manual/5.2/api/List.html)
+
 ## Task 2
 
 Extend the lexer with the following types of tokens:
@@ -84,6 +88,10 @@ Extend the lexer with the following types of tokens:
 If a string matches more than one of these patterns, then
 the assigned token must be the one highest on the list.
 Furthermore, all these patterns have priority over `ID` and `CONST`.
+
+> [!NOTE]
+> The syntax of `ocamllex`'s regular expressions is explained here:
+> [https://ocaml.org/manual/5.2/lexyacc.html#ss:ocamllex-regexp](https://ocaml.org/manual/5.2/lexyacc.html#ss:ocamllex-regexp)
 
 ## Task 3
 

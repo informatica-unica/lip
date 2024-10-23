@@ -93,18 +93,22 @@ The parser will output the AST:
 ```ocaml
 Add(Add(Const(1),Const(2)),Const(3))
 ```
-A line starting with `%left` defines an *associativity group*. Every token or production in the same associativity group has the same priority.
 
-When there are multiple associativity declarations, like e.g.:
+### Associativity and Priority in Menhir
+A line starting with `%left` defines a left associative group of tokens or productions, whereas `%right` defines a right associative group.
+
+Every token or production in the same associativity group has the same priority.
+
+There can be multiple associativity declarations, each on its own line:
 ```
 %left tok_1
 %left tok_2
 ...
 %left tok_n
 ```
-a token tok_i has priority over tok_j whenever i>j.
+Each associativity group takes precedence over the ones defined [**above it**](https://gallium.inria.fr/~fpottier/menhir/manual.html#sec%3Aassoc). Here, for example, the token `tok_1` has lower priority than `tok_2`, or equivalently, `tok_2` binds tighter than `tok_1`.
 
-In practice, if tok_j *binds looser* (i.e. has lower priority) than tok_i, then tok_j cannot appear as a direct child of tok_i in the AST of any given expression.
+Fundamentally, this means that `tok_1` cannot appear as a direct child of `tok_2` in the AST of any given expression, since the parser will strive to reduce the token with higher priority (here `tok_2`) first.
 
 ## Task 2
 
@@ -127,7 +131,7 @@ echo "-1 - 2 - -3" | dune exec toyparser
 ## Task 4
 
 Extend the lexer, the parser and the evaluation function
-to handle also hexadecimal numers in C syntax.
+to handle also hexadecimal numbers in C syntax.
 For instance:
 ```bash
 echo "0x01 + 2" | dune exec toyparser

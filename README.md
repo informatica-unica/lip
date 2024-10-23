@@ -8,12 +8,13 @@ Refresh your OCaml knowledge with these warm-up exercises:
 
 1. [Adder](basics/adder)
 1. [Regexp recognizer](basics/recognizer)
-1. [Context-free grammars](basics/contextfree/)
 1. [Tug of war](basics/tugofwar) (optional) 
 
 ---
 
 ## Course outline
+
+1. [Context-free grammars](contextfree)
 
 ### Lexing and parsing
 

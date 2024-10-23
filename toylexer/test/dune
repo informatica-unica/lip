@@ -4,3 +4,5 @@
  (preprocess
   (pps ppx_inline_test))
  (libraries toylexer))
+
+; DELETE ANY LINE BELOW ADDED BY `dune init proj`

@@ -7,6 +7,11 @@ type token =
   | ID of string
   | CONST of string
   | EOF
+  | ATOK
+  | BTOK
+  | CTOK
+  | DTOK
+  | ETOK
 
 let string_of_token = function
   | LPAREN -> "LPAREN"
@@ -17,3 +22,8 @@ let string_of_token = function
   | ID(s) -> "ID(" ^ s ^ ")"
   | CONST(s) -> "CONST(" ^ s ^ ")"
   | EOF -> "EOF"
+  | ATOK -> "ATOK"
+  | BTOK -> "BTOK"
+  | CTOK -> "CTOK"
+  | DTOK -> "DTOK"
+  | ETOK -> "ETOK"

@@ -2,12 +2,15 @@
   open Token
 }
 
+(* espressioni regolari *)
 let white = [' ' '\t']+
 let letter = ['a'-'z' 'A'-'Z']
 let chr = ['a'-'z' 'A'-'Z' '0'-'9']
 let id = letter chr*
 let num = ['0'-'9']|['1'-'9']['0'-'9']*
 
+(* associazioni simboli con token *)
+(* lavora come questo *)  
 rule read_token =
   parse
   | white { read_token lexbuf }  
@@ -17,5 +20,5 @@ rule read_token =
   | "+" { PLUS }
   | ";" { SEQ }  
   | id { ID (Lexing.lexeme lexbuf) }
-  | num { CONST (Lexing.lexeme lexbuf) }    
+  | num { CONST (Lexing.lexeme lexbuf) }  
   | eof { EOF }

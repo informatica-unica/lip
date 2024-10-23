@@ -7,6 +7,7 @@ type token =
   | ID of string
   | CONST of string
   | EOF
+(* aggiungi token es2 qui sopra *)
 
 let string_of_token = function
   | LPAREN -> "LPAREN"

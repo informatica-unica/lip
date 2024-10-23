@@ -87,6 +87,7 @@ let same_amount : grammar =
         S --> "10S"; (* 4 *)
         S --> "0S1"; (* 5 *)
         S --> "1S0"; (* 6 *)
+
       ];
     start = S;
   }

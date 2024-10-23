@@ -24,4 +24,16 @@ let string_of_frequencies fl =
   List.fold_left (fun s (t,n) -> s ^ ((string_of_token t) ^ " -> " ^ string_of_int n ^ "\n")) "" fl
 
 (* frequency : int -> 'a list -> ('a * int) list *)
-let frequency _ _ = failwith("TODO")
+(* Funzione che conta quante volte un token appare nella lista *)
+let rec conta token = function 
+    [] -> 0
+  | x::tail when x = token -> 1 + conta token tail
+  | _::tail -> conta token tail
+;;
+
+let rec frequency n list = 
+  match list with
+    [] -> []  (* Caso base: lista vuota *)
+  | x::tail when n>0 -> (x, conta x list) :: frequency (n-1) tail  (* Aggiungi la coppia (token, count) e continua con n-1 *)
+  | _ -> []  (* Se n è zero, interrompe la ricorsione *)
+;;

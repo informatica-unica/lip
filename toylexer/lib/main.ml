@@ -27,38 +27,18 @@ let string_of_frequencies fl =
 let frequency n lst =
   if n = 0 then failwith "error" else
   (* Creiamo una lista di token unici mantenendo l'ordine originale *)
-  let rec unique lst acc = 
-    match lst with
-    | [] -> List.rev acc
-    | x :: xs ->
-        if List.mem x acc then unique xs acc
-        else unique xs (x :: acc)
+  let unique lst = List.fold_left(fun acc x -> if List.mem x acc then acc else acc @ [x]) [] lst
   in
-  
-  let unique_tokens = unique lst [] in
-
-  (* Conta le occorrenze di ogni token *)
+  let unique_tokens = unique lst in
   let counted = List.map (fun token ->
     let count = List.length (List.filter (fun x -> x = token) lst) in
     (token, count)
   ) unique_tokens in
   
-  (* Ordina in base al numero di occorrenze in ordine decrescente *)
   let sorted = List.sort (fun (_, n1) (_, n2) ->
     compare n2 n1
   ) counted in
-  
-  (* Funzione take per raccogliere i primi n elementi *)
-  let take n lst =
-    let rec aux acc count = function
-      | [] -> acc
-      | x :: xs ->
-          if count < n then aux (acc @ [x]) (count + 1) xs  (* Accumula i primi n elementi *)
-          else acc
-    in
-    aux [] 0 lst
-  in
-
-  take n sorted  (* Restituisci solo i primi n elementi *)
+  let take n lst = fst (List.fold_left(fun (acc,count) x -> if count < n then (acc @ [x],count+1) else (acc,count)) ([],0) lst) in
+  take n sorted  
 ;;
   

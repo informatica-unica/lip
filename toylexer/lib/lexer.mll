@@ -23,13 +23,14 @@ rule read_token =
   | "=" { ASSIGN }
   | "+" { PLUS }
   | ";" { SEQ }  
+  | id { ID (Lexing.lexeme lexbuf) }
+  | num { CONST (Lexing.lexeme lexbuf) }    
+  | eof { EOF }
   | etok {ETOK}
   | regExpFirstUP {ATOK}
   | vowelLC* {BTOK}
   | onlyOneVowel {CTOK}
   | dtok {DTOK}
   
-  | id { ID (Lexing.lexeme lexbuf) }
-  | num { CONST (Lexing.lexeme lexbuf) }    
-  | eof { EOF }
+  
   

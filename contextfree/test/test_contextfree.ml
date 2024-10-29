@@ -5,9 +5,13 @@ open Exercises
 
 let to_string = string_of_sentform
 
-(** Complete the tests below.
-    For each test, provide the right sequence of
-    productions to generate the word on the right of the "=". *)
+let%test "example_test" = derive todo [ 0; 1; 0; 1; 2 ] |> to_string = "01011010"
+
+(** Following the example test, complete the tests below.
+
+    For each test, provide the right sequence of productions
+    to generate the word on the right of the "=".
+*)
 
 (* #### Exercise 1 *)
 let%test "zero_n_one_n_1" = derive zero_n_one_n [ (* FILL IN HERE *) ] |> to_string = ""
@@ -24,7 +28,7 @@ let%test "balanced_parentheses_1" = derive balanced_parentheses [ (* FILL IN HER
 let%test "balanced_parentheses_2" = derive balanced_parentheses [ (* FILL IN HERE *) ] |> to_string = "({})[]"
 let%test "balanced_parentheses_3" = derive balanced_parentheses [ (* FILL IN HERE *) ] |> to_string = "({[][{}()]})"
 
-(* #### Exercise 5 *)
+(* #### Exercise 4 *)
 let%test "zero_one_same_1" = derive same_amount [ (* FILL IN HERE *) ] |> to_string = ""
 let%test "zero_one_same_2" = derive same_amount [ (* FILL IN HERE *) ] |> to_string = "1001"
 let%test "zero_one_same_3" = derive same_amount [ (* FILL IN HERE *) ] |> to_string = "00110101"

@@ -46,8 +46,8 @@ This function takes as input an abstract syntax tree,
 and outputs its integer value.
 For instance:
 ```ocaml
-eval (Add(Add(Const(1),Const(2)),Const(3)))
-> 6
+eval (Add (Add (Const 1,  Const 2), Const 3))
+> Ok 6
 ```
 
 The main routine in [bin/main.ml](bin/main.ml)
@@ -61,7 +61,7 @@ which evaluates the string fed from stdin, and prints the result.
 If everything is fine, you can test the project as follows:
 ```bash
 echo "1 + 2 + 3 + (1 + 2)" | dune exec toyparser
-> Ok 9
+> 9
 ```
 
 The project requires you to work at the following tasks:
@@ -76,7 +76,7 @@ As a guideline, we want to ensure that their priority is the same as in the Pyth
 For instance:
 ```bash
 echo "5 - 3 - 1" | dune exec toyparser
-> 1                                   
+> 1
 ```
 The priority of operators is defined in [parser.mly](lib/parser.mly).
 In the project skeleton, look at the line:
@@ -91,7 +91,7 @@ Then, when parsing:
 ```
 The parser will output the AST:
 ```ocaml
-Add(Add(Const(1),Const(2)),Const(3))
+Add(Add (Const 1, Const 2), Const 3)
 ```
 
 ### Associativity and Priority in Menhir
@@ -152,7 +152,7 @@ match res with
 | Error msg -> Error msg
 ```
 
-This is a common pattern in functional programming and it can be factorized into a higher-order function that takes a result, an anonymous function that transforms a value into a new result, and returns a brand new result. We've named this function `==>` (pronounced "bind") so that it can be used as a infix operator:
+This is a common pattern in functional programming and it can be factored out into a higher-order function that takes a result, an anonymous function that transforms a value into a new result, and returns a brand new result. We've named this function `==>` (pronounced "bind") so that it can be used as a infix operator:
 
 ```ocaml
 let ( ==> ) res f =
@@ -161,7 +161,7 @@ let ( ==> ) res f =
   | Error msg -> Error msg
 ```
 
-The thick arrow operator helps us make the code of the evaluator a lot more succint and readable. The case for `Add`, for example, simplifies to:
+The thick arrow operator helps us make the code of the evaluator a lot more succinct and readable. The case for `Add`, for example, simplifies to:
 
 ```ocaml
 | Add (e1,e2) ->
@@ -170,7 +170,7 @@ The thick arrow operator helps us make the code of the evaluator a lot more succ
   Ok (v1 + v2)
 ```
 
-An additional benefit of this pattern is that is short-circuiting: if one of the expressions being evaluated fails with `Error _` then this is the result of the whole case, and the other expression won't be evaluated.
+This pattern has an additional benefit in that it is short-circuiting: if one of the expressions being evaluated fails with `Error _` then this is the result of the whole `Add` case; execution won't continue on evaluating the other expression.
 
 ## Task 2
 
@@ -182,7 +182,7 @@ The result of `eval e` must be `Result.Error msg` if the evaluation involves a d
 
 ```sh
 echo "1 + 2 / 0" | dune exec toyparser
-Error: attempt to divide 2 by zero
+> Error: tried to divide 2 by zero
 ```
 
 ## Task 3
@@ -192,7 +192,7 @@ to handle also the unary minus.
 For instance:
 ```bash
 echo "-1 - 2 - -3" | dune exec toyparser
-Ok 0
+> 0
 ```
 
 ## Task 4
@@ -202,7 +202,7 @@ to handle also hexadecimal numbers in C syntax.
 For instance:
 ```bash
 echo "0x01 + 2" | dune exec toyparser
-> Ok 3
+> 3
 ```
 
 ## Task 5

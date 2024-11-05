@@ -9,7 +9,10 @@ let parse (s : string) : ast =
 
 type result = (int, string) Result.t
 
-let ( >-> ) = Result.bind
+let ( ==> ) (res : result) (f : int -> result) : result =
+  match res with
+  | Ok value -> f value
+  | Error msg -> Error msg
 
 let string_of_result : result -> string = function
   | Ok n -> string_of_int n

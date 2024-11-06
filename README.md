@@ -4,25 +4,22 @@ LiP students are expected to fork the repository and push solutions to the exerc
 
 Invitation to the Discord server: **[https://discord.gg/JKPWbpXBf4](https://discord.gg/JKPWbpXBf4)**
 
-Refresh your OCaml knowledge with these warm-up exercises:
-
-1. [Adder](basics/adder)
-1. [Regexp recognizer](basics/recognizer)
-1. [Tug of war](basics/tugofwar) (optional) 
-
----
-
 ## Course outline
 
-1. [Context-free grammars](contextfree)
+### Warm-up exercises
+
+1. [Adder](basics/adder)
+1. [Tug of war](basics/tugofwar) (optional) 
 
 ### Lexing and parsing
 
+1. [Regexp recognizer](basics/recognizer)
+1. [Context-free grammars](contextfree)
 1. [A toy lexer](toylexer)
 1. [A toy parser](toyparser)
-1. [Game of life](life)
+1. [Game of life](life) (optional)
 
-### Arithmetic expressions
+### Expressions
 
 1. [A minimal language of boolean expressions](expr/boolexpr)
 1. [Boolean expressions with not, and, or](expr/andboolexpr)
@@ -34,8 +31,6 @@ Refresh your OCaml knowledge with these warm-up exercises:
 1. [A simple imperative language](imp/while)
 1. [Declaration blocks](imp/blocks)
 1. [Functions](imp/fun)
-
----
 
 ## References
 

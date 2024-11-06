@@ -40,11 +40,14 @@ type ast =
 
 The main utility function in the `Toyparser` library is:
 ```ocaml
-eval : ast -> result
+eval : ast -> int_or_err
 ````
-This function takes as input an abstract syntax tree,
-and outputs its integer value.
-For instance:
+This function takes as input an abstract syntax tree, and outputs its value.
+In order to handle possible evaluation errors, the return type `int_or_err` is a tagged union:
+the tag `Ok` wraps correct evaluation results (of type `int`), while
+the tag `Error` wraps erros messages (of type `string`). 
+
+An example of a correct evaluation is the following:
 ```ocaml
 eval (Add (Add (Const 1,  Const 2), Const 3))
 > Ok 6
@@ -167,11 +170,9 @@ Read on to understand what it does and how to use it. An example refactoring wit
 ### Background: Evaluating results
 
 Let's have a closer look at the type of the evaluator: 
-
 ```ocaml
 eval : ast -> int_or_err
 ```
-
 Both `ast` and `int_or_err` are custom types. In particular, `int_or_err` is an instance of a more general type called *result*.
 
 A **result** is a tagged union of two constructors, `Ok` and `Error`, parameterized on two type variables `'a`  (pronounced "alpha") and `'error`. `Ok` carries values of type `'a` and `Error` carries values of type `'error`:
@@ -181,7 +182,6 @@ type ('a, 'error) result =
   | Ok of 'a
   | Error of 'error
 ```
-
 This type is already defined in the `Result` module of OCaml's standard library and it can be used by typing `Result.t`.
 
 In [lib/mail.ml](/lib/main.ml) we instantiated `Result.t` with the types `int` and `string` and called the resulting type `int_or_err`:

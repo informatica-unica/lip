@@ -50,23 +50,24 @@ eval (Add (Add (Const 1,  Const 2), Const 3))
 > Ok 6
 ```
 
-The main routine in [bin/main.ml](bin/main.ml)
-reads a line from the stdin, and processes it
-according to the command line:
-```
-dune exec toyparser
-```
-which evaluates the string fed from stdin, and prints the result.
-
-If everything is fine, you can test the project as follows:
-```bash
-echo "1 + 2 + 3 + (1 + 2)" | dune exec toyparser
-> 9
-```
-
 The project requires you to work at the following tasks:
 
 ## Task 1
+
+In the first task, you are just required to experiment with the project frontend and add a few tests.
+
+The main routine in [bin/main.ml](bin/main.ml) reads a line from the stdin, parses it, then evaluates the AST obtained from the parser, and prints the result to stdout.
+
+Test the main routine by running:
+```
+dune exec toyparser
+```
+Then, add some unit tests in the `test` directory, and run them:
+```
+dune test
+```
+
+## Task 2
 
 Extend the lexer, the parser and the evaluation function
 to handle also the subtraction operator.
@@ -172,7 +173,7 @@ The thick arrow operator helps us make the code of the evaluator a lot more succ
 
 This pattern has an additional benefit in that it is short-circuiting: if one of the expressions being evaluated fails with `Error _` then this is the result of the whole `Add` case; execution won't continue on evaluating the other expression.
 
-## Task 2
+## Task 3
 
 Extend the lexer, the parser and the evaluation function
 to handle also multiplication and division.
@@ -184,8 +185,9 @@ The result of `eval e` must be `Result.Error msg` if the evaluation involves a d
 echo "1 + 2 / 0" | dune exec toyparser
 > Error: tried to divide 2 by zero
 ```
+Implement unit tests in the `test` directory.
 
-## Task 3
+## Task 4
 
 Extend the lexer, the parser and the evaluation function
 to handle also the unary minus.
@@ -194,8 +196,9 @@ For instance:
 echo "-1 - 2 - -3" | dune exec toyparser
 > 0
 ```
+Implement unit tests in the `test` directory.
 
-## Task 4
+## Task 5
 
 Extend the lexer, the parser and the evaluation function
 to handle also hexadecimal numbers in C syntax.
@@ -204,7 +207,4 @@ For instance:
 echo "0x01 + 2" | dune exec toyparser
 > 3
 ```
-
-## Task 5
-
 Implement unit tests in the `test` directory.

@@ -92,7 +92,7 @@ Then, when parsing:
 ```
 The parser will output the AST:
 ```ocaml
-Add(Add (Const 1, Const 2), Const 3)
+Add (Add (Const 1, Const 2), Const 3)
 ```
 
 ### Associativity and Priority in Menhir
@@ -114,64 +114,6 @@ The order of the declaration has a special meaning: it defines the precedence of
 In the example above, the token `OR` has lower priority than both `AND` and `NOT`. At the same time, `AND` has higher precedence than `OR` and lower precedence than `NOT`.
 
 Behind the scenes, the parse tables are constructed so that `OR` cannot appear as a direct child of `AND` in the AST of any given expression without parentheses, and therefore the parser will always try to reduce `AND` first.
-
-## Evaluating results
-
-Let's have a closer look at the type of the evaluator: 
-
-```ocaml
-eval : ast -> result
-```
-
-Both `ast` and `result` are custom types. In particular, `result` is defined in [lib/mail.ml](/lib/main.ml) as a synonym of `(int, string) Result.t` by the line:
-
-```ocaml
-type result = (int, string) Result.t
-```
-
-This type expresses the fact that the computations of `eval` can _either_ successfully compute an integer value _or_ they can catastrophically fail with an error that is described by a string message.
-
-When we successfully compute a value and are ready to return it, we wrap it in the `Ok` tag. This is what we've done in the evaluator so far. For example, constant expressions carry a number that can be immediately wrapped in `Ok`:
-
-```ocaml
-| Const n -> Ok n
-```
-
-When we can't compute a value for the given inputs, we must report the problem to the caller. With results, we do this by returning a string message explaining what went wrong inside the `Error` tag, like in the following pseudocode:
-
-```ocaml
-| <Bad inputs> -> Error "Failed to compute a value for the inputs ... because ..."
-```
-
-To extract the value from a result we use pattern matching. However, a value is not always available, so it is best to return another result rather than throw an exception. In other words, we must handle the case where the result is an error.
-
-The following pseudocode matches on an input result called `res` and returns a new result. If the input result matches `Ok value`, then `value` is transformed by a function `f`. You can think of `f` as some work that you want to do on the value. Otherwise, if the input result matches `Error msg`, it is propagated in the output exactly as it is:
-
-```ocaml
-match res with
-| Ok value -> f value
-| Error msg -> Error msg
-```
-
-This is a common pattern in functional programming and it can be factored out into a higher-order function that takes a result, an anonymous function that transforms a value into a new result, and returns a brand new result. We've named this function `==>` (pronounced "bind") so that it can be used as a infix operator:
-
-```ocaml
-let ( ==> ) res f =
-  match res with
-  | Ok value -> Ok (f value)
-  | Error msg -> Error msg
-```
-
-The thick arrow operator helps us make the code of the evaluator a lot more succinct and readable. The case for `Add`, for example, simplifies to:
-
-```ocaml
-| Add (e1,e2) ->
-  eval e1 ==> fun v1 ->
-  eval e2 ==> fun v2 ->
-  Ok (v1 + v2)
-```
-
-This pattern has an additional benefit in that it is short-circuiting: if one of the expressions being evaluated fails with `Error _` then this is the result of the whole `Add` case; execution won't continue on evaluating the other expression.
 
 ## Task 3
 
@@ -208,3 +150,88 @@ echo "0x01 + 2" | dune exec toyparser
 > 3
 ```
 Implement unit tests in the `test` directory.
+
+## Task 6
+
+Refactor the code of `eval` using the `==>` operator defined in [lib/main.ml](/lib/main.ml):
+
+```ocaml
+let ( ==> ) (res : int_or_err) (f : int -> int_or_err) : int_or_err =
+  match res with
+  | Ok value -> f value
+  | Error msg -> Error msg
+```
+
+Read on to understand what it does and how to use it. An example refactoring with `==>` is provided at the end.
+
+### Background: Evaluating results
+
+Let's have a closer look at the type of the evaluator: 
+
+```ocaml
+eval : ast -> int_or_err
+```
+
+Both `ast` and `int_or_err` are custom types. In particular, `int_or_err` is an instance of a more general type called *result*.
+
+A **result** is a tagged union of two constructors, `Ok` and `Error`, parameterized on two type variables `'a`  (pronounced "alpha") and `'error`. `Ok` carries values of type `'a` and `Error` carries values of type `'error`:
+
+```ocaml
+type ('a, 'error) result =
+  | Ok of 'a
+  | Error of 'error
+```
+
+This type is already defined in the `Result` module of OCaml's standard library and it can be used by typing `Result.t`.
+
+In [lib/mail.ml](/lib/main.ml) we instantiated `Result.t` with the types `int` and `string` and called the resulting type `int_or_err`:
+
+```ocaml
+type int_or_err = (int, string) Result.t
+```
+
+By using `int_or_err` as the return type of `eval`, we express the fact that the computations of `eval` can _either_ successfully compute an integer value _or_ they can fail with an error that is described by a string message.
+
+Using results is pretty straightforward. When we successfully compute a value and are ready to return it, we wrap it in the `Ok` tag. This is what we've done in the evaluator so far. For example, constant expressions carry a number that can be immediately wrapped in `Ok`:
+
+```ocaml
+| Const n -> Ok n
+```
+
+When we can't compute a value for the given inputs, we must report the problem to the caller. With results, we do this by returning a string message explaining what went wrong inside the `Error` tag, like in the following pseudocode:
+
+```ocaml
+| <Bad inputs> -> Error "Failed to compute a value for the inputs ... because ..."
+```
+
+To extract the value from a result we use pattern matching. However, a value is not always available, so it is best to return another result rather than throw an exception. In other words, we must handle the case where the result is an error.
+
+The following pseudocode matches on an input result called `res` and returns a new result. If the input result matches `Ok value`, then `value` is transformed by a function `f`. You can think of `f` as some work that you want to do on the value. Otherwise, if the input result matches `Error msg`, it is propagated in the output exactly as it is:
+
+```ocaml
+match res with
+| Ok value -> f value
+| Error msg -> Error msg
+```
+
+This is a common pattern in functional programming and it can be factored out into a higher-order function that takes a result, an anonymous function that transforms a value into a new result, and returns a brand new result. We've named this function `==>` (pronounced "bind"):
+
+```ocaml
+let ( ==> ) res f =
+  match res with
+  | Ok value -> Ok (f value)
+  | Error msg -> Error msg
+```
+
+This operator is also available in the `Result` module of the standard library under the name `Result.bind`. Our custom definition in [lib/main.ml](/lib/main.ml) lets us use it as an infix operator.
+
+The thick arrow operator helps us make the code of the evaluator a lot more succinct and readable. The case for `Add`, for example, simplifies to:
+
+```ocaml
+| Add (e1,e2) ->
+  eval e1 ==> fun v1 ->
+  eval e2 ==> fun v2 ->
+  Ok (v1 + v2)
+```
+
+This pattern has an additional benefit in that it is short-circuiting: if one of the expressions being evaluated fails with `Error _` then this is the result of the whole `Add` case; execution won't continue on evaluating the other expression.

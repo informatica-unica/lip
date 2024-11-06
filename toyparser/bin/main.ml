@@ -12,7 +12,7 @@ let () =
   | 1 -> begin
     match read_line() with
     | Some s when s<>"" -> 
-      s |> parse |> eval |> string_of_result |> print_endline
+      s |> parse |> eval |> string_of_intorerr |> print_endline
     | _ -> print_newline()
     end
   (* wrong usage *)

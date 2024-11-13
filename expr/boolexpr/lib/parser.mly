@@ -22,7 +22,7 @@ prog:
 expr:
   | TRUE { True }
   | FALSE { False }
-  | IF; e1 = expr; THEN; e2 = expr; ELSE; e3 = expr; { If(e1, e2, e3) }
+  | IF; e1 = expr; THEN; e2 = expr; ELSE; e3 = expr; { If(e1, e2, e2) }
   | LPAREN; e=expr; RPAREN {e}
 ;
 

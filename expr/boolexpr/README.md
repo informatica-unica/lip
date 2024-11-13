@@ -11,7 +11,7 @@ type boolExpr =
 
 ## Project setup
 
-To start, create a new project named `boolexpr` by launching the following command from your working directory:
+To start, create a new project named `boolexpr` by launching the following command from the `expr` directory:
 ```bash
 dune init proj boolexpr
 ```
@@ -85,7 +85,7 @@ says that parsing starts with rule named `prog` (defined below), and that the re
 ### Rules 
 
 The rules section defines the productions of the grammar.
-The start symbol is `prog`, with has the following production:
+The start symbol is `prog`, which has the following production:
 ```ocaml
 prog:
   | e = expr; EOF { e }
@@ -108,6 +108,16 @@ The first two productions associate the tokens `TRUE` and `FALSE` to the values 
 The third production parses the IF-THEN-ELSE construct.
 The last production parses an expression surrounded by parentheses.
 
+
+## Task 1: fix the bug
+
+There is a bug in the parser rules of [parser.mly](lib/parser.mly). But luckily Menhir is able to detect and report it when we build the project. To see where the bug is, run the following command from the `boolexpr` directory:
+
+```
+dune build
+```
+
+You should see an error. Can you understand the error message and fix the bug?
 
 ## Lexer
 
@@ -137,7 +147,7 @@ let white = [' ' '\t']+
 
 This section defines rules that associate tokens to their string representations.
 The lexer tries to match regular expressions in the order they are listed (similarly to the `match` construct).
-When it finds a match, it ouputs the token specified in the curly brackets.
+When it finds a match, it outputs the token specified in the curly brackets.
 Our lexer is defined as follows (the terms `rule`, `read`, `parse` and `eof` are keywords):
 ```ocaml
 rule read =
@@ -153,8 +163,8 @@ rule read =
   | eof { EOF }
 ```
 Most of the lines are straightforward. 
-The first line means that if the regular expression names `white` is matched, the lexer should just skips it, without producing a token.
-The last line matches the `eof` regular expression, i.e. the end of the file or string being lexed.
+The first line means that if the regular expression names `white` is matched, the lexer should just skip it, without producing a token.
+The last line matches the `eof` regular expression, i.e. the end of the file or string being lexed. 
 
 ## Generating the library
 
@@ -236,16 +246,13 @@ If(e0,e1,e2) => b
 
 This semantic is implemented as a recursive function `eval` that evaluates the expression `True` to the boolean value `true`,
 `False` to `false`, and call itself recursively to evaluate if-then-else expressions.
-We add this function to [main.ml](lib/main.ml):
-```ocaml
-let rec eval = function
-    True -> true
-  | False -> false
-  | If(e0,e1,e2) -> if eval e0 
-                    then eval e1 
-                    else eval e2
-;;
-```
+
+## Task 2: Complete `eval`
+
+Complete the definition of `eval` [main.ml](lib/main.ml) in by implementing the inference rules for if-then-else expressions.
+
+---
+
 We can test the semantics via `dune utop lib`, as we did for the parser.
 For instance:
 ```ocaml
@@ -270,18 +277,20 @@ e0 -> e0'
 If(e0,e1,e2) -> If(e0',e1,e2) 
 
 ```
-We implement these rules in OCaml as follows:
+
+Notice that no inference rule that tells us how to rewrite the expressions `True` or `False`, i.e. the small-step relation is undefined on the AST values `True` and `False`. This makes sense, because `True` and `False` should be treated as values in our language of boolean expressions. Values are expressions that can't be reduced further.
+
+`trace1` is the function that implements the small-step relation, and to make it diverge on the values we raise the exception `NoRuleApplies` when it encounters a value. This exception is declared in the line:
+
 ```ocaml
 exception NoRuleApplies
-
-let rec trace1 = function
-    If(True,e1,_) -> e1
-  | If(False,_,e2) -> e2
-  | If(e0,e1,e2) -> let e0' = trace1 e0 in If(e0',e1,e2)
-  | _ -> raise NoRuleApplies
-;;
 ```
-Note that in case no rule can be applied, we raise an exception.
+
+## Task 3: Complete `trace1`
+
+You'll notice that the definition of `trace1` is missing the case for when the condition expression of `If` is not a value. Fill it in according to the inference rule above.
+
+---
 
 We then implement the transitive closure of the transition relation `trace1`, by applying it recursively until an exception is raised. 
 Actually, rather than producing the resulting non-reducible expression, the function `trace` defined below
@@ -316,7 +325,7 @@ For instance, if we enter:
 ```
 if (if true then false else true) then true else (if false then true else false)
 ```
-then the result of the evaluation will be `false`.
+then the result of the evaluation will be `false` (do it!).
 
 The frontend also features a pretty-printer for the `trace` command:
 ```bash
@@ -336,3 +345,25 @@ dune test
 ```
 If no output is produced, then all tests have passed.
 Further information for writing tests can be found on the [dune manual](https://dune.readthedocs.io/en/stable/tests.html).
+
+## Task 4: Write unit tests for `eval`
+
+Use the `test_eval` helper to test that the result of eval for a given expression equals a the expected boolean value.
+
+Translate the following requirements into OCaml unit tests:
+
+1. `"false"` evaluates to `false`
+1. `"true"` evaluates to `true`
+1. `"if true then false else true"` evaluates to `false`
+1. `"if false then false else true"` evaluates to `true`
+1. `"if true then (if true then false else true) else (if true then true else false)"` evaluates to `false`
+1. `"if (if false then false else false) then (if false then true else false) else (if true then false else true)"` evaluates to `false`
+1. `"if (if (if false then false else false) then (if false then true else false) else (if true then false else true)) then (if false then true else false) else (if true then false else true)"` evaluates to `false`
+
+## Task 5: Write unit tests for `trace`
+
+Translate the following requirements into OCaml unit tests:
+
+1. Trace makes progress on any `If` expressions (test at most three)
+1. If trace can't make progress on an expression, then it is a value. (Tip: use the `is_value` predicate from [lib/ast.ml](lib/ast.ml))
+1. The expression `"if (if false then false else false) then (if false then true else false) else (if true then false else true)"` is fully reduced no more than 10 steps.

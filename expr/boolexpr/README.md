@@ -375,3 +375,13 @@ Translate the following requirements into OCaml unit tests:
 ## Task 6 (optional)
 
 Extend the syntax with the `&&` and `||` boolean operators without modifying the big-step or small-step semantics.
+
+Parse `a && b` as:
+```
+if a then b else false
+```
+And `a || b` as:
+```
+if a then true else b
+```
+then write some unit tests to test that they work as expected.

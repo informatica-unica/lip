@@ -39,7 +39,7 @@ We will discuss these files in the following sections. You can find them in the 
 
 ## Parser
 
-The file [parser.mly](lib/parser.mly) contains the grammar definition of our language.
+The file [lib/parser.mly](lib/parser.mly) contains the grammar definition of our language.
 Menhir will process this file and produce the actual parser in OCaml 
 (this will be located in `_build/default/lib/parser.ml`).
 
@@ -111,7 +111,7 @@ The third production parses the IF-THEN-ELSE construct.
 The last production parses an expression surrounded by parentheses.
 
 
-## Task 1: Fix the parser bug
+### 📝 Task 1: Fix a bug in the parser
 
 There is a bug in the parser rules of the file [parser.mly](lib/parser.mly). But luckily Menhir is able to detect and report it when we build the project. To see where the bug is, run the following command from the `boolexpr` directory:
 
@@ -120,8 +120,6 @@ dune build
 ```
 
 Can you understand the error message and fix the bug?
-
----
 
 ## Lexer
 
@@ -251,12 +249,6 @@ If(e0,e1,e2) => b
 This semantic is implemented as a recursive function `eval` that evaluates the expression `True` to the boolean value `true`,
 `False` to `false`, and call itself recursively to evaluate if-then-else expressions.
 
-## Task 2: Complete `eval`
-
-Complete the definition of `eval` [main.ml](lib/main.ml) in by implementing the inference rules for if-then-else expressions.
-
----
-
 We can test the semantics via `dune utop lib`, as we did for the parser.
 For instance:
 ```ocaml
@@ -264,6 +256,10 @@ parse "if true then false else true" |> eval;;
 - : bool = false
 ```
 Here we have used the pipeline operator `|>` to pass the string resulting from `parse` as input to the function `eval`.
+
+### 📝 Task 2: Complete `eval`
+
+Complete the definition of `eval` [main.ml](lib/main.ml) in by implementing the inference rules for if-then-else expressions.
 
 ## Small-step semantics
 
@@ -282,19 +278,13 @@ If(e0,e1,e2) -> If(e0',e1,e2)
 
 ```
 
-Notice that no inference rule that tells us how to rewrite the expressions `True` or `False`, i.e. the small-step relation is undefined on the AST values `True` and `False`. This makes sense, because `True` and `False` should be treated as values in our language of boolean expressions. Values are expressions that can't be reduced further.
+Notice that no inference rule that tells us how to rewrite the expressions `True` or `False`, i.e. the small-step relation is undefined on the AST values `True` and `False`. This makes sense, because `True` and `False` should be treated as values in our language of boolean expressions. Values are expressions that can't be reduced any further.
 
-`trace1` is the function that implements the small-step relation, and to make it diverge on the values we raise the exception `NoRuleApplies` when it encounters a value. This exception is declared in the line:
+`trace1` is the function that implements the small-step relation. To make it diverge on the values we raise the exception `NoRuleApplies` when its input doesn't match an `If` expression. This exception is declared in the line:
 
 ```ocaml
 exception NoRuleApplies
 ```
-
-## Task 3: Complete `trace1`
-
-You'll notice that the definition of `trace1` is missing the case for when the condition expression of `If` is not a value. Fill it in according to the inference rule above.
-
----
 
 We then implement the transitive closure of the transition relation `trace1`, by applying it recursively until an exception is raised. 
 Actually, rather than producing the resulting non-reducible expression, the function `trace` defined below
@@ -314,6 +304,10 @@ parse "if (if true then false else true) then true else false" |> trace;;
  If (False, True, False);
  False]
 ```
+
+### 📝 Task 3: Complete `trace1`
+
+You'll notice that the definition of `trace1` is missing the case for when the condition expression of `If` is not a value. Fill it in according to the inference rule above.
 
 ## Frontend & testing
 
@@ -350,7 +344,7 @@ dune test
 If no output is produced, then all tests have passed.
 Further information for writing tests can be found on the [dune manual](https://dune.readthedocs.io/en/stable/tests.html).
 
-## Task 4: Write unit tests for `eval`
+### 📝 Task 4: Write unit tests for `eval`
 
 Use the `test_eval` helper to test that the result of eval for a given expression equals a the expected boolean value.
 
@@ -364,15 +358,15 @@ Translate the following requirements into OCaml unit tests:
 1. `"if (if false then false else false) then (if false then true else false) else (if true then false else true)"` evaluates to `false`
 1. `"if (if (if false then false else false) then (if false then true else false) else (if true then false else true)) then (if false then true else false) else (if true then false else true)"` evaluates to `false`
 
-## Task 5: Write unit tests for `trace1`
+### 📝 Task 5: Write unit tests for `trace1`
 
 Translate the following requirements into OCaml unit tests:
 
 1. `trace1` makes progress on any `If` expression (test at most three);
 1. If `trace1` can't make progress on an expression, then it is a value (Tip: use the `is_value` predicate from [lib/ast.ml](lib/ast.ml));
-1. The expression `"if (if false then false else false) then (if false then true else false) else (if true then false else true)"` is fully reduced no more than 10 steps.
+1. The expression `"if (if false then false else false) then (if false then true else false) else (if true then false else true)"` is fully reduced in no more than 10 steps.
 
-## Task 6 (optional)
+### 📝 Task 6 (optional)
 
 Extend the syntax with the `&&` and `||` boolean operators without modifying the big-step or small-step semantics.
 

@@ -1,5 +1,0 @@
-(library
- (name sarithexpr)
- (inline_tests) 
- (preprocess (pps ppx_inline_test))
- (libraries sarithexprLib))

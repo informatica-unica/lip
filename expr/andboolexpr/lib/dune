@@ -1,7 +1,0 @@
-(library
- (name andboolexprLib))
-
-(menhir
- (modules parser))
-
-(ocamllex lexer)

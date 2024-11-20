@@ -1,4 +1,0 @@
-(executable
- (public_name sarithexpr)
- (name main)
- (libraries sarithexprLib))

@@ -14,6 +14,8 @@ all: $(projects)
 $(projects):
 	dune init proj $@ ; \
 		cd $@ ; \
+		sed -i 's/name $@/name $@Lib/' lib/dune ; \
+		sed -i 's/libraries $@/libraries $@Lib/' bin/dune ; \
 		echo '(using menhir 2.1)' >> dune-project ; \
 		echo '\n(menhir (modules parser))\n\n(ocamllex lexer)' >> lib/dune ; \
 		rm test/test_$@.ml ; \
@@ -22,7 +24,7 @@ $(projects):
  (name $@Test)\n\
  (inline_tests)\n\
  (preprocess (pps ppx_inline_test))\n\
- (libraries $@))" > test/dune
+ (libraries $@Lib))" > test/dune
 
 clean:
 	find . -maxdepth 3 -name "*.opam" -delete -print ; \

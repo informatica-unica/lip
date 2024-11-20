@@ -1,5 +1,10 @@
 # Typed arithmetic expressions with dynamic type checking
 
+First, initialize this project by running the following command from the `expr` directory:
+```bash
+make arithexpr
+```
+
 Extend the language of [boolean expressions](../andboolexpr) with arithmetic expressions on natural numbers,
 according to the following [AST](lib/ast.ml):
 ```ocaml

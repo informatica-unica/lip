@@ -1,5 +1,10 @@
 # Boolean expressions with not, and, or
 
+Initialize this project by running the following command:
+```bash
+make andboolexpr
+```
+
 Extend the language of [simple boolean expressions](../boolexpr) with the logical connectives, according to the following [AST](lib/ast.ml):
 ```ocaml
 type boolExpr =

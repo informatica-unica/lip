@@ -1,5 +1,10 @@
 # Typed arithmetic expressions with static type checking
 
+First, initialize this project by running the following command from the `expr` directory:
+```bash
+make sarithexpr
+```
+
 Extend the language of [arithmetic expressions](../arithexpr) with static type checking.
 More precisely, represent the type of expressions as follows:
 ```ocaml

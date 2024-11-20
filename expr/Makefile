@@ -25,4 +25,5 @@ $(projects):
  (libraries $@))" > test/dune
 
 clean:
-	find . -name "dune*" -exec rm -vf {} \;
+	find . -maxdepth 3 -name "*.opam" -delete -print ; \
+	find . -maxdepth 3 -name "dune*" -delete -print

@@ -1,10 +1,13 @@
 projects = boolexpr andboolexpr arithexpr sarithexpr
 
 main:
-	echo "\nPlease specify a project to initialize.\n\n\
+	echo "\n\
+	Usage: make <project>\n\n\
+	\
+	Please specify a project to initialize.\n\
 	The options are: $(projects)\n"
 
-.PHONY: $(projects)
+.PHONY: $(projects) clean
 
 all: $(projects)
 
@@ -21,4 +24,5 @@ $(projects):
  (preprocess (pps ppx_inline_test))\n\
  (libraries $@))" > test/dune
 
-
+clean:
+	find . -name "dune*" -exec rm -vf {} \;

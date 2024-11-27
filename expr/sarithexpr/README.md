@@ -14,7 +14,30 @@ You must add a function with type:
 ```ocaml
 typecheck : expr -> exprtype
 ```
-which determines the type of a given arithmetic expression, or otherwise raises an informative `TypeError`:
+which determines the type of a given arithmetic expression according to the following inference rules, where `e : T` stands for "the expression `e` has type `T`":
+```
+                                                         
+----------------    -----------------    ----------------
+  True : BoolT        False : BoolT        Zero : NatT   
+
+         e : NatT                       e : NatT      
+   --------------------           --------------------
+      Succ e : NatT                  Pred e : NatT   
+          
+         e : NatT                     e : BoolT     
+   --------------------           --------------------
+     IsZero e : BoolT               Not e : BoolT   
+
+  e1 : BoolT  e2 : BoolT         e1 : BoolT  e2 : BoolT
+---------------------------    ---------------------------
+    And (e1,e2) : BoolT            Or (e1,e2) : BoolT
+
+            e1 : BoolT    e2 : t    e3 : t
+          -------------------------------------
+                    If (e1,e2,e3) : t
+```
+
+or otherwise raises an informative `TypeError`:
 ```ocaml
 exception TypeError of string;;
 ```
@@ -68,31 +91,55 @@ dune test
 
 ## Property-based testing with QCheck (optional)
 
-We're going to formally verify our interpreter against two properties: progress and type preservation.
+We're going to formally verify that your implementations of `trace1` and `typecheck` satisfy two fundamental properties of type systems. To do this, we need a library that performs *property-based testing* called [QCheck](https://github.com/c-cube/qcheck).
 
-First, install the QCheck to your opam switch:
-
+First, install QCheck to your opam switch:
 ```
 opam install qcheck
 ```
 
-Then, add it to the `libraries` section in your [test/dune].
-
+Then, add the string `qcheck` inside the section `libraries` in the file [test/dune](test/dune):
 ```
 (libraries sarithexprLib qcheck)
 ```
 
-To run the tests, simply type `dune test` as usual. QCheck should report one failure out of two test runs.
+The properties we are interested in testing are:
 
-The first property isn't sastisfied by the interpreter, because of the expression:
+- **Progress**: if an expression is well-typed, then either it must be a value (`true`, `false`, or any combination of `succ` and `0`) or it can take a step to another expression.
+- **Type preservation**: if an expression `e` is well-typed and it can take a step to another expression `e'`, then `e` and `e'` will have the same type.
 
+While our language has type preservation, it doesn't have progress; QCheck will help us discover why.
+
+The way a QCheck test works is simple: it generates a big number of random values and tries the property on every single one. In our case, the values are those of type `expr`. If one instance of the property is false then the whole test fails, otherwise it passes. This approach to testing is very powerful and it helps us discover bugs in our implementation quicker than unit testing.
+
+We have defined the two properties, the expression generator and the two tests in the source file [properties.ml](test/properties.ml).
+
+
+Now run the tests as usual with the command: 
+```
+dune test
+```
+
+If you implemented `trace1` and `typecheck` correctly, QCheck will report one failure out of two test runs.
+Below is the output:
+```
+random seed: 219956250              
+
+--- Failure --------------------------------------------------------------------
+
+Test test_progress failed (0 shrink steps):
+
+pred 0
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 2 tests)
+```
+
+As you can see, the test that failed is `test_progress`, as we imagined. QCheck also provides a *counterexample*, i.e. the particular expression that violated the property:
 ```
 pred 0
 ```
+Oh, so that's why! Our naive typechecker gives `pred 0` the type `NatT`, but `pred 0` is neither a value nor it can take a step! In other words, it's **stuck**. A language where terms can get stuck violates the progress property.
 
-Despite being well typed, `pred 0` is neither a value nor it can take a step, therefore it
-falsifies the progress property.
+The second test that QCheck ran is the type preservation check, which passed. This means that our interpreter won't make silly type judgments at runtime.
 
-QCheck will report the failure and print that exact expression as a minimal counterexample.
-
-On the other hand, our interpreter satisfies type preservation.
+*Exercise*: Think of a way to make the progress test pass.

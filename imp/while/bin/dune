@@ -1,4 +1,0 @@
-(executable
- (public_name while)
- (name main)
- (libraries whileLib))

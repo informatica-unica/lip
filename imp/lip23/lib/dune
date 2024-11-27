@@ -1,9 +1,0 @@
-(library
- (name crobots))
-
-(ocamllex lexer)
-
-(menhir
- (modules parser)
- (flags --explain --dump)
- (infer true))

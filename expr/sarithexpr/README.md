@@ -65,3 +65,34 @@ Your implementation can be automatically tested as usual with the command:
 ```
 dune test
 ```
+
+## Property-based testing with QCheck (optional)
+
+We're going to formally verify our interpreter against two properties: progress and type preservation.
+
+First, install the QCheck to your opam switch:
+
+```
+opam install qcheck
+```
+
+Then, add it to the `libraries` section in your [test/dune].
+
+```
+(libraries sarithexprLib qcheck)
+```
+
+To run the tests, simply type `dune test` as usual. QCheck should report one failure out of two test runs.
+
+The first property isn't sastisfied by the interpreter, because of the expression:
+
+```
+pred 0
+```
+
+Despite being well typed, `pred 0` is neither a value nor it can take a step, therefore it
+falsifies the progress property.
+
+QCheck will report the failure and print that exact expression as a minimal counterexample.
+
+On the other hand, our interpreter satisfies type preservation.

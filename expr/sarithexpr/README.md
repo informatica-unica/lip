@@ -110,7 +110,7 @@ The properties we are interested in testing are:
 
 While our language has type preservation, it doesn't have progress; QCheck will help us discover why.
 
-The way a QCheck test works is simple: it generates a big number of random values and tries the property on every single one. In our case, the values are those of type `expr`. If one instance of the property is false then the whole test fails, otherwise it passes. This approach to testing is very powerful and it helps us discover bugs in our implementation quicker than unit testing.
+The way a QCheck test works is simple: it generates a big number of random expressions and tries the property on every generated expression. If one instance of the property is false then the whole test fails, otherwise it passes. This approach to testing is very powerful and it helps us discover bugs in our implementation quicker than unit testing.
 
 We have defined the two properties, the expression generator and the two tests in the source file [properties.ml](test/properties.ml).
 
@@ -120,7 +120,7 @@ Now run the tests as usual with the command:
 dune test
 ```
 
-If you implemented `trace1` and `typecheck` correctly, QCheck will report one failure out of two test runs.
+If you implemented `trace1` and `typecheck` as we intended, QCheck will report one failure out of two test runs.
 Below is the output:
 ```
 random seed: 219956250              
@@ -134,12 +134,12 @@ pred 0
 failure (1 tests failed, 0 tests errored, ran 2 tests)
 ```
 
-As you can see, the test that failed is `test_progress`, as we imagined. QCheck also provides a *counterexample*, i.e. the particular expression that violated the property:
+You can see that the test that failed is `test_progress`, as we imagined. QCheck also provides a *counterexample*, i.e. the particular expression that violated the property:
 ```
 pred 0
 ```
-Oh, so that's why! Our naive typechecker gives `pred 0` the type `NatT`, but `pred 0` is neither a value nor it can take a step! In other words, it's **stuck**. A language where terms can get stuck violates the progress property.
+Oh, so that's why! Our naive typechecker gives `pred 0` the type `NatT`, but `pred 0` is neither a value nor it can take a step! In other words, it's **stuck**. A language where well-typed terms can get stuck violates the progress property.
 
 The second test that QCheck ran is the type preservation check, which passed. This means that our interpreter won't make silly type judgments at runtime.
 
-*Exercise*: Think of a way to make the progress test pass.
+*Exercise*: Is it wise to give `pred 0` the type `NatT`? Think of ways to make the progress test pass and try to implement them.

@@ -80,6 +80,43 @@ trace : int -> cmd -> term list
 such that `trace n c` performs n steps of the small-step semantics
 of the command c.
 
+## Small-step relation
+
+```
+
+--------------------------- [Skip]
+  Cmd(st, skip) --> St(st)
+
+            st |- x ==> v
+-------------------------------------- [Assign]
+  Cmd(st, x := v) --> St(st[x |-> v])
+
+    Cmd(st, c1) --> Cmd(st', c1')
+--------------------------------------- [Seq_Cmd]
+  Cmd(st, c1;c2) --> Cmd(st', c1';c2)
+
+    Cmd(st, c1) --> St(st')
+--------------------------------------- [Seq_St]
+  Cmd(st, c1;c2) --> Cmd(st', c2)
+
+          st |- e ==> false
+------------------------------------------------- [If_False]
+  Cmd(st, if e then c1 else c2) --> Cmd(st, c2)
+
+          st |- e ==> true
+------------------------------------------------- [If_True]
+  Cmd(st, if e then c1 else c2) --> Cmd(st, c1)
+
+
+          st |- e ==> false
+------------------------------------------------- [While_False]
+  Cmd(st, while e do c) --> St(st)
+
+          st |- e ==> true
+--------------------------------------------------- [While_True]
+  Cmd(st, while e do c) --> Cmd(c; while e do c)
+```
+
 ## Implementation details
 
 ### Lexer and Parser

@@ -80,46 +80,67 @@ trace : int -> cmd -> term list
 such that `trace n c` performs n steps of the small-step semantics
 of the command c.
 
-## Small-step relation
+## Small-step relation rules
+
+The small-step semantics of commands can be described by the following inference rules, where `==>` models the big-step evaluation of expressions and `-->` models the small-step relation itself.
 
 ```
 
---------------------------- [Skip]
-  Cmd(st, skip) --> St(st)
+---------------------------- [Skip]
+  Cmd (skip, st) --> St st
 
-            st |- x ==> v
--------------------------------------- [Assign]
-  Cmd(st, x := v) --> St(st[x |-> v])
+            st |- e ==> v
+--------------------------------------- [Assign]
+  Cmd (x := e, st) --> St st[x |-> v]
 
-    Cmd(st, c1) --> Cmd(st', c1')
---------------------------------------- [Seq_Cmd]
-  Cmd(st, c1;c2) --> Cmd(st', c1';c2)
+      Cmd (c1, st) --> St st'
+------------------------------------- [Seq_St]
+  Cmd (c1;c2, st) --> Cmd (c2, st')
 
-    Cmd(st, c1) --> St(st')
---------------------------------------- [Seq_St]
-  Cmd(st, c1;c2) --> Cmd(st', c2)
-
-          st |- e ==> false
-------------------------------------------------- [If_False]
-  Cmd(st, if e then c1 else c2) --> Cmd(st, c2)
-
-          st |- e ==> true
-------------------------------------------------- [If_True]
-  Cmd(st, if e then c1 else c2) --> Cmd(st, c1)
-
+    Cmd (c1, st) --> Cmd (c1', st')
+----------------------------------------- [Seq_Cmd]
+  Cmd (c1;c2, st) --> Cmd (c1';c2, st')
 
           st |- e ==> false
-------------------------------------------------- [While_False]
-  Cmd(st, while e do c) --> St(st)
+--------------------------------------------------- [If_False]
+  Cmd (if e then c1 else c2, st) --> Cmd (c2, st)
 
           st |- e ==> true
---------------------------------------------------- [While_True]
-  Cmd(st, while e do c) --> Cmd(c; while e do c)
+--------------------------------------------------- [If_True]
+  Cmd (if e then c1 else c2, st) --> Cmd (c1, st)
+
+          st |- e ==> false
+------------------------------------ [While_False]
+  Cmd (while e do c, st) --> St st
+
+          st |- e ==> true
+---------------------------------------------------- [While_True]
+  Cmd (while e do c, st) --> Cmd (c; while e do c)
 ```
 
-## Implementation details
+`st[x |-> v]` is special syntax for "`x` bound to `v` on
+top of `st`", meaning that you must extend the state function with an additional binding mapping the string `x` to the exprval `v`.
 
-### Lexer and Parser
+Therefore, you need to implement an auxiliary function:
+```ocaml
+bind : state -> ide -> exprval -> state
+```
+such that `bind st x v` yields the state `st[x |-> v]`.
+
+This is a bit tricky to implement, because the values of `state` are functions. You can use the hint below if you can't figure it out by yourself.
+
+<details>
+
+<summary><i>Hint (click to reveal)</i></summary>
+
+```ocaml
+let bind st x v = fun y -> if x = y then v else st x
+```
+
+</details>
+
+
+## Lexer and Parser
 
 You will need two different parser rules to parse commands and expressions.
 

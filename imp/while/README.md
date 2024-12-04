@@ -180,9 +180,14 @@ WHILE expr DO cmd
 WHILE expr DO cmd 
               cmd . SEQ cmd
 
-[bla bla...]
+** In state 39, looking ahead at SEQ, reducing production
+** cmd -> WHILE expr DO cmd
+** is permitted because of the following sub-derivation:
+
+cmd SEQ cmd // lookahead token appears
+WHILE expr DO cmd .
 ```
-Basically, it's trying to tell us that it doesn't know what to do when parsing a program involving a sequence and a while. Do we put the sequence under the while or vice-versa? For example, the program:
+Basically, it's trying to tell us that it doesn't know what to do when parsing a program involving a sequence and a while command. Do we put the sequence under the while or vice versa? For a concrete example, the program:
 ```
 while 0 <= x do x := x - 1; skip
 ```
@@ -196,6 +201,8 @@ or:
 ```
 
 A similar problem arises between if-then-else and sequences.
-These conflicts can be solved either by assigning the right precedence to the token for `;` and the tokens for "do" and "else", _or_ simply by adding parentheses to the command syntax.
+These conflicts can be solved in one of two ways:
+1. Assigning the right precedence to the tokens for `;`, `do` and `else`;
+1. Adding parentheses to the command syntax.
 
 Since the tests use parentheses, follow the second approach.

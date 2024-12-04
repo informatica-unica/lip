@@ -54,11 +54,13 @@ Debug your implementation in utop until it works correctly:
 addlist [1;2;3];;
 - : int = 6
 ```
-*Hint*: manually digiting `open Adder` each time one starts utop could be quite boring.
-This can be avoided by creating a file `adder/.ocamlinit` containing the line:
-```
-open Adder.Main;;
-```
+> [!TIP]
+> Having to type `open Adder` every time you start utop can get quite annoying.
+> This can be avoided by creating a file called **.ocamlinit** under [adder/](.) containing the line:
+> ```
+> open Adder.Main;;
+> ```
+> Then run utop as usual. The `Adder.Main` module will be opened for you automatically!
 
 ## Unit tests
 

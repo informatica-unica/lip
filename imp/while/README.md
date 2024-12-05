@@ -133,10 +133,11 @@ This is a bit tricky to implement, because the values of `state` are functions. 
 <summary><i>Hint (click to reveal)</i></summary>
 
 ```ocaml
-let bind st x v = fun y -> if x = y then v else st x
+let bind st x v : state = fun y -> if x = y then v else st y
 ```
 
 </details>
+<br>
 
 The initial state, from which all computations start, is the state with no
 bindings at all. We call this state `bottom`:

@@ -75,7 +75,7 @@ can no longer be reduced, i.e. it is already in state tagged `St`.
 
 Finally, define a function:
 ```ocaml
-trace : int -> cmd -> term list
+trace : int -> cmd -> conf list
 ```
 such that `trace n c` performs n steps of the small-step semantics
 of the command c.
@@ -114,12 +114,11 @@ The small-step semantics of commands can be described by the following inference
   Cmd (while e do c, st) --> St st
 
           st |- e ==> true
----------------------------------------------------- [While_True]
-  Cmd (while e do c, st) --> Cmd (c; while e do c)
+-------------------------------------------------------- [While_True]
+  Cmd (while e do c, st) --> Cmd (c; while e do c, st)
 ```
 
-`st[x |-> v]` is special syntax for "`x` bound to `v` on
-top of `st`", meaning that you must extend the state function with an additional binding mapping the string `x` to the exprval `v`.
+`st[x |-> v]` is notation for "`x` bound to `v` on top of `st`", meaning that you must extend the state function with an additional binding mapping the string `x` to the exprval `v`.
 
 Therefore, you need to implement an auxiliary function:
 ```ocaml
@@ -139,6 +138,13 @@ let bind st x v = fun y -> if x = y then v else st x
 
 </details>
 
+The initial state, from which all computations start, is the state with no
+bindings at all. We call this state `bottom`:
+```ocaml
+bottom : state
+```
+
+You will need `bottom` for the implementation of `trace`.
 
 ## Lexer and Parser
 
@@ -205,4 +211,4 @@ These conflicts can be solved in one of two ways:
 1. Assigning the right precedence to the tokens for `;`, `do` and `else`;
 1. Adding parentheses to the command syntax.
 
-Since the tests use parentheses, follow the second approach.
+Since the test programs use parentheses, follow the second approach.

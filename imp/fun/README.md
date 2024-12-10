@@ -1,5 +1,10 @@
 # Imperative language with functions
 
+From the `imp/` directory, initialize the project with the command:
+```sh
+make blocks
+```
+
 Implement the small-step semantics of an imperative language with functions,
 with the following abstract syntax:
 ```ocaml

@@ -1,5 +1,10 @@
 # A simple imperative language
 
+From the `imp/` directory, initialize the project with the command:
+```sh
+make while
+```
+
 Implement a simple imperative language with the following abstract syntax:
 ```ocaml
 type ide = string

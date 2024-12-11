@@ -53,7 +53,7 @@ type state = env list * mem * loc
 ```
    
 For example, for the program:
-```pascal
+```
 {
   int z;
   int y;
@@ -78,3 +78,8 @@ we could have the following computation:
  -> [], [51/0,42/1,50/2,40/3,], 4
  ```
  
+## Implementation notes
+
+1. Notice the braces around declarations.
+1. You need a way to parse *a list* of declarations. For this, see if the [Menhir standard library](https://cambium.inria.fr/~fpottier/menhir/manual.html#sec38) can help you.
+1. `Block` is a special AST node produced only *at runtime*: it serves `trace` to remember that it's executing commands within the scope of a declaration block.

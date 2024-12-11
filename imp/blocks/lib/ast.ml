@@ -1,10 +1,10 @@
 type ide = string
-  
+
 type expr =
   | True
   | False
   | Var of ide
-  | Const of int     
+  | Const of int
   | Not of expr
   | And of expr * expr
   | Or of expr * expr
@@ -15,9 +15,8 @@ type expr =
   | Leq of expr * expr
 
 type decl =
-  | EmptyDecl
-  | IntVar of ide * decl
-  | BoolVar of ide * decl
+  | IntVar of ide
+  | BoolVar of ide
 
 type cmd =
   | Skip
@@ -25,6 +24,5 @@ type cmd =
   | Seq of cmd * cmd
   | If of expr * cmd * cmd
   | While of expr * cmd
-  | Decl of decl * cmd
-  | Block of cmd
-  
+  | Decl of decl list * cmd
+  | Block of cmd (* Runtime only! *)

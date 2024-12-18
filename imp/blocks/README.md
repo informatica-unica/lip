@@ -35,7 +35,7 @@ type cmd =
   | If of expr * cmd * cmd
   | While of expr * cmd
   | Decl of decl list * cmd
-  | Block of cmd
+  | Block of cmd (* Runtime only: c is the cmd being reduced *)
 ```
 
 The states of the small-step semantics are triples containing
@@ -48,7 +48,7 @@ type memval = Bool of bool | Int of int
 type env = ide -> envval
 type mem = loc -> memval
 
-type state = env list * mem * loc
+type state = { envstack : env list; memory : mem; firstloc : loc }
 ```
    
 For example, for the program:
@@ -109,4 +109,4 @@ Finally, we recommend you keep a terminal in a separate VS Code tab running the 
 ```
 dune test --watch
 ```
-It will update automatically as soon as you make changes in the file under lib, allowing a continuous and interactive workflow. When you see `Success, waiting for filesystem changes...`, that means your code passes the tests!
+This will compile and run the tests in real time, refreshing the output as soon as you as soon as you make changes to any file of the project, speeding up your workflow. When you see `Success, waiting for filesystem changes...`, that means your code passes the tests!

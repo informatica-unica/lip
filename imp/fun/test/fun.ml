@@ -1,4 +1,4 @@
-open FunLib.Types       
+open FunLib.Types
 open FunLib.Prettyprint
 open FunLib.Main
 
@@ -16,7 +16,7 @@ let test_trace (cmd,n_steps,var,exp_val) =
   | Cmd(_,_) -> failwith "program not terminated"
 
 let%test "test_trace1" = test_trace
-  ("int x; x:=51", 2, "x", 51)  
+  ("int x; x:=51", 2, "x", 51)
 
 let%test "test_trace2" = test_trace
     ("int x; x:=0; x:=x+1", 5, "x", 1)
@@ -48,17 +48,25 @@ let%test "test_trace10" = test_trace
 let%test "test_trace11" = test_trace
     ("int x; fun f(y) { skip; return y+1 }; fun g(z) { skip; return f(z)+2 }; x := g(10)", 20, "x", 13)
 
-let%test "test_trace12" = test_trace
+let%test "test_trace12_x" = test_trace
     ("int x; int z; fun f(y) { x:=x+1; return x }; x := 10; z := f(0)", 20, "x", 11)
 
-let%test "test_trace12" = test_trace
+let%test "test_trace12_z" = test_trace
     ("int x; int z; fun f(y) { x:=x+1; return x }; x := 10; z := f(0)", 20, "z", 11)
 
 let%test "test_trace13" = test_trace
     ("int x; int y; int w; fun f(z) { z:=x; x:=y; y:=z; return 0 }; x := 10; y := 20; w := f(0)", 20, "x", 20)
 
 let%test "test_trace14" = test_trace
-    ("int x; int y; int w; fun f(z) { z:=x; x:=y; y:=z; return 0 }; x := 10; y := 20; w := f(0)", 20, "y", 10)
+("int x; int y; int w; fun f(z) { z:=x; x:=y; y:=z; return 0 }; x := 10; y := 20; w := f(0)", 20, "y", 10)
 
 let%test "test_trace15" = test_trace
     ("int x; int y; fun f(x) { x:=20; return 0 }; x := 10; y := f(0); x := x+1", 20, "x", 11)
+
+let%test "test_boss" = test_trace
+    ({|
+        int x;
+        int r;
+        fun f(n) { if n=0 then r:=1 else r:=n*f(n-1); return r };
+        x := f(5)
+    |}, 100, "x", 120)

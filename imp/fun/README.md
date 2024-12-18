@@ -2,14 +2,20 @@
 
 From the `imp/` directory, initialize the project with the command:
 ```sh
-make blocks
+make fun
 ```
+Recall that you can build and run the tests in real time with the command:
+```
+dune test --watch
+```
+<br>
+
 
 Implement the small-step semantics of an imperative language with functions,
 with the following abstract syntax:
 ```ocaml
 type ide = string
-  
+
 type expr =
   | True
   | False
@@ -23,10 +29,10 @@ type expr =
   | Mul of expr * expr
   | Eq of expr * expr
   | Leq of expr * expr
-  | Call of ide * expr     
-  | CallExec of cmd * expr (* Runtime only: c is the cmd being reduced, e is the return expr *)
-  | CallRet of expr        (* Runtime only: e is the return expr *)
-              
+  | Call of ide * expr
+  | CallExec of cmd * expr  (** Runtime only: c is the cmd being reduced, e is the return expr *)
+  | CallRet of expr         (** Runtime only: e is the return expr *)
+
 and cmd =
   | Skip
   | Assign of string * expr
@@ -35,17 +41,15 @@ and cmd =
   | While of expr * cmd
 
 type decl =
-  | EmptyDecl
-  | IntVar of ide 
-  | Fun of ide * ide * cmd * expr
-  | DSeq of decl * decl
+  | IntVar of ide
+  | Fun of ide * ide * cmd * expr  (** name, parameter, body command, return expr *)
 
-type prog = Prog of decl * cmd
+type prog = Prog of (decl list * cmd)
 ```
 
 Functions have a single parameter, passed by value, they can be recursive, and can have side effects by writing global variables.
 For example, we could write the following program to compute the factorial:
-```pascal
+```
 int x;
 int r;
 fun f(n) { if n=0 then r:=1 else r:=n*f(n-1); return r };
@@ -66,14 +70,14 @@ type memval = int
 type env = ide -> envval
 type mem = loc -> memval
 
-type state = env list * mem * loc
+type state = { envstack : env list; memory : mem; firstloc : loc }
 ```
 
 Note that since expressions include function calls, and function bodies include commands,
 also the semantics of expressions must be small-step.
 
 For example, considering the following program:
-```pascal
+```
 int x;
 int z;
 fun f(x) { if x=0 then z:=1 else if x=1 then z:=0 else z:= f(x-2); return z };

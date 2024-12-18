@@ -1,0 +1,4 @@
+int x;
+int r;
+fun f(n) { if n=0 then r:=1 else r:=n*f(n-1); return r };
+x := f(5)

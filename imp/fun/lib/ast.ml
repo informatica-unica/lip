@@ -1,5 +1,5 @@
 type ide = string
-  
+
 type expr =
   | True
   | False
@@ -13,10 +13,10 @@ type expr =
   | Mul of expr * expr
   | Eq of expr * expr
   | Leq of expr * expr
-  | Call of ide * expr     
-  | CallExec of cmd * expr (* Runtime only: c is the cmd being reduced, e is the return expr *)
-  | CallRet of expr        (* Runtime only: e is the return expr *)
-              
+  | Call of ide * expr
+  | CallExec of cmd * expr  (** Runtime only: c is the cmd being reduced, e is the return expr *)
+  | CallRet of expr         (** Runtime only: e is the return expr *)
+
 and cmd =
   | Skip
   | Assign of string * expr
@@ -25,9 +25,7 @@ and cmd =
   | While of expr * cmd
 
 type decl =
-  | EmptyDecl
-  | IntVar of ide 
-  | Fun of ide * ide * cmd * expr
-  | DSeq of decl * decl
+  | IntVar of ide
+  | Fun of ide * ide * cmd * expr  (** name, parameter, body command, return expr *)
 
-type prog = Prog of decl * cmd
+type prog = Prog of (decl list * cmd)

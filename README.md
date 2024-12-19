@@ -4,6 +4,10 @@ LiP students are expected to fork the repository and push solutions to the exerc
 
 Invitation to the Discord server: **[https://discord.gg/JKPWbpXBf4](https://discord.gg/JKPWbpXBf4)**
 
+## ⚠️⚙️ 2024 Project's material
+
+Examples and (very soon) unit tests for this year's project **Tiny Rust** are available in the [tinyrust](tinyrust/) directory.
+
 ## Course outline
 
 ### Warm-up exercises

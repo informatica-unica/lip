@@ -7,12 +7,18 @@ open Tinyrust
 *)
 let examples_dir = "/home/dalpi/tinyrust/test/examples/"
 
-let abs_path name = examples_dir ^ name
-
 let examples =
-  let dirs = Sys.readdir examples_dir in
-  Array.sort String.compare dirs;
-  dirs
+  let full_name name = examples_dir ^ name in
+  let files = Sys.readdir examples_dir in
+  Array.sort String.compare files;
+  Array.map full_name files
+
+let read_file filename =
+  let ch = open_in filename in
+  let len = in_channel_length ch in
+  let str = really_input_string ch len in
+  close_in ch;
+  str
 
 let pr = Printf.printf
 
@@ -20,20 +26,13 @@ let pr = Printf.printf
     Start of parser tests
     ------------------------------------------ *)
 
-let read_file filename =
-  let ch = open_in filename in
-  let str = really_input_string ch (in_channel_length ch) in
-  close_in ch;
-  str
-
 let%test_unit "test_parser" =
-  Array.iteri
-    (fun _ ex ->
-      let p = read_file (abs_path ex) in
+  Array.iter
+    (fun ex ->
+      let p = read_file ex in
       try
         Parser.parse_string p |> ignore;
-        pr "[OK] %s" ex
+        pr "✔ %s\n" ex
       with _ ->
-        pr "[ERROR] couldn't parse %s" ex;
-        print_newline ())
+        pr "✘ Couldn't parse %s\n" ex)
     examples

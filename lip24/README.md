@@ -15,16 +15,43 @@ We encourage you to use the data structures provided by the [OCaml standard libr
 
 Your project may also depend on external opam libraries. For example, to get nice error messages from the parser, you can use the [nice-parser](https://ocaml.org/p/nice_parser/latest) library.
 
-<br>
+## Test files
 
-Lastly, we recommend installing the [ocamlformat](https://github.com/ocaml-ppx/ocamlformat?tab=readme-ov-file#------ocamlformat--) tool:
+- [Examples](examples/)
+- [Parser tests](test_parser.ml)
+- [Trace tests](test_trace.ml)
+
+The tests make some assumption about the interface of your interpreter and where you
+put the useful functions. You're free to adapt the tests to work with your implementation, or vice versa.
+
+The tests also depend on the [ppx_expect](https://github.com/janestreet/ppx_expect) library.
+Install it with:
+
+```
+opam install ppx_expect
+```
+
+And add `ppx_expect` to the dune file of your test directory, after `ppx_inline_test`, like this:
+
+```
+ (preprocess (pps ppx_inline_test ppx_expect)))
+```
+
+## ocamlformat
+
+We recommend installing the [ocamlformat](https://github.com/ocaml-ppx/ocamlformat?tab=readme-ov-file#------ocamlformat--) tool:
 ```
 opam install ocamlformat
 ```
-This will automatically format your code whenever you save your source file or hit <kbd>Ctrl</kbd>+<kbd>S</kbd>, adding indentation and whitespace where appropriate. You can also invoke the formatter manually with:
+
+If your project contains the [.ocamlformat](.ocamlformat) file, ocamlformat
+will automatically format your code whenever you save your source file or press <kbd>Ctrl</kbd>+<kbd>S</kbd>, adding indentation and whitespace where appropriate.
+
+You can also invoke the tool manually with:
 ```
 dune fmt
 ```
+
 Please format your code with the above command before handing in the project.
 
 ## Resources

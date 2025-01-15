@@ -1,15 +1,14 @@
 (**
 
-  ⚠️ DISCLAIMER ⚠️
+  ⚠️ READ THIS ⚠️
 
   This file is a template for testing the provided examples of Tiny Rust.
 
   These tests make a lot of assumptions about your code, therefore you have
-  the option to adapt them to work with your implmentation, or vice versa,
-  adapt your implementation to make it work with the tests.
+  the option to freely change them to work with your code, or vice versa.
 
-  The test routine depends on a library called ppx_expect.
-  To install ppx_expect run the command:
+  The test routine depends on a library called `ppx_expect`.
+  To install `ppx_expect` run the command:
 
   ```
   opam install ppx_expect
@@ -24,6 +23,7 @@
 
 open Tinyrust
 open Ast
+open Common
 
 (** ------------------------------------------
     Types & definitions
@@ -44,28 +44,9 @@ type trace_error =
 type 'output trace_result = ('output, trace_error) result
 (** ['output] is a type parameter for successful executions *)
 
-
-let examples_dir = "/absolute/path/to/tinyrust/examples/"
-
-let read_file filename =
-  let ch = open_in filename in
-  let str = really_input_string ch (in_channel_length ch) in
-  close_in ch;
-  str
-
-(** associative array, mapping filename to content *)
-let examples_dict : (string * string) array =
-  let examples = Sys.readdir examples_dir in
-  Array.sort String.compare examples;
-  Array.map (fun e -> (e, read_file (examples_dir ^ e))) examples
-
 (** ------------------------------------------
     Helper functions
     ------------------------------------------ *)
-
-let pr = Printf.printf
-
-let spr = Printf.sprintf
 
 let string_of_mut = function
   | Mutable -> "mutable"
@@ -105,7 +86,6 @@ let string_of_trace_error = function
     ------------------------------------------ *)
 
 (* Feel free to increase or decrease the amount of steps (gas) *)
-
 let tests : (string * int * string trace_result) array =
   [|
     ("01-print.rs",           25, Ok "3\n4\n");
@@ -139,19 +119,23 @@ let tests : (string * int * string trace_result) array =
 
 let%expect_test "test_trace" =
   Array.iter2
-    (fun (name, prog) (_, gas, test) ->
+    (fun (name, prog) (_, gas, expected) ->
       let prog : Ast.prog = Parser.parse_string prog in
 
-      (* We're running the program and ignoring the trace,
-         as we only care about the program's outcome (Ok or Error).
+      (* We're assuming the return type of [Trace.trace_prog] is:
+
+         [(Ast.expression list) * (string trace_result)]
+
+         We run the program and ignore the trace, as we only care about
+         the program's textual output (and whether it is Ok or Error).
 
          If you used exceptions, use the [try .. with] construct here
          and convert the exception to a result.
       *)
-      let _, (res : string trace_result) = Trace.trace_prog gas prog in
+      let _, (actual : string trace_result) = Trace.trace_prog gas prog in
 
       let icon =
-        match (res, test) with
+        match (actual, expected) with
         | Ok _, Ok _ | Error _, Error _ -> "✔"
         | Ok _, Error _ | Error _, Ok _ -> "✘"
       in
@@ -160,11 +144,11 @@ let%expect_test "test_trace" =
 
       List.iter
         (fun (title, result) ->
-          let outcome, output =
+          let kind, output =
             match result with
             | Ok output -> ("Ok", output)
             | Error err -> ("Error", string_of_trace_error err)
           in
-          pr "%-9s %-9s\n%s\n\n" title outcome output)
-        [ ("Output:", res); ("Expected:", test) ])
+          pr "%-9s %-9s\n%s\n\n" title kind output)
+        [ ("Actual output:", actual); ("Expected:", expected) ])
     examples_dict tests

@@ -91,7 +91,7 @@ let tests : (string * int * string trace_result) array =
     ("01-print.rs",           25, Ok "3\n4\n");
     ("02-intError.rs",        25, Error (CannotMutate "x"));
     ("03-intOk.rs",           25, Ok "7\n");
-    ("04-stringError.rs",     25, Error (UnboundVar "x"));
+    ("04-stringError.rs",     25, Error (CannotMutate "x"));
     ("05-stringOk.rs",        25, Ok "Ciao, mondo\n");
     ("06-scopeOk.rs",         25, Ok "6\n3\n");
     ("07-scopeError.rs",      25, Error (UnboundVar "y"));

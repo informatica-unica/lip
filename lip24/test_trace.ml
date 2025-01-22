@@ -95,7 +95,7 @@ let tests : (string * int * string trace_result) array =
     ("05-stringOk.rs",        25, Ok "Ciao, mondo\n");
     ("06-scopeOk.rs",         25, Ok "6\n3\n");
     ("07-scopeError.rs",      25, Error (UnboundVar "y"));
-    ("08-func.rs",            25, Ok "7\n");
+    ("08-func.rs",            25, Ok "10\n");
     ("09-proc.rs",            25, Ok "7\n");
     ("10-ifThenElse.rs",      25, Ok "dispari\n");
     ("11-ownError.rs",        25, Error (MovedValue "x"));

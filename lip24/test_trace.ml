@@ -101,7 +101,7 @@ let tests : (string * int * string trace_result) array =
     ("11-ownError.rs",        25, Error (MovedValue "x"));
     ("12-ownFnError.rs",      25, Error (MovedValue "x"));
     ("13-borrow.rs",          25, Ok "Ciao\nCiao\n");
-    ("14-borrowFn.rs",        25, Ok "il parametro x: Ciao\nil parametro prestato: Ciao\n" );
+    ("14-borrowFn.rs",        25, Ok "il parametro prestato: Ciao\nil parametro x: Ciao\n" );
     ("15-borrowError.rs",     25, Error (DataRace ("x", Mutable, Immutable)));
     ("16-borrowMut.rs",       25, Ok "Ciao, mondo\nCiao, mondo\n");
     ("17-borrowMutError.rs",  40, Error (MutBorrowOfNonMut "x"));

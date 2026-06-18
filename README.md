@@ -2,8 +2,6 @@
 
 LiP students are expected to fork the repository and push solutions to the exercises on their fork.
 
-Invitation to the Discord server: **[https://discord.gg/bMNCZEX7YX](https://discord.gg/bMNCZEX7YX)**
-
 ## Course outline
 
 ### Warm-up exercises

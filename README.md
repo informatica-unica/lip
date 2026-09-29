@@ -1,4 +1,4 @@
-# LiP lab
+# Programming Languages lab with OCaml
 
 LiP students are expected to fork the repository and push solutions to the exercises on their fork.
 
